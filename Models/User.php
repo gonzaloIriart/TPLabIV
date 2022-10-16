@@ -4,6 +4,7 @@
     class User 
     {
         private $userId;
+        private $name;
         private $email;
         private $password;
         private $keeperId;
