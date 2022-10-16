@@ -22,6 +22,18 @@
             return null;
         }
 
+        public function GetUserById($id){
+            $this->RetrieveData();
+            
+            foreach($this->userList as $userItem){
+                if($id == $userItem->getUserId()){
+                    return $userItem;
+                }
+            }
+
+            return null;
+        }
+
         public function isOwner(User $user){
             foreach($user->getRoles() as $rol){
                 if($rol->getRol() == "owner")
@@ -48,18 +60,6 @@
             $user = $this->GetUserById($user->getUserId);
             array_push($user->getRoles(), $user);
             $this->SaveData();
-        }
-
-        public function GetUserById($id){
-            $this->RetrieveData();
-            
-            foreach($this->userList as $userItem){
-                if($id == $userItem->getUserId()){
-                    return $userItem;
-                }
-            }
-
-            return null;
         }
 
         private function SaveData()
@@ -101,8 +101,7 @@
                     $user->setRoles($roles);
 
                     array_push($this->userList, $user);
-                }
-              
+                }            
             }
         }
     }

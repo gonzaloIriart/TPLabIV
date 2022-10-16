@@ -8,7 +8,6 @@
     class HomeController
     {
         private $userDAO;
-        private $sessionHelper;
 
         public function __construct()
         {
@@ -22,6 +21,7 @@
         
         public function Home($message = "")
         {
+            require_once(VIEWS_PATH."home.php");
         } 
 
         public function Login($email, $password)
@@ -43,10 +43,9 @@
             require_once(VIEWS_PATH."logout.php");
         } 
         
-        public function List($message = "")
+        public function OwnerList($message = "")
         {
             require_once(VIEWS_PATH."validate-session.php");
-            require_once(VIEWS_PATH."beer-list.php");
         }  
     }
 ?>
