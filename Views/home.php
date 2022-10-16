@@ -1,7 +1,13 @@
 <?php 
-    require_once("nav-bar.php");
+    require_once("nav.php");
 ?>
 
-<main>
-    <h2>Welcome to Pet Hero</h2>
+<main class="d-flex align-items-center justify-content-center height-100" >
+     <div class="content">
+          <header class="text-center">
+               <h2>Welcome to Pet Hero</h2>
+          </header>
+
+          
+     </div>
 </main>
