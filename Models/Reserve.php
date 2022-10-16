@@ -7,5 +7,7 @@
         private $endDate;
         private $totalFee;
         private $advancePayment;
+        private $pet;
+        private $keeper;
     }
 ?>

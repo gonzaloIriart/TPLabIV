@@ -1,24 +1,40 @@
-<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-     <span class="navbar-text">
-          <strong>Pet Hero</strong>
-     </span>
-     <ul class="navbar-nav ml-auto">
-          <li class="mr-2">
-            <?php if(isset($_SESSION["loginUser"]) && $this->userDAO->isKeeper($_SESSION["loginUser"]))
-            : ?>              
-                <a href="<?php echo  FRONT_ROOT."Keeper/HomeView "?>">Keeper</a>
-              <?php else : ?>
-               <a href="<?php echo  FRONT_ROOT."Keeper/RegisterView "?>">Register as Keeper</a>
-               <?php endif; ?>
-          </li>
-          <li class="mr-2">     
-              <?php if(isset($_SESSION["loginUser"]) && $this->userDAO->isOwner($_SESSION["loginUser"]))
-               : ?>                
-               <a href="<?php echo  FRONT_ROOT."Owner/HomeView "?>">Owner</a>
-              <?php else : ?>
-               <a href="<?php echo  FRONT_ROOT."Owner/RegisterView "?>">Register as Owner</a>
-               <?php endif; ?>
-          
-      </ul>
-     </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+     <div class="container-fluid">
+          <a class="navbar-brand" href="<?php echo  FRONT_ROOT . "index.php" ?>"><strong>Pet Hero</strong></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor01">
+               <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                         <?php if (isset($_SESSION["keeperUser"])) : ?>
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>">Keeper</a>
+                         <?php else : ?>
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/RegisterView " ?>">Register as Keeper</a>
+                         <?php endif; ?>
+                    </li>
+
+                    <li class="nav-item">
+                         <?php if (isset($_SESSION["OwnerUser"])) : ?>
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/HomeView " ?>">Owner</a>
+                         <?php else : ?>
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/RegisterView " ?>">Register as Owner</a>
+                         <?php endif; ?>
+                    </li>
+                    <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </li>
+      
+          -->
+               </ul>
+          </div>
+     </div>
 </nav>

@@ -1,7 +1,7 @@
 <?php
     namespace Models;
 
-    class PharException
+    class Pet
     {
         private $petId;
         private $owner;
