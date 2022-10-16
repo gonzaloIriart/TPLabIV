@@ -29,8 +29,6 @@
             if(($user != null) && ($user->getPassword() == $password))
             {
                 $_SESSION["loginUser"] = $user;
-                $user->setKeeperId(123);
-                $_SESSION["userIsKeeper"] = true;
                 require_once(VIEWS_PATH."home.php");
             } else
                 $this->Index("Usuario o password incorrectos.");

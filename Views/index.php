@@ -4,6 +4,8 @@
                <h2>Pet Hero</h2>
           </header>
 
+          <a href="<?php echo  FRONT_ROOT."User/RegisterView "?>">Registarse aqui</a>
+
           <form action="<?php echo FRONT_ROOT."Home/Login" ?>" method="post" class="login-form bg-dark-alpha p-5 bg-light">
                <div class="form-group">
                     <label for="email">Email</label>

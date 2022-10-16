@@ -1,9 +1,10 @@
 <?php
     namespace Models;
 
-    class PetRaces
+    class PetRace
     {
         private $petRaceId;
+        private $size;
         private $description;
     }
 ?>

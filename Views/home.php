@@ -7,7 +7,9 @@
           <header class="text-center">
                <h2>Welcome to Pet Hero</h2>
           </header>
-
+          <?php
+               var_dump($user);
+               ?>
           
      </div>
 </main>

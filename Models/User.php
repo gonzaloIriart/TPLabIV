@@ -7,9 +7,9 @@
         private $name;
         private $email;
         private $password;
-        private $keeperId;
-        private $ownerId;
+        private $roles;
 
+        #region getters & setters
         public function getUserId()
         {
             return $this->userId;
@@ -29,6 +29,7 @@
         {
             $this->email = $email;
         }
+
         public function getPassword()
         {
             return $this->password;
@@ -37,27 +38,27 @@
         public function setPassword($password)
         {
             $this->password = $password;
-
         }
 
-        public function getKeeperId()
+        public function getRoles()
         {
-                return $this->keeperId;
+                return $this->roles;
         }
 
-        public function setKeeperId($keeperId)
+        public function setRoles($roles)
         {
-                $this->keeperId = $keeperId;
+            $this->roles = $roles;
         }
 
-        public function getOwnerId()
+        public function getName()
         {
-                return $this->ownerId;
+            return $this->name;
         }
-
-        public function setOwnerId($ownerId)
+        
+        public function setName($name)
         {
-                $this->ownerId = $ownerId;
+            $this->name = $name;                
         }
+        #endregion
     }
 ?>

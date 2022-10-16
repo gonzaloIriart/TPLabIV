@@ -4,6 +4,7 @@
     class Keeper 
     {
         private $keeperId;
+        private $sizeOfDog;
         private $reviews;
         private $dailyFee;
         private $reserves;

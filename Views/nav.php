@@ -4,7 +4,7 @@
      </span>
      <ul class="navbar-nav ml-auto">
           <li class="mr-2">
-            <?php if(isset($_SESSION["userIsKeeper"]) && $_SESSION["userIsKeeper"])
+            <?php if(isset($_SESSION["loginUser"]) && $this->userDAO->isKeeper($_SESSION["loginUser"]))
             : ?>              
                 <a href="<?php echo  FRONT_ROOT."Keeper/HomeView "?>">Keeper</a>
               <?php else : ?>
@@ -12,7 +12,7 @@
                <?php endif; ?>
           </li>
           <li class="mr-2">     
-              <?php if(isset($_SESSION["userIsOwner"]) && $_SESSION["userIsOwner"])
+              <?php if(isset($_SESSION["loginUser"]) && $this->userDAO->isOwner($_SESSION["loginUser"]))
                : ?>                
                <a href="<?php echo  FRONT_ROOT."Owner/HomeView "?>">Owner</a>
               <?php else : ?>

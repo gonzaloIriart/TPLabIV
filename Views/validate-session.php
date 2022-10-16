@@ -1,4 +1,4 @@
 <?php
-    if(isset($SESSION["loginUser"]))
+    if(isset($_SESSION["loginUser"]))
         header("location:../index.php");
 ?>
