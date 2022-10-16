@@ -8,7 +8,8 @@
                <h2>Welcome to Pet Hero</h2>
           </header>
           <?php
-               var_dump($user);
+               var_dump($user->getUserId());
+               var_dump($user->getRoles());
                ?>
           
      </div>

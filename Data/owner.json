@@ -1,5 +1,7 @@
-[
-    {
+[ {
+    "ownerId": 1,
+    "pets": [{}],
+    "user": {
         "userId": 1,
         "email": "user@myapp.com",
         "password": "123456",
@@ -18,4 +20,6 @@
             }
         ]
     }
+}
+
 ]

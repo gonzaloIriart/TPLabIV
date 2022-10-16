@@ -2,6 +2,8 @@
     namespace DAO;
     use Models\UserRol as UserRol;
     use Models\User as User;
+    use Models\Keeper as Keeper;
+    use Models\Owner as Owner;
     use DAO\IUserDAO as IUserDAO;
 
     class UserDAO implements IUserDAO
@@ -20,7 +22,7 @@
             return null;
         }
 
-        public function isOwner($user){
+        public function isOwner(User $user){
             foreach($user->getRoles() as $rol){
                 if($rol->getRol() == "owner")
                     return true;
@@ -28,7 +30,7 @@
             return false;
         }
 
-        public function isKeeper($user){
+        public function isKeeper(User $user){
             foreach($user->getRoles() as $rol){
                 if($rol->getRol() == "keeper")
                     return true;
@@ -81,6 +83,8 @@
                 foreach($arrayToDecode as $userItem){
                     $roles = array();
                     $user = new User();
+                    $owner = new Owner();
+                    $keeper = new Keeper();
                     $user->setUserId($userItem["userId"]);
                     $user->setEmail($userItem["email"]);
                     $user->setPassword($userItem["password"]);

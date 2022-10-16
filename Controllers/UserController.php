@@ -14,7 +14,12 @@
             $this->userDAO = new UserDAO;
         }
 
-        public function RegisterView($message = "")
+        public function Register() 
+        {
+            
+        }
+
+        private function RegisterView($message = "")
         {
             require_once(VIEWS_PATH."user-register.php");
         } 

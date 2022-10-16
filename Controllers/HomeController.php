@@ -2,11 +2,13 @@
     namespace Controllers;
 
     use DAO\UserDAO as UserDAO;
+    use Helpers\SessionHelper as SessionHelper;
     use Model\User as User;
 
     class HomeController
     {
         private $userDAO;
+        private $sessionHelper;
 
         public function __construct()
         {
@@ -28,7 +30,8 @@
 
             if(($user != null) && ($user->getPassword() == $password))
             {
-                $_SESSION["loginUser"] = $user;
+                SessionHelper::hydrateUserSession($user);
+
                 require_once(VIEWS_PATH."home.php");
             } else
                 $this->Index("Usuario o password incorrectos.");
