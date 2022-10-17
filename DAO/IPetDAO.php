@@ -1,9 +1,9 @@
 <?php 
     namespace DAO;
 
-    interface IOwnerDAO 
+    interface IPetDAO 
     {
-        function Add($owner);
+        function Add($pet);
         function GetById($id);
         function GetListByOwner($id);
     }

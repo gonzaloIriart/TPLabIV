@@ -57,9 +57,15 @@
         }
 
         public function AddRol(User $user, $rol){
-            $user = $this->GetUserById($user->getUserId);
-            array_push($user->getRoles(), $user);
+            $userRol = new UserRol();
+            $userRol->setUser($user);
+            $userRol->setRol($rol);
+            $this->UserRolDAO->Add($userRol);
+            // Set user to null before adding the rol to avoid circular reference.
+            $userRol->setUser(null);
+            array_push($user->getRoles(), $userRol);
             $this->SaveData();
+            return $user;
         }
 
         private function SaveData()

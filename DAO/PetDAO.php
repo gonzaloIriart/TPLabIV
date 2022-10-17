@@ -1,10 +1,11 @@
-<?php
+<?php 
     namespace DAO;
 
-    class OwnerDAO implements IOwnerDAO{
-        
-        function Add($owner){}
+    class PetDAO implements IPetDAO 
+    {
+        function Add($pet){}
         function GetById($id){}
         function GetListByOwner($id){}
     }
+
 ?>

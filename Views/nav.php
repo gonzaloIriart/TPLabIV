@@ -14,12 +14,8 @@
                          <?php endif; ?>
                     </li>
 
-                    <li class="nav-item">
-                         <?php if (isset($_SESSION["OwnerUser"])) : ?>
-                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/HomeView " ?>">Owner</a>
-                         <?php else : ?>
-                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/RegisterView " ?>">Register as Owner</a>
-                         <?php endif; ?>
+                    <li class="nav-item">                         
+                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/HomeView " ?>">Owner</a>
                     </li>
                     <!--
         <li class="nav-item dropdown">

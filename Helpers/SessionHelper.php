@@ -19,8 +19,19 @@
             $this->keeperDAO = new KeeperDAO();
             $this->ownerDAO = new OwnerDAO();
         }
+
         public static function hydrateUserSession(User $user) {            
-            $_SESSION["loginUser"] = $user;
+            $_SESSION["loggedUser"] = $user;
+        }
+
+        public static function getLoginUser() {
+            return $_SESSION["loggedUser"];
+        }
+
+        public static function ValidateSession(){
+            if(!isset($_SESSION["loggedUser"])){
+                header("location: ". FRONT_ROOT . "Home/Index");
+            }
         }
     }
 ?>
