@@ -42,6 +42,9 @@
             $pet->setVideo($video);
             $pet->setVaccinationSchedule($vaccinationSchedule);
             $pet->setOwner($owner);
+
+            $this->PetDAO->Add($pet);
+            $this->OwnerDAO->AddPetToOwner($owner, $pet);
         }
     }
 ?>
