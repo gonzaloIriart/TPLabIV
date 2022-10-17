@@ -4,8 +4,7 @@
         "email": "user@myapp.com",
         "password": "123456",
         "name": "User",
-        "roles": 
-        [
+        "roles": [
             {
                 "userRolId" : "123",
                 "user": null,
@@ -17,5 +16,12 @@
                 "rol": "owner"
             }
         ]
+    },
+    {
+        "userId": null,
+        "email": "asd@myapp.com",
+        "password": "asd",
+        "name": "asd",
+        "roles": null
     }
 ]

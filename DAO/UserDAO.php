@@ -52,7 +52,7 @@
 
         public function Add(User $user){
             $this->RetrieveData();
-            array_push($userList, $user);
+            array_push($this->userList, $user);
             $this->SaveData();
         }
 
@@ -80,9 +80,10 @@
             foreach($this->userList as $user) {
                 $valuesArray["userId"] = $user->getUserId();
                 $valuesArray["email"] = $user->getEmail();
-                $valuesArray["password"] = $user->getPasword();
+                $valuesArray["password"] = $user->getPassword();
                 $valuesArray["name"] = $user->getName();
-                $userItem["roles"] = $user->getRoles();
+                $valuesArray["roles"] = json_encode($user->getRoles());
+                array_push($arrayToEncode, $valuesArray);
             }
 
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
@@ -103,8 +104,6 @@
                 foreach($arrayToDecode as $userItem){
                     $roles = array();
                     $user = new User();
-                    $owner = new Owner();
-                    $keeper = new Keeper();
                     $user->setUserId($userItem["userId"]);
                     $user->setEmail($userItem["email"]);
                     $user->setPassword($userItem["password"]);

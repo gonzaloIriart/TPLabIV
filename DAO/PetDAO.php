@@ -2,6 +2,7 @@
     namespace DAO;
 
     use Models\Owner as Owner;
+    use Models\User as User;
     use Models\Pet as Pet;
 
     class PetDAO implements IPetDAO 
@@ -31,7 +32,8 @@
                 $valuesArray["video"] = $pet->getVideo();
                 $valuesArray["vaccinationSchedule"] = $pet->getVaccinationSchedule();
                 $valuesArray["owner"] = $pet->getOwner();
-                array_push($arrayToEncode, $pet);
+                
+                array_push($arrayToEncode, $valuesArray);
             }
 
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
@@ -51,13 +53,17 @@
 
                 foreach($arrayToDecode as $petItem){
                     $pet = new Pet();
+                    $owner = new Owner();
+                    $user = new User();
                     $pet->setPetId($petItem["petId"]);
                     $pet->setName($petItem["name"]);
                     $pet->setSize($petItem["size"]);
                     $pet->setPicture($petItem["picture"]);
                     $pet->setVideo($petItem["video"]);
                     $pet->setVaccinationSchedule($petItem["vaccinationSchedule"]);
-                    $pet->setOwner($petItem["owner"]);
+                    $owner->setOwnerId($petItem["owner"]["ownerId"]);
+                    $owner->setUser($user);
+                    $pet->setOwner($owner);
 
                     array_push($this->petList, $pet);
                 }            

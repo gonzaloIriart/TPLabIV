@@ -55,6 +55,7 @@
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $userItem){
+                    $pets = array();
                     $owner = new Owner();
 
                     array_push($this->ownerList, $owner);
