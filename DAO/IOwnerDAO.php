@@ -8,7 +8,7 @@
     {
         function Add(Owner $owner);
         function GetById($id);
-        function GetListByOwner($id);
+        function GetPetListByOwner($id);
         function AddPetToOwner(Owner $owner, Pet $pet);
     }
 

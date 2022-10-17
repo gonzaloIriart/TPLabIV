@@ -5,10 +5,13 @@
     use Models\Pet as Pet;
 
     class OwnerDAO implements IOwnerDAO{
-        private $ownersList = array();
+        private $ownerList = array();
         
         function Add($owner)
         {
+            $this->RetrieveData();
+            array_push($ownerList, $owner);
+            $this->SaveData();
         }
         
         function GetById($id){
@@ -16,14 +19,20 @@
             return $owner;
         }
         
-        function GetListByOwner($id)
+        function GetPetListByOwner($id)
         {
-
         }
         
         function AddPetToOwner(Owner $owner, Pet $pet)
         {
-
+            $this->RetrieveData();
+            array_push($owner->getPets(), $pet);
+            foreach($this->ownerList as $ownerItem){
+                if($ownerItem->getOwnerId() == $owner->getOwnerId()){
+                    $ownerItem = $owner;
+                }
+            }
+            $this->SaveData();
         }
 
         

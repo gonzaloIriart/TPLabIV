@@ -6,9 +6,9 @@
     use Models\Owner as Owner;
 
     interface IUserDAO {
-        function GetUserByEmail($email);
+        function GetUserByEmail(string $email);
         function Add(User $user);
-        function AddRol(User $user, $rol);
+        function AddRol(User $user, string $rol);
         function isOwner(User $user);
         function isKeeper(User $user);
     }

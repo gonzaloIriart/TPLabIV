@@ -10,7 +10,7 @@
     {
         private $userList = array();
      
-        public function GetUserByEmail($email){
+        public function GetUserByEmail(string $email){
             $this->RetrieveData();
             
             foreach($this->userList as $userItem){
@@ -56,7 +56,7 @@
             $this->SaveData();
         }
 
-        public function AddRol(User $user, $rol){
+        public function AddRol(User $user, string $rol){
             $userRol = new UserRol();
             $userRol->setUser($user);
             $userRol->setRol($rol);
@@ -64,6 +64,11 @@
             // Set user to null before adding the rol to avoid circular reference.
             $userRol->setUser(null);
             array_push($user->getRoles(), $userRol);
+            foreach($this->userList as $userItem){
+                if($userItem->getUserId() == $user->getUserId()){
+                    $userItem = $user;
+                }
+            }
             $this->SaveData();
             return $user;
         }
