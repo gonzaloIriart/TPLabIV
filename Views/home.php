@@ -9,7 +9,6 @@
                <h3>Owner List</h3>
           </header>
           <?php
-               var_dump($user->getUserId());
                var_dump($user->getRoles());
                ?>
           
