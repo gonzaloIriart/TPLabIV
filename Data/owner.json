@@ -1,0 +1,25 @@
+[ {
+    "ownerId": 1,
+    "pets": [{}],
+    "user": {
+        "userId": 1,
+        "email": "user@myapp.com",
+        "password": "123456",
+        "name": "User",
+        "roles": 
+        [
+            {
+                "userRolId" : "123",
+                "user": null,
+                "rol": "owner"
+            },
+            {
+                "userRolId" : "124",
+                "user": null,
+                "rol": "owner"
+            }
+        ]
+    }
+}
+
+]

@@ -1,0 +1,27 @@
+[
+    {
+        "userId": 1,
+        "email": "user@myapp.com",
+        "password": "123456",
+        "name": "User",
+        "roles": [
+            {
+                "userRolId" : "123",
+                "user": null,
+                "rol": "owner"
+            },
+            {
+                "userRolId" : "124",
+                "user": null,
+                "rol": "owner"
+            }
+        ]
+    },
+    {
+        "userId": null,
+        "email": "asd@myapp.com",
+        "password": "asd",
+        "name": "asd",
+        "roles": null
+    }
+]
