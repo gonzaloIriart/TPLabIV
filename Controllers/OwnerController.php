@@ -5,7 +5,6 @@
     use DAO\PetDAO as PetDAO;
     use DAO\OwnerDAO as OwnerDAO;
     use Helpers\SessionHelper as SessionHelper;
-    use Models\User as User;
     use Models\Owner as Owner;
     use Models\Pet as Pet;
 
@@ -44,7 +43,13 @@
             $pet->setOwner($owner);
 
             $this->PetDAO->Add($pet);
-            $this->OwnerDAO->AddPetToOwner($owner, $pet);
+            //$this->OwnerDAO->AddPetToOwner($owner, $pet);
+            require_once(VIEWS_PATH."home.php");
         }
+
+        public function RegisterPetView($message = "")
+        {
+            require_once(VIEWS_PATH."owner/register-pet.php");
+        } 
     }
 ?>

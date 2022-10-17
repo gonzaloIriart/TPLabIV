@@ -1,5 +1,4 @@
-<form action="<?php echo FRONT_ROOT . "Pet/Register" ?>" method="post">
-  <fieldset>
+<form action="<?php echo FRONT_ROOT . "Owner/RegisterPet" ?>" method="post">
     <legend>Pet register</legend>
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">Nombre</label>
@@ -34,5 +33,7 @@
         <option value="complete">Completo</option>
       </select>
     </div>
-  </fieldset>
+    <div>
+        <input type="submit" class="btn" value="Regristrarse" style="background-color:#DC8E47;color:white;" />
+    </div>
 </form>

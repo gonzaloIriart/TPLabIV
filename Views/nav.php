@@ -15,7 +15,7 @@
                     </li>
 
                     <li class="nav-item">                         
-                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/HomeView " ?>">Owner</a>
+                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/RegisterPetView " ?>">Add Pet</a>
                     </li>
                     <!--
         <li class="nav-item dropdown">

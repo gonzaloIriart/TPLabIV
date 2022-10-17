@@ -78,11 +78,11 @@
             $arrayToEncode = array();
 
             foreach($this->userList as $user) {
-                $valuesArray["userId"] = $user->GetUserId();
-                $valuesArray["email"] = $user->GetEmail();
-                $valuesArray["password"] = $user->GetPasword();
-                $valuesArray["name"] = $user->GetName();
-                $userItem["roles"] = $user->GetRoles();
+                $valuesArray["userId"] = $user->getUserId();
+                $valuesArray["email"] = $user->getEmail();
+                $valuesArray["password"] = $user->getPasword();
+                $valuesArray["name"] = $user->getName();
+                $userItem["roles"] = $user->getRoles();
             }
 
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);

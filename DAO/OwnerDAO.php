@@ -26,16 +26,15 @@
         function AddPetToOwner(Owner $owner, Pet $pet)
         {
             $this->RetrieveData();
-            array_push($owner->getPets(), $pet);
+            $ownerPets = $owner->getPets();
+            array_push($ownerPets, $pet);
             foreach($this->ownerList as $ownerItem){
                 if($ownerItem->getOwnerId() == $owner->getOwnerId()){
                     $ownerItem = $owner;
                 }
             }
             $this->SaveData();
-        }
-
-        
+        }        
 
         private function SaveData()
         {           
@@ -47,7 +46,7 @@
 
         private function RetrieveData()
         {
-            $this->ownersList = array();
+            $this->ownerList = array();
 
             if(file_exists('Data/owners.json'))
             {
