@@ -71,6 +71,15 @@
         private function SaveData()
         {           
             $arrayToEncode = array();
+
+            foreach($this->userList as $user) {
+                $valuesArray["userId"] = $user->GetUserId();
+                $valuesArray["email"] = $user->GetEmail();
+                $valuesArray["password"] = $user->GetPasword();
+                $valuesArray["name"] = $user->GetName();
+                $userItem["roles"] = $user->GetRoles();
+            }
+
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
             
             file_put_contents('Data/users.json', $jsonContent);
