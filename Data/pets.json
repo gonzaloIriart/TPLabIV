@@ -5,7 +5,7 @@
         "size": "small",
         "picture": "here.com",
         "video": "here.com",
-        "vaccinationScheduleImg": "complete",
+        "vaccinationScheduleImg": "imageUrl",
         "owner": null,
         "ownerId": 1
     }
