@@ -32,7 +32,16 @@
             {
                 SessionHelper::hydrateUserSession($user);
 
-                require_once(VIEWS_PATH."home.php");
+                if($user->getRole == 'o')
+                {
+                    require_once(VIEWS_PATH."ownerHome.php");
+                }
+                else
+                {
+                    require_once(VIEWS_PATH."keeperHome.php");
+                }
+                
+
             } else
                 $this->Index("Usuario o password incorrectos.");
 
@@ -43,9 +52,6 @@
             require_once(VIEWS_PATH."logout.php");
         } 
         
-        public function OwnerList($message = "")
-        {
-            require_once(VIEWS_PATH."validate-session.php");
-        }  
+    
     }
 ?>

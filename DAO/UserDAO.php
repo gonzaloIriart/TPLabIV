@@ -108,17 +108,7 @@
                     $user->setEmail($userItem["email"]);
                     $user->setPassword($userItem["password"]);
                     $user->setName($userItem["name"]);
-
-                    foreach($userItem["roles"] as $rolItem){
-                        $rol = new UserRol();
-                        $rol->setUserRolId($rolItem["userRolId"]);
-                        $rol->setUser($rolItem["user"]);
-                        $rol->setRol($rolItem["rol"]);
-                        array_push($roles, $rol);
-                    }
-
-                    $user->setRoles($roles);
-
+                    $user->setRole($userItem["role"]);
                     array_push($this->userList, $user);
                 }            
             }

@@ -7,7 +7,7 @@
         private $name;
         private $email;
         private $password;
-        private $roles;
+        private $role;
 
         #region getters & setters
         public function getUserId()
@@ -40,14 +40,14 @@
             $this->password = $password;
         }
 
-        public function getRoles()
+        public function getRole()
         {
-                return $this->roles;
+                return $this->role;
         }
 
-        public function setRoles($roles)
+        public function setRole($role)
         {
-            $this->roles = $roles;
+            $this->role = $role;
         }
 
         public function getName()
