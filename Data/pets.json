@@ -2,10 +2,10 @@
     {
         "petId": 1,
         "name": "asd",
-        "size": "small",
+        "size": "giant",
         "picture": "here.com",
         "video": "here.com",
-        "vaccinationScheduleImg": "complete",
+        "vaccinationScheduleImg": "asdasd",
         "owner": null,
         "ownerId": 1
     }
