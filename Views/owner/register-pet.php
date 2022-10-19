@@ -3,7 +3,7 @@
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">Nombre</label>
       <div class="col-sm-10">
-        <input type="text" name="name" class="form-control-plaintext" value="Firulais">
+        <input type="text" name="name" class="form-control-plaintext">
       </div>
     </div>
     <div class="form-group">
@@ -34,6 +34,6 @@
       </select>
     </div>
     <div>
-        <input type="submit" class="btn" value="Regristrarse" style="background-color:#DC8E47;color:white;" />
+        <input type="submit" class="btn" value="Guardar" style="background-color:#DC8E47;color:white;" />
     </div>
 </form>

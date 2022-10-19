@@ -32,7 +32,7 @@
             {
                 SessionHelper::hydrateUserSession($user);
 
-                if($user->getRole == 'o')
+                if($user->getRole() == 'o')
                 {
                     require_once(VIEWS_PATH."ownerHome.php");
                 }

@@ -15,6 +15,12 @@
             $this->SaveData();
         }
 
+        public function GetAll()
+            {
+                $this->RetrieveData();
+                return $this->petList;
+            }
+
         function GetById($id){}
 
         function GetListByOwner($id){}
@@ -60,10 +66,8 @@
                     $pet->setSize($petItem["size"]);
                     $pet->setPicture($petItem["picture"]);
                     $pet->setVideo($petItem["video"]);
-                    $pet->setVaccinationSchedule($petItem["vaccinationSchedule"]);
-                    $owner->setOwnerId($petItem["owner"]["ownerId"]);
-                    $owner->setUser($user);
-                    $pet->setOwner($owner);
+                    $pet->setVaccinationScheduleImg($petItem["vaccinationScheduleImg"]);
+                    $owner->setOwnerId($petItem["ownerId"]);
 
                     array_push($this->petList, $pet);
                 }            
