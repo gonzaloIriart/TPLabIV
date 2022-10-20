@@ -5,7 +5,6 @@
     {
         private $petId;
         private $owner;
-        private $ownerId;
         private $name;
         private $size;
         private $video;
@@ -175,5 +174,7 @@
 
                 return $this;
         }
+
+        
     }
 ?>

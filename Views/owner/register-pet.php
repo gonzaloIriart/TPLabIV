@@ -1,4 +1,4 @@
-<form action="<?php echo FRONT_ROOT . "Owner/RegisterPet" ?>" method="post">
+<form action="<?php echo FRONT_ROOT . "Pet/RegisterPet" ?>" method="post">
     <legend>Pet register</legend>
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">Nombre</label>

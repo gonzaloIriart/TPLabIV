@@ -1,7 +1,6 @@
 [ {
     "ownerId": 1,
     "pets": null,
-    "userId": 1,
-    "user": null
+    "user": 1
     }
 ]

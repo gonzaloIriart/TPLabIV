@@ -36,7 +36,7 @@
                 $valuesArray["size"] = $pet->getSize();
                 $valuesArray["picture"] = $pet->getPicture();
                 $valuesArray["video"] = $pet->getVideo();
-                $valuesArray["vaccinationSchedule"] = $pet->getVaccinationSchedule();
+                $valuesArray["vaccinationSchedule"] = $pet->getVaccinationScheduleIg();
                 $valuesArray["owner"] = $pet->getOwner();
                 
                 array_push($arrayToEncode, $valuesArray);
