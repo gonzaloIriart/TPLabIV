@@ -36,42 +36,17 @@
         }
 
         public function isOwner(User $user){
-            foreach($user->getRoles() as $rol){
-                if($rol->getRol() == "owner")
-                    return true;
-            }
-            return false;
+            return ($user->getRole() == "o");
         }
 
         public function isKeeper(User $user){
-            foreach($user->getRoles() as $rol){
-                if($rol->getRol() == "keeper")
-                    return true;
-            }
-            return false;
+            return ($user->getRole() == "k");
         }
 
         public function Add(User $user){
             $this->RetrieveData();
             array_push($this->userList, $user);
             $this->SaveData();
-        }
-
-        public function AddRol(User $user, string $rol){
-            $userRol = new UserRol();
-            $userRol->setUser($user);
-            $userRol->setRol($rol);
-            $this->UserRolDAO->Add($userRol);
-            // Set user to null before adding the rol to avoid circular reference.
-            $userRol->setUser(null);
-            array_push($user->getRoles(), $userRol);
-            foreach($this->userList as $userItem){
-                if($userItem->getUserId() == $user->getUserId()){
-                    $userItem = $user;
-                }
-            }
-            $this->SaveData();
-            return $user;
         }
 
         private function SaveData()
@@ -99,17 +74,7 @@
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $userItem){
-<<<<<<< HEAD
                     $user = JsonHelper::decodeUser($userItem);
-=======
-                    $roles = array();
-                    $user = new User();
-                    $user->setUserId($userItem["userId"]);
-                    $user->setEmail($userItem["email"]);
-                    $user->setPassword($userItem["password"]);
-                    $user->setName($userItem["name"]);
-                    $user->setRole($userItem["role"]);
->>>>>>> main
                     array_push($this->userList, $user);
                 }            
             }

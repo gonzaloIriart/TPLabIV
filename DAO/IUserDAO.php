@@ -8,7 +8,6 @@
     interface IUserDAO {
         function GetUserByEmail(string $email);
         function Add(User $user);
-        function AddRol(User $user, string $rol);
         function isOwner(User $user);
         function isKeeper(User $user);
     }

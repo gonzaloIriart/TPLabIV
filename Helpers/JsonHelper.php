@@ -13,35 +13,43 @@
             $encodedUser["email"] = $user->getEmail();
             $encodedUser["password"] = $user->getPassword();
             $encodedUser["name"] = $user->getName();
-            $encodedUser["roles"] = array();
+            $encodedUser["role"] = $user->getRole();
             
-            foreach($user->getRoles() as $userRol) {
-                $encodedUserRol["userRolId"] = $userRol->getUserRolId();
-                $encodedUserRol["rol"] = $userRol->getRol();
-                $encodedUserRol["user"] = null;
-                array_push($encodedUser["roles"], $encodedUserRol);
-            }
             return $encodedUser;
         }
 
         static function decodeUser($encodedUser){
-            $roles = array();
             $user = new User();
             $user->setUserId($encodedUser["userId"]);
             $user->setEmail($encodedUser["email"]);
             $user->setPassword($encodedUser["password"]);
             $user->setName($encodedUser["name"]);
+            $user->setRole($encodedUser["role"]);
 
-            foreach($encodedUser["roles"] as $rolItem){
-                $rol = new UserRol();
-                $rol->setUserRolId($rolItem["userRolId"]);
-                $rol->setUser($rolItem["user"]);
-                $rol->setRol($rolItem["rol"]);
-                array_push($roles, $rol);
-            }
-
-            $user->setRoles($roles);
             return $user;
+        }
+
+        static function encodeKeeper($keeper)
+        {
+            $encodedKeeper["keeperId"] = $keeper->getKeeperId();
+            $encodedKeeper["sizeOfDog"] = $keeper->getSizeOfDog();
+            $encodedKeeper["dailyFee"] = $keeper->getDailyFee();
+            $encodedKeeper["reviews"] = null;
+            $encodedKeeper["reserves"] = null;
+            $encodedKeeper["availableDays"] = null;
+            $encodedKeeper["user"] = null;
+
+            return $encodedKeeper;
+        }
+
+        static function decodeKeeper($encodedKeeper)
+        {
+            $keeper = new Keeper();
+            $keeper->setKeeperId($encodedKeeper["keeperId"]);
+            $keeper->setSizeOfDog($encodedKeeper["sizeOfDog"]);
+            $keeper->setDailyFee($encodedKeeper["dailyFee"]);
+
+            return $keeper;
         }
     }
 ?>
