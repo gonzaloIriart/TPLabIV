@@ -5,6 +5,7 @@
     use Models\Keeper as Keeper;
     use Models\Owner as Owner;
     use DAO\IUserDAO as IUserDAO;
+    use Helpers\JsonHelper as JsonHelper;
 
     class UserDAO implements IUserDAO
     {
@@ -78,12 +79,8 @@
             $arrayToEncode = array();
 
             foreach($this->userList as $user) {
-                $valuesArray["userId"] = $user->getUserId();
-                $valuesArray["email"] = $user->getEmail();
-                $valuesArray["password"] = $user->getPassword();
-                $valuesArray["name"] = $user->getName();
-                $valuesArray["roles"] = json_encode($user->getRoles());
-                array_push($arrayToEncode, $valuesArray);
+                $encodedUSer = JsonHelper::encodeUser($user);
+                array_push($arrayToEncode, $encodedUSer);
             }
 
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
@@ -102,6 +99,9 @@
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $userItem){
+<<<<<<< HEAD
+                    $user = JsonHelper::decodeUser($userItem);
+=======
                     $roles = array();
                     $user = new User();
                     $user->setUserId($userItem["userId"]);
@@ -109,6 +109,7 @@
                     $user->setPassword($userItem["password"]);
                     $user->setName($userItem["name"]);
                     $user->setRole($userItem["role"]);
+>>>>>>> main
                     array_push($this->userList, $user);
                 }            
             }
