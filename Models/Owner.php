@@ -7,8 +7,6 @@
         private $userId;
         private $user;
 
-       
-
         /**
          * Get the value of ownerId
          */ 
@@ -89,4 +87,6 @@
                 return $this;
         }
     }
+
+
 ?>
