@@ -5,91 +5,193 @@
     {
         private $petId;
         private $owner;
-        private $reserve;
+        private $ownerId;
         private $name;
         private $size;
         private $video;
         private $picture;
-        private $vaccinationSchedule;
+        private $vaccinationScheduleImg;
 
+
+
+        /**
+         * Get the value of petId
+         */ 
         public function getPetId()
         {
-            return $this->petId;
+                return $this->petId;
         }
 
+        /**
+         * Set the value of petId
+         *
+         * @return  self
+         */ 
         public function setPetId($petId)
         {
-            $this->petId = $petId;
+                $this->petId = $petId;
+
+                return $this;
         }
 
+        /**
+         * Get the value of owner
+         */ 
         public function getOwner()
         {
-            return $this->owner;
+                return $this->owner;
         }
 
+        /**
+         * Set the value of owner
+         *
+         * @return  self
+         */ 
         public function setOwner($owner)
         {
-            $this->owner = $owner;
+                $this->owner = $owner;
+
+                return $this;
         }
 
-        public function getReserve()
+        /**
+         * Get the value of ownerId
+         */ 
+        public function getOwnerId()
         {
-            return $this->reserve;
+                return $this->ownerId;
         }
 
-        public function setReserve($reserve)
+        /**
+         * Set the value of ownerId
+         *
+         * @return  self
+         */ 
+        public function setOwnerId($ownerId)
         {
-            $this->reserve = $reserve;
+                $this->ownerId = $ownerId;
+
+                return $this;
         }
 
+        /**
+         * Get the value of name
+         */ 
         public function getName()
         {
-            return $this->name;
+                return $this->name;
         }
 
+        /**
+         * Set the value of name
+         *
+         * @return  self
+         */ 
         public function setName($name)
         {
-            $this->name = $name;
+                $this->name = $name;
+
+                return $this;
         }
 
+        /**
+         * Get the value of size
+         */ 
         public function getSize()
         {
-            return $this->size;
+                return $this->size;
         }
 
+        /**
+         * Set the value of size
+         *
+         * @return  self
+         */ 
         public function setSize($size)
         {
-            $this->size = $size;
+                $this->size = $size;
+
+                return $this;
         }
 
+        /**
+         * Get the value of size
+         */ 
+        public function getSize()
+        {
+                return $this->size;
+        }
+
+        /**
+         * Set the value of size
+         *
+         * @return  self
+         */ 
+        public function setSize($size)
+        {
+                $this->size = $size;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of video
+         */ 
         public function getVideo()
         {
-            return $this->video;
+                return $this->video;
         }
 
+        /**
+         * Set the value of video
+         *
+         * @return  self
+         */ 
         public function setVideo($video)
         {
-            $this->video = $video;
+                $this->video = $video;
+
+                return $this;
         }
 
+        /**
+         * Get the value of picture
+         */ 
         public function getPicture()
         {
-            return $this->picture;
+                return $this->picture;
         }
 
+        /**
+         * Set the value of picture
+         *
+         * @return  self
+         */ 
         public function setPicture($picture)
         {
-            $this->picture = $picture;
+                $this->picture = $picture;
+
+                return $this;
         }
 
-        public function getVaccinationSchedule()
+        /**
+         * Get the value of vaccinationScheduleImg
+         */ 
+        public function getVaccinationScheduleImg()
         {
-            return $this->vaccinationSchedule;
+                return $this->vaccinationScheduleImg;
         }
 
-        public function setVaccinationSchedule($vaccinationSchedule)
+        /**
+         * Set the value of vaccinationScheduleImg
+         *
+         * @return  self
+         */ 
+        public function setVaccinationScheduleImg($vaccinationScheduleImg)
         {
-            $this->vaccinationSchedule = $vaccinationSchedule;
+                $this->vaccinationScheduleImg = $vaccinationScheduleImg;
+
+                return $this;
         }
     }
 ?>

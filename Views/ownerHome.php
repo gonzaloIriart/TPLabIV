@@ -6,10 +6,11 @@
      <div class="content">
           <header class="text-center">
                <h2>Welcome to Pet Hero</h2>
-               <h3>Owner List</h3>
+               <h3>Owner Home</h3>
           </header>
           <?php
-               var_dump($user->getRoles());
+               var_dump($user->getUserId());
+               var_dump($user->getRole());
                ?>
           
      </div>

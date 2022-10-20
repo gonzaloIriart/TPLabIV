@@ -99,7 +99,17 @@
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $userItem){
+<<<<<<< HEAD
                     $user = JsonHelper::decodeUser($userItem);
+=======
+                    $roles = array();
+                    $user = new User();
+                    $user->setUserId($userItem["userId"]);
+                    $user->setEmail($userItem["email"]);
+                    $user->setPassword($userItem["password"]);
+                    $user->setName($userItem["name"]);
+                    $user->setRole($userItem["role"]);
+>>>>>>> main
                     array_push($this->userList, $user);
                 }            
             }

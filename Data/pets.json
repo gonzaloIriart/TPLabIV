@@ -2,32 +2,11 @@
     {
         "petId": 1,
         "name": "asd",
-        "size": "small",
+        "size": "giant",
         "picture": "here.com",
         "video": "here.com",
-        "vaccinationSchedule": "complete",
-        "owner": {
-            "ownerId": 1,
-            "pets": null,
-            "user": {
-                "userId": 1,
-                "email": "user@myapp.com",
-                "password": "123456",
-                "name": "User",
-                "roles": 
-                [
-                    {
-                        "userRolId" : "123",
-                        "user": null,
-                        "rol": "owner"
-                    },
-                    {
-                        "userRolId" : "124",
-                        "user": null,
-                        "rol": "owner"
-                    }
-                ]
-            }
-        }
+        "vaccinationScheduleImg": "asdasd",
+        "owner": null,
+        "ownerId": 1
     }
 ]
