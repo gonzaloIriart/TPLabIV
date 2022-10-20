@@ -33,7 +33,7 @@
             }
 
             $pet->setName($name);
-            $pet->setOwner($_SESSION["owner"]);
+            $pet->setOwner($_SESSION["owner"]->getOwnerId);
             $pet->setPicture($picture);
             $pet->setVideo($video);
             $pet->setVaccinationScheduleImg($vaccinationSchedule);
