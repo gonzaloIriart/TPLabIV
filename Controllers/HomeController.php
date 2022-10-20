@@ -2,8 +2,10 @@
     namespace Controllers;
 
     use DAO\UserDAO as UserDAO;
+    use DAO\OwnerDAO as OwnerDAO;
     use Helpers\SessionHelper as SessionHelper;
-    use Model\User as User;
+    use Models\User as User;
+    use Models\Owner as Owner;
 
     class HomeController
     {
@@ -12,6 +14,7 @@
         public function __construct()
         {
             $this->userDAO = new UserDAO;
+            $this->ownerDAO = new OwnerDAO;
         }
 
         public function Index($message = "")
@@ -32,8 +35,14 @@
             {
                 SessionHelper::hydrateUserSession($user);
 
-                if($user->getRole == 'o')
+                if($user->getRole() == 'o')
                 {
+                    $owner = new Owner();
+                    $owner->setOwnerId($this->ownerDAO->getOwnerByUserId ($user->getUserId())['ownerId']);
+                    $owner->setPets($this->ownerDAO->getOwnerByUserId ($user->getUserId())['pets']);
+                    $owner->setUser($user);
+                    SessionHelper::hydrateOwnerSession($owner);
+
                     require_once(VIEWS_PATH."ownerHome.php");
                 }
                 else
