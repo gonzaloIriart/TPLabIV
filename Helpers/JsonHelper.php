@@ -31,16 +31,7 @@
             $user->setEmail($encodedUser["email"]);
             $user->setPassword($encodedUser["password"]);
             $user->setName($encodedUser["name"]);
-
-            foreach($encodedUser["roles"] as $rolItem){
-                $rol = new UserRol();
-                $rol->setUserRolId($rolItem["userRolId"]);
-                $rol->setUser($rolItem["user"]);
-                $rol->setRol($rolItem["rol"]);
-                array_push($roles, $rol);
-            }
-
-            $user->setRoles($roles);
+            $user->setRole($encodedUser["role"]);
             return $user;
         }
     }
