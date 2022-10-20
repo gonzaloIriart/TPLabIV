@@ -13,11 +13,22 @@
             array_push($this->keeperList, $keeper);
             $this->SaveData();
         }
-        function GetById($id) {}
+
         function GetAll($limit = null)
         {
+            return $this->RetrieveData();             
+        }
+
+        public function GetById($id){
             $this->RetrieveData();
-             
+            
+            foreach($this->keeperList as $keeperItem){
+                if($id == $keeperItem->getKeeperId()){
+                    return $keeperItem;
+                }
+            }
+
+            return null;
         }
 
         function ListByDogSize($dogSize) {}
