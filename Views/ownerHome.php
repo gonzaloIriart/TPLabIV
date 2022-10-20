@@ -5,8 +5,7 @@
                <h3>Owner Home</h3>
           </header>
           <?php
-               var_dump($user->getUserId());
-               var_dump($user->getRole());
+               var_dump($_SESSION["owner"]);
                ?>
           
      </div>

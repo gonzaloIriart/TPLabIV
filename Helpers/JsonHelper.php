@@ -25,7 +25,6 @@
             $user->setPassword($encodedUser["password"]);
             $user->setName($encodedUser["name"]);
             $user->setRole($encodedUser["role"]);
-
             return $user;
         }
 

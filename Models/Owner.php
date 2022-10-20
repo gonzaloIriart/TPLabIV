@@ -4,31 +4,9 @@
     class Owner{
         private $ownerId;
         private $pets;
-        private $userId;
-        private $user;
+        private User $user;
 
-       
-
-        /**
-         * Get the value of ownerId
-         */ 
-        public function getOwnerId()
-        {
-                return $this->ownerId;
-        }
-
-        /**
-         * Set the value of ownerId
-         *
-         * @return  self
-         */ 
-        public function setOwnerId($ownerId)
-        {
-                $this->ownerId = $ownerId;
-
-                return $this;
-        }
-
+   
         /**
          * Get the value of pets
          */ 
@@ -82,11 +60,33 @@
          *
          * @return  self
          */ 
-        public function setUser($user)
+        public function setUser(User $user)
         {
                 $this->user = $user;
 
                 return $this;
         }
+
+        /**
+         * Get the value of ownerId
+         */ 
+        public function getOwnerId()
+        {
+                return $this->ownerId;
+        }
+
+        /**
+         * Set the value of ownerId
+         *
+         * @return  self
+         */ 
+        public function setOwnerId($ownerId)
+        {
+                $this->ownerId = $ownerId;
+
+                return $this;
+        }
     }
+
+
 ?>

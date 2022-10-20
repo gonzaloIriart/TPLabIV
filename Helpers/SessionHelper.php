@@ -24,6 +24,11 @@
             $_SESSION["loggedUser"] = $user;
         }
 
+        
+        public static function hydrateOwnerSession(Owner $owner) {            
+            $_SESSION["owner"] = $owner;
+        }
+
         public static function getLoginUser() {
             return $_SESSION["loggedUser"];
         }

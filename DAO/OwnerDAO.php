@@ -18,6 +18,19 @@
             $owner = new Owner();
             return $owner;
         }
+
+        function getOwnerByUserId($userId)
+        {
+
+            var_dump($userId);
+            $this->RetrieveData();
+            foreach($this->ownerList as $ownerItem){
+                if($userId == $ownerItem['user'])
+                {
+                    return $ownerItem;
+                }
+            }
+        }
         
         function GetPetListByOwner($id)
         {
@@ -54,11 +67,11 @@
 
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
-                foreach($arrayToDecode as $userItem){
-                    $pets = array();
+                foreach($arrayToDecode as $ownerItem){
                     $owner = new Owner();
-
-                    array_push($this->ownerList, $owner);
+                    $owner->setOwnerId($ownerItem["ownerId"]);
+                    $owner->setPets($ownerItem["pets"]);
+                    array_push($this->ownerList, $ownerItem);
                 }            
             }
         }

@@ -15,6 +15,12 @@
             $this->SaveData();
         }
 
+        public function GetAll()
+            {
+                $this->RetrieveData();
+                return $this->petList;
+            }
+
         function GetById($id){}
 
         function GetListByOwner($id){}
@@ -30,7 +36,7 @@
                 $valuesArray["size"] = $pet->getSize();
                 $valuesArray["picture"] = $pet->getPicture();
                 $valuesArray["video"] = $pet->getVideo();
-                $valuesArray["vaccinationSchedule"] = $pet->getVaccinationSchedule();
+                $valuesArray["vaccinationSchedule"] = $pet->getVaccinationScheduleImg();
                 $valuesArray["owner"] = $pet->getOwner();
                 
                 array_push($arrayToEncode, $valuesArray);
@@ -52,19 +58,15 @@
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $petItem){
+                    var_dump($petItem);
                     $pet = new Pet();
-                    $owner = new Owner();
-                    $user = new User();
                     $pet->setPetId($petItem["petId"]);
                     $pet->setName($petItem["name"]);
                     $pet->setSize($petItem["size"]);
                     $pet->setPicture($petItem["picture"]);
                     $pet->setVideo($petItem["video"]);
-                    $pet->setVaccinationSchedule($petItem["vaccinationSchedule"]);
-                    $owner->setOwnerId($petItem["owner"]["ownerId"]);
-                    $owner->setUser($user);
-                    $pet->setOwner($owner);
-
+                    $pet->setVaccinationScheduleImg($petItem["vaccunationScheduleImg"]);
+                    $owner->setOwner($petItem["owner"]);
                     array_push($this->petList, $pet);
                 }            
             }
