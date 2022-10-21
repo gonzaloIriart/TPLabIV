@@ -5,6 +5,7 @@
     use DAO\PetDAO as PetDAO;
     use DAO\OwnerDAO as OwnerDAO;
     use Helpers\SessionHelper as SessionHelper;
+    use Helpers\JsonHelper as JsonHelper;
     use Models\User as User;
     use Models\Owner as Owner;
     use Models\Pet as Pet;
@@ -15,7 +16,7 @@
         public function __construct()
         {
             $this->userDAO = new UserDAO;
-            $this->ownerDAO = new OwnerDAO;
+            $this->OwnerDAO = new OwnerDAO;
             $this->PetDAO = new PetDAO();
         }
 
@@ -33,14 +34,26 @@
             }
 
             $pet->setName($name);
-            $pet->setOwner($_SESSION["owner"]->getOwnerId);
+            $pet->setOwner($_SESSION["owner"]->getOwnerId());
             $pet->setPicture($picture);
             $pet->setVideo($video);
             $pet->setVaccinationScheduleImg($vaccinationSchedule);
             $this->PetDAO->Add($pet);
-
-            // require_once(VIEWS_PATH."home.php");
+            $this->OwnerDAO->AddPetToOwner($_SESSION["owner"]->getOwnerId(),$pet->getPetId());
         }
+
+        public function ShowPets()
+        {
+           $pets = JsonHelper::fromPetsIdToPetsObject($_SESSION["owner"]->getPets());
+           require_once(VIEWS_PATH."petList.php");
+        }
+
+        public function ShowPet($id)
+        {
+           $pet =  $this->PetDAO->GetById($id);
+           require_once(VIEWS_PATH."petDetail.php");
+        }
+
 
 
     }

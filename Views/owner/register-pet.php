@@ -28,7 +28,7 @@
     </div>
     <div class="form-group">
       <label for="vaccinationSchedule" class="form-label mt-4">Esquema de vacunacion</label>
-      <select class="form-select" name="vaccinationSchedule">
+      <select class="form-select" name="vaccinationScheduleImg">
         <option value="incomplete">Incompleto</option>
         <option value="complete">Completo</option>
       </select>

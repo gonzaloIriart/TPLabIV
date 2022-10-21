@@ -9,7 +9,9 @@
                <h3>Owner Home</h3>
           </header>
           <?php
+
                var_dump($_SESSION["owner"]);
+
                ?>
           
      </div>

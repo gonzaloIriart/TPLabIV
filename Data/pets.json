@@ -1,11 +1,74 @@
 [
     {
         "petId": 1,
+        "name": "lola",
+        "size": "Grande",
+        "picture": "https://t1.ea.ltmcdn.com/es/posts/5/6/2/10_caracteristicas_de_los_perros_24265_600_square.jpg",
+        "video": "https://www.youtube.com/embed/F0TPwpzaxeg",
+        "vaccinationScheduleImg": "https://www.megasalud.com.ar/wp-content/uploads/2021/09/Calendario-04-1024x685.jpg",
+        "owner": 1
+    },
+    {
+        "petId": 2,
+        "name": "pepe",
+        "size": "Pequeño",
+        "picture": "www.ejemplo.com",
+        "video": "www.ejemplo.com",
+        "vaccinationScheduleImg": "incomplete",
+        "owner": 1
+    },
+    {
+        "petId": 3,
+        "name": "paco",
+        "size": "Mediano",
+        "picture": "www.ejemplo.com",
+        "video": "www.ejemplo.com",
+        "vaccinationScheduleImg": "incomplete",
+        "owner": 1
+    },
+    {
+        "petId": 4,
         "name": "",
         "size": null,
         "picture": "www.ejemplo.com",
         "video": "www.ejemplo.com",
-        "vaccunationScheduleImg": null,
+        "vaccinationScheduleImg": "incomplete",
+        "owner": 1
+    },
+    {
+        "petId": 5,
+        "name": "",
+        "size": null,
+        "picture": "www.ejemplo.com",
+        "video": "www.ejemplo.com",
+        "vaccinationScheduleImg": "incomplete",
+        "owner": 1
+    },
+    {
+        "petId": 6,
+        "name": "",
+        "size": null,
+        "picture": "www.ejemplo.com",
+        "video": "www.ejemplo.com",
+        "vaccinationScheduleImg": "incomplete",
+        "owner": 1
+    },
+    {
+        "petId": 7,
+        "name": "",
+        "size": null,
+        "picture": "www.ejemplo.com",
+        "video": "www.ejemplo.com",
+        "vaccinationScheduleImg": "complete",
+        "owner": 1
+    },
+    {
+        "petId": 8,
+        "name": "",
+        "size": null,
+        "picture": "www.ejemplo.com",
+        "video": "www.ejemplo.com",
+        "vaccinationScheduleImg": "incomplete",
         "owner": 1
     }
 ]

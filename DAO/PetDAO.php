@@ -16,12 +16,23 @@
         }
 
         public function GetAll()
-            {
-                $this->RetrieveData();
-                return $this->petList;
+        {
+            $this->RetrieveData();
+            return $this->petList;
+        }
+
+        public function GetById($id)
+        {
+
+            $this->RetrieveData();
+        
+            foreach($this->petList as $petItem){
+                if($id == $petItem->getPetId()){
+                    return $petItem;
+                }
             }
 
-        function GetById($id){}
+        }
 
         function GetListByOwner($id){}
 
@@ -36,7 +47,7 @@
                 $valuesArray["size"] = $pet->getSize();
                 $valuesArray["picture"] = $pet->getPicture();
                 $valuesArray["video"] = $pet->getVideo();
-                $valuesArray["vaccinationSchedule"] = $pet->getVaccinationScheduleImg();
+                $valuesArray["vaccinationScheduleImg"] = $pet->getVaccinationScheduleImg();
                 $valuesArray["owner"] = $pet->getOwner();
                 
                 array_push($arrayToEncode, $valuesArray);
@@ -58,15 +69,14 @@
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $petItem){
-                    var_dump($petItem);
                     $pet = new Pet();
                     $pet->setPetId($petItem["petId"]);
                     $pet->setName($petItem["name"]);
                     $pet->setSize($petItem["size"]);
                     $pet->setPicture($petItem["picture"]);
                     $pet->setVideo($petItem["video"]);
-                    $pet->setVaccinationScheduleImg($petItem["vaccunationScheduleImg"]);
-                    $owner->setOwner($petItem["owner"]);
+                    $pet->setVaccinationScheduleImg($petItem["vaccinationScheduleImg"]);
+                    $pet->setOwner($petItem["owner"]);
                     array_push($this->petList, $pet);
                 }            
             }
