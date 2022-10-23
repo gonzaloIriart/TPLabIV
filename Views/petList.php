@@ -1,7 +1,7 @@
 <?php 
     require_once("nav.php");
 ?>
-<table class="table table-hover">
+<table class="table table-hover table-box">
   <thead>
     <tr>
       <th scope="col">Name</th>

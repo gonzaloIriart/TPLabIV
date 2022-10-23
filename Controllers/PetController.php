@@ -35,6 +35,7 @@
 
             $pet->setName($name);
             $pet->setOwner($_SESSION["owner"]->getOwnerId());
+            $pet->setSize($size);
             $pet->setPicture($picture);
             $pet->setVideo($video);
             $pet->setVaccinationScheduleImg($vaccinationSchedule);
