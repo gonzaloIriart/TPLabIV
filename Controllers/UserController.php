@@ -18,8 +18,10 @@
         public function Register($name, $email, $password) 
         {
             if($this->userDAO->GetUserByEmail($email))
+            {
                 $this->RegisterView("El email ya se encuentra en uso.");
-
+            }
+               
             $user = new User();
             $user->setName($name);
             $user->setEmail($email);
@@ -28,7 +30,7 @@
             
             $user = $this->userDAO->GetUserByEmail($email);
             SessionHelper::hydrateUserSession($user);
-            require_once(VIEWS_PATH."home.php");
+            require_once(VIEWS_PATH."ownerHome.php");
             
         }
 

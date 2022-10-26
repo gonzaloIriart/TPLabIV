@@ -24,6 +24,7 @@
         {
             $pet = new Pet();
             $petList = $this->PetDAO->GetAll();
+            
             if(count($petList) == 0)
             {
                 $pet->setPetId(1);
