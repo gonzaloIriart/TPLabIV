@@ -16,5 +16,23 @@
         "video": "https:\/\/www.youtube.com\/embed\/yZMix6uB7KM",
         "vaccinationScheduleImg": "https:\/\/www.salta.gob.ar\/public\/images\/noticias\/82777-las-vacunas-contra-la-gripe-y-covid-19-pueden-aplicarse-en-forma-simultanea.jpg",
         "owner": 1
+    },
+    {
+        "petId": 3,
+        "name": "sdasda",
+        "size": "medium",
+        "picture": "https:\/\/img.freepik.com\/foto-gratis\/adorable-perro-basenji-marron-blanco-sonriendo-dando-maximo-cinco-aislado-blanco_346278-1657.jpg?t=st=1666308319~exp=1666308919~hmac=9a234042da8d9531e1222fb14a712c2d86fdcd08d5ea1fb70c24367fb94fe3da",
+        "video": "https:\/\/www.youtube.com\/watch?v=4sVPBVhOAgU",
+        "vaccinationScheduleImg": "https:\/\/www.salta.gob.ar\/public\/images\/noticias\/82777-las-vacunas-contra-la-gripe-y-covid-19-pueden-aplicarse-en-forma-simultanea.jpg",
+        "owner": 1
+    },
+    {
+        "petId": 4,
+        "name": "pepa",
+        "size": "medium",
+        "picture": "https:\/\/img.freepik.com\/foto-gratis\/adorable-perro-basenji-marron-blanco-sonriendo-dando-maximo-cinco-aislado-blanco_346278-1657.jpg?t=st=1666308319~exp=1666308919~hmac=9a234042da8d9531e1222fb14a712c2d86fdcd08d5ea1fb70c24367fb94fe3da",
+        "video": "https:\/\/www.youtube.com\/embed\/7bhKI0Mw6Yk",
+        "vaccinationScheduleImg": "https:\/\/www.salta.gob.ar\/public\/images\/noticias\/82777-las-vacunas-contra-la-gripe-y-covid-19-pueden-aplicarse-en-forma-simultanea.jpg",
+        "owner": 1
     }
 ]

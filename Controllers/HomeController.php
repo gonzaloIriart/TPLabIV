@@ -42,13 +42,11 @@
                     $owner->setPets($this->ownerDAO->getOwnerByUserId ($user->getUserId())->getPets());
                     $owner->setUser($user);
                     SessionHelper::hydrateOwnerSession($owner);
-
-
                     require_once(VIEWS_PATH."ownerHome.php");
                 }
                 else
                 {
-                    require_once(VIEWS_PATH."keeperHome.php");
+                    require_once(VIEWS_PATH."ownerHome.php");
                 }
                 
 
