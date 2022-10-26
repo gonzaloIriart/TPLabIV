@@ -24,11 +24,12 @@
             $user->setName($name);
             $user->setEmail($email);
             $user->setPassword($password);
+            $user->setRole("d");
             $this->userDAO->Add($user);
             
             $user = $this->userDAO->GetUserByEmail($email);
             SessionHelper::hydrateUserSession($user);
-            require_once(VIEWS_PATH."home.php");
+            require_once(VIEWS_PATH."keeperHome.php");
             
         }
 

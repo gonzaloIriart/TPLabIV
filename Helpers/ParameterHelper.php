@@ -7,12 +7,11 @@
     use Models\Owner;
     use Models\Pet;
 
-    class JsonHelper {
+    class ParameterHelper {
         static function encodeUser($user){
-            $encodedUser["userId"] = $user->getUserId();
-            $encodedUser["email"] = $user->getEmail();
-            $encodedUser["password"] = $user->getPassword();
             $encodedUser["name"] = $user->getName();
+            $encodedUser["password"] = $user->getPassword();
+            $encodedUser["email"] = $user->getEmail();
             $encodedUser["role"] = $user->getRole();
             
             return $encodedUser;

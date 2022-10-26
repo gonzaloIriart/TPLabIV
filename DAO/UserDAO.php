@@ -5,11 +5,13 @@
     use Models\Keeper as Keeper;
     use Models\Owner as Owner;
     use DAO\IUserDAO as IUserDAO;
-    use Helpers\JsonHelper as JsonHelper;
+    use Helpers\ParameterHelper as ParameterHelper;
 
     class UserDAO implements IUserDAO
     {
         private $userList = array();
+        private $connection;
+        private $tableName = "user";
      
         public function GetUserByEmail(string $email){
             $this->RetrieveData();
@@ -44,9 +46,13 @@
         }
 
         public function Add(User $user){
-            $this->RetrieveData();
-            array_push($this->userList, $user);
-            $this->SaveData();
+            $query = "INSERT INTO ".$this->tableName." (name, password, email, role) VALUES (:name, :password, :email, :role)";
+
+            $parameters = ParameterHelper::encodeUser($user);
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
         }
 
         private function SaveData()
@@ -54,7 +60,7 @@
             $arrayToEncode = array();
 
             foreach($this->userList as $user) {
-                $encodedUSer = JsonHelper::encodeUser($user);
+                $encodedUSer = ParameterHelper::encodeUser($user);
                 array_push($arrayToEncode, $encodedUSer);
             }
 
@@ -74,7 +80,7 @@
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $userItem){
-                    $user = JsonHelper::decodeUser($userItem);
+                    $user = ParameterHelper::decodeUser($userItem);
                     array_push($this->userList, $user);
                 }            
             }
