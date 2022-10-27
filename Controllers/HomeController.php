@@ -3,6 +3,7 @@
 
     use DAO\UserDAO as UserDAO;
     use DAO\OwnerDAO as OwnerDAO;
+    use DAO\KeeperDAO as KeeperDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\User as User;
     use Models\Owner as Owner;
@@ -10,11 +11,14 @@
     class HomeController
     {
         private $userDAO;
+        private $ownerDAO;
+        private $keeperDAO;
 
         public function __construct()
         {
             $this->userDAO = new UserDAO;
             $this->ownerDAO = new OwnerDAO;
+            $this->keeperDAO = new KeeperDAO;
         }
 
         public function Index($message = "")
@@ -47,6 +51,7 @@
                 }
                 else
                 {
+                    $keeper = $this->keeperDAO;
                     require_once(VIEWS_PATH."keeperHome.php");
                 }
                 

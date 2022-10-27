@@ -14,15 +14,21 @@
         private $tableName = "user";
      
         public function GetUserByEmail(string $email){
-            $this->RetrieveData();
-            
-            foreach($this->userList as $userItem){
-                if($email == $userItem->getEmail()){
-                    return $userItem;
-                }
+            $query = "SELECT userId, name, password, email, role FROM ".$this->tableName." WHERE email = :email";
+
+
+            $this->connection = Connection::GetInstance();
+            $parameters["email"] = $email;
+
+            $results = $this->connection->Execute($query, $parameters);
+
+            foreach($results as $userItem)
+            {
+                $user = new User();
+                $user = ParameterHelper::decodeUser($userItem);
             }
 
-            return null;
+            return $user;
         }
 
         public function GetUserById($id){
