@@ -29,6 +29,10 @@
             $_SESSION["owner"] = $owner;
         }
 
+        public static function hydrateKeeperSession(Keeper $keeper) {            
+            $_SESSION["keeper"] = $keeper;
+        }
+
         public static function getLoginUser() {
             return $_SESSION["loggedUser"];
         }

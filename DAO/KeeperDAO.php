@@ -31,6 +31,23 @@
             return null;
         }
 
+        public function getKeeperByUserId($userId){
+            $query = "CALL Keeper_GetByUserId(?)";
+
+            $this->connection = Connection::GetInstance();
+            $parameters["userId"] = $userId;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            foreach($results as $keeperItem)
+            {
+                $keeper = new Keeper();
+                $keeper = ParameterHelper::decodeKeeper($keeperItem);
+            }
+
+            return $keeper;
+        }
+
         function ListByDogSize($dogSize) {}
 
         private function SaveData()

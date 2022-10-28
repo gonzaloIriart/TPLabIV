@@ -7,6 +7,7 @@
     use Helpers\SessionHelper as SessionHelper;
     use Models\User as User;
     use Models\Owner as Owner;
+    use Models\Keeper as Keeper;
 
     class HomeController
     {
@@ -50,7 +51,10 @@
                 }
                 else
                 {
-                    $keeper = $this->keeperDAO;
+                    $keeper = $this->keeperDAO->getKeeperByUserId($user->getUserId());
+                    $keeper->setUser($user);
+                    SessionHelper::hydrateKeeperSession($keeper);
+
                     require_once(VIEWS_PATH."keeperHome.php");
                 }
                 

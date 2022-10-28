@@ -6,7 +6,7 @@
           </header>
           <?php
                var_dump($user->getUserId());
-               var_dump($user->getRole());
+               var_dump($keeper->getKeeperId());
                ?>
           
      </div>

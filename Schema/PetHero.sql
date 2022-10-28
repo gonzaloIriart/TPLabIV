@@ -8,16 +8,18 @@ CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(100),
     email VARCHAR(100),
     role CHAR,
-    CONSTRAINT PK_Id PRIMARY KEY (id)
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    CONSTRAINT UC_Email UNIQUE (email)
 )Engine=InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS keeper
 (
 	id INT NOT NULL AUTO_INCREMENT,
-    dogSize VARCHAR(10) NOT NULL,
+    sizeOfDog VARCHAR(10) NOT NULL,
     dailyFee DOUBLE NOT NULL,
     userId INT NOT NULL,
+    UNIQUE (id),
     CONSTRAINT PK_Id PRIMARY KEY (id),
     FOREIGN KEY (userId) REFERENCES user(id)
 )Engine=InnoDB;
@@ -68,7 +70,7 @@ DELIMITER $$
 
 CREATE PROCEDURE Keeper_GetByUserId (IN UserId INT)
 BEGIN
-	SELECT keeper.userId, keeper.dailyFee, keeper.dogSize
+	SELECT keeper.id, keeper.dailyFee, keeper.sizeOfDog, keeper.userId
     FROM keeper
     WHERE (keeper.userId = UserId);
 END$$
@@ -79,12 +81,12 @@ DROP procedure IF EXISTS `Keeper_Add`;
 
 DELIMITER $$
 
-CREATE PROCEDURE Keeper_Add (IN dogSize CHAR(10), IN dailyFee DOUBLE, IN userId INT)
+CREATE PROCEDURE Keeper_Add (IN sizeOfDog CHAR(10), IN dailyFee DOUBLE, IN userId INT)
 BEGIN
 	INSERT INTO keeper
-        (keeper.dogSize, keeper.dailyFee, keeper.userId)
+        (keeper.sizeOfDog, keeper.dailyFee, keeper.userId)
     VALUES
-        (dogSize, dailyFee, userId);
+        (sizeOfDog, dailyFee, userId);
 END$$
 
 DELIMITER ;
@@ -96,6 +98,6 @@ VALUES
 	('Ruperto', 'keeper', 'keeper@mail.com', 'k');
     
 INSERT INTO keeper
-	(dogSize, dailyFee, userId)
+	(sizeOfDog, dailyFee, userId)
 VALUES 
-	('smaill', 80.5, 2);
+	('small', 80.5, 2);
