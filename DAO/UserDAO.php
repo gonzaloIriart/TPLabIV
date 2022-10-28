@@ -5,73 +5,64 @@
     use Models\Keeper as Keeper;
     use Models\Owner as Owner;
     use DAO\IUserDAO as IUserDAO;
-    use Helpers\JsonHelper as JsonHelper;
+    use Helpers\ParameterHelper as ParameterHelper;
 
     class UserDAO implements IUserDAO
     {
         private $userList = array();
+        private $connection;
+        private $tableName = "user";
      
         public function GetUserByEmail(string $email){
-            $this->RetrieveData();
-            
-            foreach($this->userList as $userItem){
-                if($email == $userItem->getEmail()){
-                    return $userItem;
-                }
+            $query = "CALL User_GetByEmail(?)";
+
+            $this->connection = Connection::GetInstance();
+            $parameters["email"] = $email;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            $user = new User();
+            foreach($results as $userItem)
+            {
+                $user = ParameterHelper::decodeUser($userItem);
             }
 
-            return null;
+            return $user;
         }
 
         public function GetUserById($id){
-            $this->RetrieveData();
-            
-            foreach($this->userList as $userItem){
-                if($id == $userItem->getUserId()){
-                    return $userItem;
-                }
+            $query = "CALL User_GetById(?)";
+
+            $this->connection = Connection::GetInstance();
+            $parameters["id"] = $id;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            foreach($results as $userItem)
+            {
+                $user = new User();
+                $user = ParameterHelper::decodeUser($userItem);
             }
 
-            return null;
+            return $user;
         }
 
         public function isOwner(User $user){
-            foreach($user->getRoles() as $rol){
-                if($rol->getRol() == "owner")
-                    return true;
-            }
-            return false;
+            return ($user->getRole() == "o");
         }
 
         public function isKeeper(User $user){
-            foreach($user->getRoles() as $rol){
-                if($rol->getRol() == "keeper")
-                    return true;
-            }
-            return false;
+            return ($user->getRole() == "k");
         }
 
         public function Add(User $user){
-            $this->RetrieveData();
-            array_push($this->userList, $user);
-            $this->SaveData();
-        }
+            $query = "CALL User_Add(?, ?, ?, ?)";
 
-        public function AddRol(User $user, string $rol){
-            $userRol = new UserRol();
-            $userRol->setUser($user);
-            $userRol->setRol($rol);
-            $this->UserRolDAO->Add($userRol);
-            // Set user to null before adding the rol to avoid circular reference.
-            $userRol->setUser(null);
-            array_push($user->getRoles(), $userRol);
-            foreach($this->userList as $userItem){
-                if($userItem->getUserId() == $user->getUserId()){
-                    $userItem = $user;
-                }
-            }
-            $this->SaveData();
-            return $user;
+            $parameters = ParameterHelper::encodeUser($user);
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
         private function SaveData()
@@ -79,7 +70,7 @@
             $arrayToEncode = array();
 
             foreach($this->userList as $user) {
-                $encodedUSer = JsonHelper::encodeUser($user);
+                $encodedUSer = ParameterHelper::encodeUser($user);
                 array_push($arrayToEncode, $encodedUSer);
             }
 
@@ -99,7 +90,7 @@
                 $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
                 foreach($arrayToDecode as $userItem){
-                    $user = JsonHelper::decodeUser($userItem);
+                    $user = ParameterHelper::decodeUser($userItem);
                     array_push($this->userList, $user);
                 }            
             }

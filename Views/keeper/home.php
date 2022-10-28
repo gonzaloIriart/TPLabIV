@@ -1,3 +1,6 @@
+<?php 
+?>
+
 <main class="d-flex align-items-center justify-content-center height-100" >
      <div class="content">
           <header class="text-center">
@@ -6,7 +9,7 @@
           </header>
           <?php
                var_dump($user->getUserId());
-               var_dump($keeper->getKeeperId());
+               var_dump($user->getRole());
                ?>
           
      </div>

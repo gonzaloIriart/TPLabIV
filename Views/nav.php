@@ -1,3 +1,7 @@
+<?php 
+     require_once('validate-session.php');
+?>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
      <div class="container-fluid">
           <a class="navbar-brand" href="<?php echo  FRONT_ROOT . "Owner/HomeView " ?>"><strong>Pet Hero</strong></a>
