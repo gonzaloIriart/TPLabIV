@@ -10,8 +10,8 @@
     class ParameterHelper {
         static function encodeUser($user){
             $encodedUser["name"] = $user->getName();
-            $encodedUser["password"] = $user->getPassword();
             $encodedUser["email"] = $user->getEmail();
+            $encodedUser["password"] = $user->getPassword();
             $encodedUser["role"] = $user->getRole();
             
             return $encodedUser;
@@ -31,9 +31,6 @@
         {
             $encodedKeeper["sizeOfDog"] = $keeper->getSizeOfDog();
             $encodedKeeper["dailyFee"] = $keeper->getDailyFee();
-            $encodedKeeper["reviews"] = null;
-            $encodedKeeper["reserves"] = null;
-            $encodedKeeper["availableDays"] = null;
             $encodedKeeper["userId"] = $keeper->getUser()->getUserId();
 
             return $encodedKeeper;

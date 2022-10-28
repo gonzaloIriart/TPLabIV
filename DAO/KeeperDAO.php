@@ -9,9 +9,13 @@
 
         function Add(Keeper $keeper) 
         {
-            $this->RetrieveData();
-            array_push($this->keeperList, $keeper);
-            $this->SaveData();
+            $query = "CALL Keeper_Add(?, ?, ?)";
+
+            $parameters = ParameterHelper::encodeKeeper($keeper);
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
         function GetAll($limit = null)
@@ -39,9 +43,9 @@
 
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
+            $keeper = new Keeper();
             foreach($results as $keeperItem)
             {
-                $keeper = new Keeper();
                 $keeper = ParameterHelper::decodeKeeper($keeperItem);
             }
 

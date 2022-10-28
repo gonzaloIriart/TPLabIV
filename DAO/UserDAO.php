@@ -21,9 +21,9 @@
 
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
+            $user = new User();
             foreach($results as $userItem)
             {
-                $user = new User();
                 $user = ParameterHelper::decodeUser($userItem);
             }
 

@@ -5,8 +5,8 @@ use pet_hero;
 CREATE TABLE IF NOT EXISTS user (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(100),
-    password VARCHAR(100),
     email VARCHAR(100),
+    password VARCHAR(100),
     role CHAR,
     CONSTRAINT PK_Id PRIMARY KEY (id),
     CONSTRAINT UC_Email UNIQUE (email)
@@ -92,10 +92,10 @@ END$$
 DELIMITER ;
 
 INSERT INTO user
-	(name, password, email, role)
+	(name, email, password, role)
 VALUES 
-	('Rodolfo', 'owner', 'owner@mail.com', 'o'),
-	('Ruperto', 'keeper', 'keeper@mail.com', 'k');
+	('Rodolfo', 'owner@mail.com', 'owner', 'o'),
+	('Ruperto', 'keeper@mail.com', 'keeper', 'k');
     
 INSERT INTO keeper
 	(sizeOfDog, dailyFee, userId)
