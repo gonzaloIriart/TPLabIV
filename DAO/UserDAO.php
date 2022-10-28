@@ -14,13 +14,12 @@
         private $tableName = "user";
      
         public function GetUserByEmail(string $email){
-            $query = "SELECT userId, name, password, email, role FROM ".$this->tableName." WHERE email = :email";
-
+            $query = "CALL User_GetByEmail(?)";
 
             $this->connection = Connection::GetInstance();
             $parameters["email"] = $email;
 
-            $results = $this->connection->Execute($query, $parameters);
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
             foreach($results as $userItem)
             {
@@ -32,15 +31,20 @@
         }
 
         public function GetUserById($id){
-            $this->RetrieveData();
-            
-            foreach($this->userList as $userItem){
-                if($id == $userItem->getUserId()){
-                    return $userItem;
-                }
+            $query = "CALL User_GetById(?)";
+
+            $this->connection = Connection::GetInstance();
+            $parameters["id"] = $id;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            foreach($results as $userItem)
+            {
+                $user = new User();
+                $user = ParameterHelper::decodeUser($userItem);
             }
 
-            return null;
+            return $user;
         }
 
         public function isOwner(User $user){
@@ -52,13 +56,13 @@
         }
 
         public function Add(User $user){
-            $query = "INSERT INTO ".$this->tableName." (name, password, email, role) VALUES (:name, :password, :email, :role)";
+            $query = "CALL User_Add(?, ?, ?, ?)";
 
             $parameters = ParameterHelper::encodeUser($user);
 
             $this->connection = Connection::GetInstance();
 
-            $this->connection->ExecuteNonQuery($query, $parameters);
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
         private function SaveData()

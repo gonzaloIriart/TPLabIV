@@ -2,7 +2,7 @@
     namespace DAO;
     use DAO\IKeeperDAO;
     use Models\Keeper as Keeper;
-    use Helpers\JsonHelper as JsonHelper;
+    use Helpers\ParameterHelper;
 
     class KeeperDAO implements IKeeperDAO {
         private $keeperList = array();
@@ -38,7 +38,7 @@
             $arrayToEncode = array();
 
             foreach($this->keeperList as $keeper) {
-                $encodedKeeper = JsonHelper::encodeKeeper($keeper);
+                $encodedKeeper = ParameterHelper::encodeKeeper($keeper);
                 array_push($arrayToEncode, $encodedKeeper);
             }
 
@@ -59,7 +59,7 @@
                 
                 foreach($arrayToDecode as $keeperItem)
                 {
-                    $keeper = JsonHelper::decodeKeeper($keeperItem);
+                    $keeper = ParameterHelper::decodeKeeper($keeperItem);
                 }
             }
         }

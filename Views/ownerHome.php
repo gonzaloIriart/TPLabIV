@@ -1,5 +1,5 @@
-<main class="d-flex align-items-center justify-content-center height-100" >
-     <div class="content">
+<main class="d-flex justify-content-center" >
+     <div class="jumbotron">
           <header class="text-center">
                <h2>Welcome <?php echo $_SESSION["loggedUser"]->getName() ?> to Pet Hero</h2>
                <h3>Owner Home</h3>
