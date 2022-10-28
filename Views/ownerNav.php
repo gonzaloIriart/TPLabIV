@@ -1,10 +1,6 @@
-<?php 
-     require_once('validate-session.php');
-?>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
      <div class="container-fluid">
-          <a class="navbar-brand" href="<?php echo  FRONT_ROOT . "Owner/HomeView " ?>"><strong>Pet Hero</strong></a>
+          <a class="navbar-brand" href="<?php echo  FRONT_ROOT . "index.php" ?>"><strong>Pet Hero</strong></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
           </button>
@@ -13,7 +9,6 @@
                     <li class="nav-item">
                          <?php if (isset($_SESSION["keeperUser"])) : ?>
                               <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>">Keeper</a>
-                         <?php endif; ?>
                     </li>
 
                     <li class="nav-item">                         

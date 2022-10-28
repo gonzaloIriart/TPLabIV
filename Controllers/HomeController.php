@@ -42,11 +42,10 @@
                 if($user->getRole() == 'o')
                 {
                     $owner = new Owner();
-                    $owner->setOwnerId($this->ownerDAO->getOwnerByUserId ($user->getUserId())['ownerId']);
-                    $owner->setPets($this->ownerDAO->getOwnerByUserId ($user->getUserId())['pets']);
+                    $owner->setOwnerId($this->ownerDAO->getOwnerByUserId ($user->getUserId())->getOwnerId());
+                    $owner->setPets($this->ownerDAO->getOwnerByUserId ($user->getUserId())->getPets());
                     $owner->setUser($user);
                     SessionHelper::hydrateOwnerSession($owner);
-
                     require_once(VIEWS_PATH."ownerHome.php");
                 }
                 else

@@ -22,8 +22,10 @@
         public function Register($name, $email, $password, $role = 'o', $sizeOfDog = null, $dailyFee = null) 
         {
             if($this->userDAO->GetUserByEmail($email))
+            {
                 $this->RegisterView("El email ya se encuentra en uso.");
-
+            }
+               
             $user = new User();
             $user->setName($name);
             $user->setEmail($email);
@@ -42,7 +44,7 @@
             
             $user = $this->userDAO->GetUserByEmail($email);
             SessionHelper::hydrateUserSession($user);
-            require_once(VIEWS_PATH."keeperHome.php");
+            require_once(VIEWS_PATH."home.php");
             
         }
 

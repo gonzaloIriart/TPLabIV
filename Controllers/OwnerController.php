@@ -26,5 +26,9 @@
         {
             require_once(VIEWS_PATH."owner/register-pet.php");
         } 
+        public function HomeView($message = "")
+        {
+            require_once(VIEWS_PATH."ownerHome.php");
+        } 
     }
 ?>

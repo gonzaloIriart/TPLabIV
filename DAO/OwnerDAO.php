@@ -22,10 +22,9 @@
         function getOwnerByUserId($userId)
         {
 
-            var_dump($userId);
             $this->RetrieveData();
             foreach($this->ownerList as $ownerItem){
-                if($userId == $ownerItem['user'])
+                if($userId == $ownerItem->getOwnerId())
                 {
                     return $ownerItem;
                 }
@@ -36,22 +35,36 @@
         {
         }
         
-        function AddPetToOwner(Owner $owner, Pet $pet)
+        function AddPetToOwner($ownerId, $petId)
         {
             $this->RetrieveData();
-            $ownerPets = $owner->getPets();
-            array_push($ownerPets, $pet);
             foreach($this->ownerList as $ownerItem){
-                if($ownerItem->getOwnerId() == $owner->getOwnerId()){
-                    $ownerItem = $owner;
+                if($ownerItem->getOwnerId() == $ownerId){
+                    $_SESSION["owner"]->setPets($ownerItem->getPets().', '. $petId);
+                    $ownerItem->setPets($ownerItem->getPets().', '. $petId);
+                  
+                    var_dump($ownerItem);
+                    var_dump($_SESSION["owner"]);
+                    
                 }
             }
             $this->SaveData();
         }        
 
         private function SaveData()
-        {           
+        {   
+        
             $arrayToEncode = array();
+
+            foreach($this->ownerList as $owner)
+            {
+                $valuesArray["ownerId"] = $owner->getOwnerId();
+                $valuesArray["pets"] = $owner->getPets();
+                $valuesArray["user"] = $owner->getUser();
+                
+                array_push($arrayToEncode, $valuesArray);
+            }
+
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
             
             file_put_contents('Data/owners.json', $jsonContent);
@@ -71,7 +84,7 @@
                     $owner = new Owner();
                     $owner->setOwnerId($ownerItem["ownerId"]);
                     $owner->setPets($ownerItem["pets"]);
-                    array_push($this->ownerList, $ownerItem);
+                    array_push($this->ownerList, $owner);
                 }            
             }
         }
