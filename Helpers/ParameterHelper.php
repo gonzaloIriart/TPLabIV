@@ -6,6 +6,7 @@
     use Models\Keeper;
     use Models\Owner;
     use Models\Pet;
+    use Models\Event as Event;
 
     class ParameterHelper {
         static function encodeUser($user){
@@ -44,6 +45,24 @@
             $keeper->setDailyFee($encodedKeeper["dailyFee"]);
 
             return $keeper;
+        }
+
+        static function encodeEvent($event)
+        {
+            $encodedEvent["status"] = $event->getStatus();
+            $encodedEvent["startDate"] = $event->getStartDate();
+            $encodedEvent["endDate"] = $event->getEndDate();
+            $encodedEvent["keeperId"] = $event->getKeeper()->getKeeperId();
+        }
+
+        static function decodeEvent($encodedEvent)
+        {
+            $event = new Event();
+            
+            $event->setEventId($encodedEvent["id"]);
+            $event->setStatus($encodedEvent["status"]);
+            $event->setStartDate($encodedEvent["startDate"]);
+            $event->setEndDate($encodedEvent["endDate"]);
         }
     }
 ?>
