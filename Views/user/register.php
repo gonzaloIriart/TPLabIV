@@ -1,3 +1,7 @@
+<?php
+echo($message ?? "");
+?>
+
 <h2>User Register</h2>
 <form action="<?php echo FRONT_ROOT . "User/Register" ?>" method="post" style="background-color: #EAEDED;padding: 2rem !important;">
     <div class="input-group mb-3">
@@ -9,7 +13,7 @@
     <div class="input-group mb-3">
         <input type="password" class="form-control" placeholder="password" name="password" aria-label="Username" aria-describedby="basic-addon1">
     </div>
-    <input type="checkbox" name="role" onclick="ShowHideKeeper(this)" id="role"><label class="ml-2">Register as keeper?</label>
+    <input type="checkbox" name="role" value="o" onclick="ShowHideKeeper(this)" id="role"><label class="ml-2">Register as keeper?</label>
     
     <div id="keeperRegister" style="display: none">
         <div class="form-group">

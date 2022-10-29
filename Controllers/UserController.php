@@ -3,7 +3,7 @@
     namespace Controllers;
 
     use DAO\UserDAO as UserDAO;
-    use DAO\OwnerDAO as OwnerDAO;
+    use DAO\OwnerDAOsql as OwnerDAOsql;
     use DAO\KeeperDAO as KeeperDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\User as User;
@@ -13,30 +13,38 @@
     class UserController
     {
         private $userDAO;
-        private $ownerDAO;
+        private $OwnerDAOsql;
         private $keeperDAO;
 
         public function __construct()
         {
             $this->userDAO = new UserDAO;
-            $this->ownerDAO = new OwnerDAO;
+            $this->OwnerDAOsql = new OwnerDAOsql;
             $this->keeperDAO = new KeeperDAO;
         }
 
-        public function Register($name, $email, $password, $role = 'o', $sizeOfDog = null, $dailyFee = null) 
+        public function Register($name, $email, $password, $role, $sizeOfDog = null, $dailyFee = null) 
         {
-            if($this->userDAO->GetUserByEmail($email))
+            if (!($role == 'o' || $role == 'k'))
+            {
+                $role = 'o';
+            }
+
+            if($this->userDAO->GetUserByEmail($email)->getUserId() != null)
             {
                 $this->RegisterView("El email ya se encuentra en uso.");
             }
-               
+            
             $user = new User();
             $user->setName($name);
             $user->setEmail($email);
             $user->setPassword($password);
             $user->setRole($role);
+
             $this->userDAO->Add($user);
             $user = $this->userDAO->GetUserByEmail($email);
+
+          
 
             if($role == 'k'){
                 $keeper = new Keeper();
@@ -46,11 +54,20 @@
 
                 $this->keeperDAO->Add($keeper);
             }
+            if($role == 'o')
+            {
+                $owner = new Owner();
+                $owner->setUser($user);
+                $this->OwnerDAOsql->Add($owner);
+
+            }
             
             SessionHelper::hydrateUserSession($user);
             
             if($user->getRole() == 'o'){
-                $owner=$this->ownerDAO->getOwnerByUserId($user->getUserId());
+         
+                $owner = $this->OwnerDAOsql->getOwnerByUserId($user->getUserId());
+                $owner->setUser($user);
                 SessionHelper::hydrateOwnerSession($owner);
                 require_once(VIEWS_PATH."ownerHome.php");
             }

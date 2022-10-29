@@ -36,6 +36,12 @@
             return $encodedKeeper;
         }
 
+        static function encodeOwner($owner)
+        {
+            $encodedOwner["userId"] = $owner->getUser()->getUserId();
+            return $encodedOwner;
+        }
+
         static function decodeKeeper($encodedKeeper)
         {
             $keeper = new Keeper();
@@ -44,6 +50,14 @@
             $keeper->setDailyFee($encodedKeeper["dailyFee"]);
 
             return $keeper;
+        }
+
+        static function decodeOwner($encodedOwner)
+        {
+            $owner = new Owner();
+            $owner->setOwnerId($encodedOwner["id"]);
+
+            return $owner;
         }
     }
 ?>

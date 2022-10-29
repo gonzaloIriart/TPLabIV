@@ -10,6 +10,7 @@
         private $video;
         private $picture;
         private $vaccinationScheduleImg;
+        private $description;
 
 
 
@@ -171,6 +172,26 @@
         public function setVaccinationScheduleImg($vaccinationScheduleImg)
         {
                 $this->vaccinationScheduleImg = $vaccinationScheduleImg;
+
+                return $this;
+        }
+
+         /**
+         * Get the value of description
+         */ 
+        public function getDescription()
+        {
+                return $this->description;
+        }
+
+        /**
+         * Set the value of description
+         *
+         * @return  self
+         */ 
+        public function setDecription($description)
+        {
+                $this->description = $description;
 
                 return $this;
         }
