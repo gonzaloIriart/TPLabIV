@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS event
     UNIQUE (id),
     CONSTRAINT PK_Id PRIMARY KEY (id),
     FOREIGN KEY (keeperId) REFERENCES keeper(id)
-)
+)Engine=InnoDB;
 
 DROP procedure IF EXISTS `User_GetByEmail`;
 
@@ -80,10 +80,10 @@ DROP procedure IF EXISTS `Keeper_GetAll`;
 
 DELIMITER $$
 
-CREATE PROCEDURE Keeper_GetByUserId (IN UserId INT)
+CREATE PROCEDURE Keeper_GetAll (IN UserId INT)
 BEGIN
 	SELECT keeper.id, keeper.dailyFee, keeper.sizeOfDog, keeper.userId
-    FROM keeper
+    FROM keeper;
 END$$
 
 DELIMITER ;
@@ -132,7 +132,7 @@ DROP procedure IF EXISTS `Event_Add`;
 
 DELIMITER $$
 
-CREATE PROCEDURE Keeper_Add (IN status VARCHAR(20), IN startDate DATETIME, IN endDate DATETIME, IN keeperId INT)
+CREATE PROCEDURE Event_Add (IN status VARCHAR(20), IN startDate DATETIME, IN endDate DATETIME, IN keeperId INT)
 BEGIN
 	INSERT INTO event
         (event.status, event.startDate, event.endDate, event.keeperId)
