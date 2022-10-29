@@ -40,7 +40,7 @@ DROP procedure IF EXISTS `User_GetByEmail`;
 
 DELIMITER $$
 
-CREATE PROCEDURE User_GetByEmail (IN email VARCHAR(100))
+CREATE PROCEDURE User_GetByEmail (IN Email VARCHAR(100))
 BEGIN
 	SELECT user.id, user.name, user.password, user.email, user.role
     FROM user
@@ -152,4 +152,57 @@ INSERT INTO keeper
 	(sizeOfDog, dailyFee, userId)
 VALUES 
 	('small', 80.5, 2);
+
+DELIMITER ;
+
+CREATE TABLE IF NOT EXISTS owner
+(
+	id INT NOT NULL AUTO_INCREMENT,
+    userId INT NOT NULL,
+    UNIQUE (id),
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (userId) REFERENCES user(id)
+)Engine=InnoDB;
+
+DELIMITER ;
+
+CREATE TABLE IF NOT EXISTS pet
+(
+	id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    video VARCHAR(1000) NOT NULL,
+    picture VARCHAR(1000) NOT NULL,
+    vaccinationScheduleImg VARCHAR(1000) NOT NULL,
+    description VARCHAR(1000) NOT NULL,
+    ownerId INT NOT NULL,
+    UNIQUE (id),
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (ownerId) REFERENCES owner(id)
+)Engine=InnoDB;
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Owner_Add`;
+
+DELIMITER $$
+CREATE PROCEDURE Owner_Add (IN userId INT)
+BEGIN
+	INSERT INTO owner
+        (owner.userId)
+    VALUES
+        (userId);
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Owner_GetByUserId`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Owner_GetByUserId (IN UserId INT)
+BEGIN
+	SELECT owner.id, owner.userId
+    FROM owner
+    WHERE (owner.userId = UserId);
+END$$
 

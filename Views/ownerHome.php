@@ -1,3 +1,7 @@
+<?php 
+    require_once("Views/nav.php");
+?>
+
 <main class="d-flex justify-content-center" >
      <div class="jumbotron">
           <header class="text-center">
@@ -5,7 +9,7 @@
                <h3>Owner Home</h3>
           </header>
           <?php
-               var_dump($_SESSION["owner"]->getUser());
+               var_dump($_SESSION["owner"]);
                ?>
           
      </div>
