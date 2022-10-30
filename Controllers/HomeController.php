@@ -55,7 +55,7 @@
                     $keeper->setUser($user);
                     SessionHelper::hydrateKeeperSession($keeper);
 
-                    require_once(VIEWS_PATH."keeperHome.php");
+                    require_once(VIEWS_PATH."keeper/home.php");
                 }
                 
 

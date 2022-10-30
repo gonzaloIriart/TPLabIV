@@ -26,6 +26,10 @@
             require_once(VIEWS_PATH."keeper/home.php");            
         }
 
+        public function AddBusyEvent($name = "unavailable", $startDate, $endDate){
+            
+        }
+
         public function RegisterView($message = "")
         {
             require_once(VIEWS_PATH."keeper/register.php");
