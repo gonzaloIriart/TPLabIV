@@ -12,13 +12,13 @@
     class HomeController
     {
         private $userDAO;
-        private $ownerDAO;
+        private $OwnerDAO;
         private $keeperDAO;
 
         public function __construct()
         {
             $this->userDAO = new UserDAO;
-            $this->ownerDAO = new OwnerDAO;
+            $this->OwnerDAO = new OwnerDAO;
             $this->keeperDAO = new KeeperDAO;
         }
 
@@ -43,8 +43,8 @@
                 if($user->getRole() == 'o')
                 {
                     $owner = new Owner();
-                    $owner->setOwnerId($this->ownerDAO->getOwnerByUserId ($user->getUserId())->getOwnerId());
-                    $owner->setPets($this->ownerDAO->getOwnerByUserId ($user->getUserId())->getPets());
+                    $owner->setOwnerId($this->OwnerDAO->getOwnerByUserId($user->getUserId())->getOwnerId());
+                    $owner->setPets($this->OwnerDAO->getOwnerByUserId ($user->getUserId())->getPets());
                     $owner->setUser($user);
                     SessionHelper::hydrateOwnerSession($owner);
                     require_once(VIEWS_PATH."ownerHome.php");

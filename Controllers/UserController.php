@@ -3,7 +3,7 @@
     namespace Controllers;
 
     use DAO\UserDAO as UserDAO;
-    use DAO\OwnerDAOsql as OwnerDAOsql;
+    use DAO\OwnerDAO as OwnerDAO;
     use DAO\KeeperDAO as KeeperDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\User as User;
@@ -13,13 +13,13 @@
     class UserController
     {
         private $userDAO;
-        private $OwnerDAOsql;
+        private $OwnerDAO;
         private $keeperDAO;
 
         public function __construct()
         {
             $this->userDAO = new UserDAO;
-            $this->OwnerDAOsql = new OwnerDAOsql;
+            $this->OwnerDAO = new OwnerDAO;
             $this->keeperDAO = new KeeperDAO;
         }
 
@@ -58,7 +58,7 @@
             {
                 $owner = new Owner();
                 $owner->setUser($user);
-                $this->OwnerDAOsql->Add($owner);
+                $this->OwnerDAO->Add($owner);
 
             }
             
@@ -66,7 +66,7 @@
             
             if($user->getRole() == 'o'){
          
-                $owner = $this->OwnerDAOsql->getOwnerByUserId($user->getUserId());
+                $owner = $this->OwnerDAO->getOwnerByUserId($user->getUserId());
                 $owner->setUser($user);
                 SessionHelper::hydrateOwnerSession($owner);
                 require_once(VIEWS_PATH."ownerHome.php");

@@ -176,20 +176,13 @@
                 return $this;
         }
 
-         /**
-         * Get the value of description
-         */ 
-        public function getDescription()
-        {
-                return $this->description;
-        }
 
         /**
          * Set the value of description
          *
          * @return  self
          */ 
-        public function setDecription($description)
+        public function setDescription($description)
         {
                 $this->description = $description;
 
@@ -197,5 +190,15 @@
         }
 
         
+
+        /**
+         * Get the value of description
+         */ 
+        public function getDescription()
+        {
+                return $this->description;
+        }
+
+
     }
 ?>

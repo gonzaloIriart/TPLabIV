@@ -20,40 +20,30 @@
             $this->PetDAO = new PetDAO();
         }
 
-        public function RegisterPet($name, $size, $picture, $video, $vaccinationSchedule)
+        public function RegisterPet($name, $size, $picture, $video, $vaccinationSchedule, $description)
         {
             $pet = new Pet();
-            $petList = $this->PetDAO->GetAll();
-            
-            if(count($petList) == 0)
-            {
-                $pet->setPetId(1);
-            }
-            else
-            {
-                $pet->setPetId(count($petList)+1);
-            }
-
             $pet->setName($name);
             $pet->setOwner($_SESSION["owner"]->getOwnerId());
             $pet->setSize($size);
             $pet->setPicture($picture);
             $pet->setVideo($video);
             $pet->setVaccinationScheduleImg($vaccinationSchedule);
+            $pet->setDescription($description);
             $this->PetDAO->Add($pet);
-            $this->OwnerDAO->AddPetToOwner($_SESSION["owner"]->getOwnerId(),$pet->getPetId());
+
         }
 
         public function ShowPets()
         {
-           $pets = JsonHelper::fromPetsIdToPetsObject($_SESSION["owner"]->getPets());
-           require_once(VIEWS_PATH."petList.php");
+            $pets =  $this->PetDAO->GetListByOwner($_SESSION["owner"]->getOwnerId());
+            require_once(VIEWS_PATH."petList.php");
         }
 
         public function ShowPet($id)
         {
-           $pet =  $this->PetDAO->GetById($id);
-           require_once(VIEWS_PATH."petDetail.php");
+            $pet =  $this->PetDAO->GetById($id);
+            require_once(VIEWS_PATH."petDetail.php");
         }
 
 

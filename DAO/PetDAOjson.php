@@ -10,18 +10,11 @@
     {
         private $petList = array();
 
-        function Add($pet){            
-
-
-            $query = "CALL Pet_Add(?, ?, ?, ?, ?, ?, ?)";
-
-            $parameters = ParameterHelper::encodePet($pet);
-
-            $this->connection = Connection::GetInstance();
-
-
-            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-
+        function Add($pet){      
+            var_dump($pet);      
+            $this->RetrieveData();
+            array_push($this->petList, $pet);
+            $this->SaveData();
         }
 
         public function GetAll()
@@ -33,41 +26,17 @@
         public function GetById($id)
         {
 
-            $query = "CALL Pet_GetById(?)";
-
-            $this->connection = Connection::GetInstance();
-            
-            $parameters["Id"] = $id;
-
-            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
-
-            foreach($results as $pet)
-            {
-               $pet = ParameterHelper::decodePet($pet);
+            $this->RetrieveData();
+        
+            foreach($this->petList as $petItem){
+                if($id == $petItem->getPetId()){
+                    return $petItem;
+                }
             }
-
-            return $pet;
 
         }
 
-        function GetListByOwner($ownerId){
-
-            $query = "CALL Pet_GetByOwnerId(?)";
-
-            $this->connection = Connection::GetInstance();
-            
-            $parameters["OwnerId"] = $ownerId;
-
-            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
-
-            $pets = array();
-            foreach($results as $pet)
-            {
-               array_push($pets, ParameterHelper::decodePet($pet));
-            }
-
-            return $pets;
-        }
+        function GetListByOwner($id){}
 
         private function SaveData()
         {           
