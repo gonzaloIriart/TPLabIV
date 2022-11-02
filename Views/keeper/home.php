@@ -1,3 +1,4 @@
+<?php  ?>
 <div class="calendar-container">
     <div id="header">
         <div id="monthDisplay"></div>
@@ -21,14 +22,15 @@
 </div>
 
 <div id="newEventModal">
-    <form action="<?php FRONT_ROOT."Keeper/AddBusyEvent"?>">
-    <h2>No disponible</h2>
+    <form method="post" action="<?php echo FRONT_ROOT . "Keeper/AddUnavailableEvent"?>">
+        <h2>Dias no disponible</h2>
+        <input name="status" value="unavailable" >
+        <input type="date" name="startDate">
+        <input type="date" name="endDate">
 
-    <input type="date" name="startDate">
-    <input type="date" name="endDate">
-
-    <button id="saveButton" type="submit">Save</button>
-    <button id="cancelButton">Cancel</button></form>
+        <button id="saveButton" type="submit">Save</button>
+        <button id="cancelButton">Cancel</button>
+    </form>
 </div>
 
 <div id="deleteEventModal">
@@ -135,28 +137,6 @@
         load();
     }
 
-    function saveEvent() {
-        if (eventTitleInput.value) {
-            eventTitleInput.classList.remove('error');
-
-            events.push({
-                date: clicked,
-                title: eventTitleInput.value,
-            });
-
-            localStorage.setItem('events', JSON.stringify(events));
-            closeModal();
-        } else {
-            eventTitleInput.classList.add('error');
-        }
-    }
-
-    function deleteEvent() {
-        events = events.filter(e => e.date !== clicked);
-        localStorage.setItem('events', JSON.stringify(events));
-        closeModal();
-    }
-
     function initButtons() {
         document.getElementById('nextButton').addEventListener('click', () => {
             nav++;
@@ -168,9 +148,7 @@
             load();
         });
 
-        document.getElementById('saveButton').addEventListener('click', saveEvent);
         document.getElementById('cancelButton').addEventListener('click', closeModal);
-        document.getElementById('deleteButton').addEventListener('click', deleteEvent);
         document.getElementById('closeButton').addEventListener('click', closeModal);
     }
 
