@@ -15,7 +15,7 @@
   <img src=" <?php echo $pet->getVaccinationScheduleImg() ?>"width="50%"/>
 
   <div class="card-body">
-    <p class="card-text">Algo que se quiera decir del perro</p>
+    <p class="card-text"><?php echo $pet->getDescription() ?></p>
   </div>
   <div class="card-footer text-muted">
     2 days ago

@@ -2,7 +2,7 @@
     require_once("Views/nav.php");
 ?>
 
-<div class= "form-box" >
+<div class=  >
 <form action="<?php echo FRONT_ROOT . "Pet/RegisterPet" ?>" method="post">
     <legend>Pet register</legend>
     <div class="form-group row">
@@ -31,6 +31,11 @@
     <div class="form-group">
   <label class="col-form-label mt-4" for="inputDefault">Link de la vacunacion</label>
   <input type="text" name="vaccinationScheduleImg"  class="form-control" placeholder="" id="inputDefault">
+</div>
+</div>  
+  <div class="form-group">
+  <label class="col-form-label mt-4" for="inputDefault">Descripcion</label>
+  <input type="text" name="description"  class="form-control" placeholder="descripcion" id="inputDefault">
 </div>
     <div>
         <input type="submit" class="btn" value="Guardar" style="background-color:#DC8E47;color:white;" />
