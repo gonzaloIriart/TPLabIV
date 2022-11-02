@@ -67,6 +67,8 @@
             $encodedEvent["startDate"] = $event->getStartDate();
             $encodedEvent["endDate"] = $event->getEndDate();
             $encodedEvent["keeperId"] = $event->getKeeper()->getKeeperId();
+
+            return $encodedEvent;
         }
 
         static function decodeEvent($encodedEvent)
@@ -77,6 +79,8 @@
             $event->setStatus($encodedEvent["status"]);
             $event->setStartDate($encodedEvent["startDate"]);
             $event->setEndDate($encodedEvent["endDate"]);
+
+            return $event;
         }
         
     }

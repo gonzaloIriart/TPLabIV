@@ -1,3 +1,4 @@
+<?php  ?>
 <div class="calendar-container">
     <div id="header">
         <div id="monthDisplay"></div>
@@ -6,7 +7,15 @@
             <button id="nextButton">Next</button>
         </div>
     </div>
+    <form method="post" action="<?php FRONT_ROOT . "Keeper/AddUnavailableEvent" ?>">
+        <h2>Dias no disponible</h2>
+        <input type="text" name="status" value="unavailable" >
+        <input type="date" name="startDate">
+        <input type="date" name="endDate">
 
+        <button id="saveButton" type="submit">Save</button>
+        <button id="cancelButton">Cancel</button>
+    </form>
     <div id="weekdays">
         <div>Sunday</div>
         <div>Monday</div>
@@ -21,14 +30,15 @@
 </div>
 
 <div id="newEventModal">
-    <form action="<?php FRONT_ROOT."Keeper/AddBusyEvent"?>">
-    <h2>No disponible</h2>
+    <form method="post" action="<?php echo FRONT_ROOT . "Keeper/AddUnavailableEvent"?>">
+        <h2>Dias no disponible</h2>
+        <input name="status" value="unavailable" >
+        <input type="date" name="startDate">
+        <input type="date" name="endDate">
 
-    <input type="date" name="startDate">
-    <input type="date" name="endDate">
-
-    <button id="saveButton" type="submit">Save</button>
-    <button id="cancelButton">Cancel</button></form>
+        <button id="saveButton" type="submit">Save</button>
+        <button id="cancelButton">Cancel</button>
+    </form>
 </div>
 
 <div id="deleteEventModal">
@@ -168,10 +178,10 @@
             load();
         });
 
-        document.getElementById('saveButton').addEventListener('click', saveEvent);
-        document.getElementById('cancelButton').addEventListener('click', closeModal);
-        document.getElementById('deleteButton').addEventListener('click', deleteEvent);
-        document.getElementById('closeButton').addEventListener('click', closeModal);
+        //document.getElementById('saveButton').addEventListener('click', saveEvent);
+        //document.getElementById('cancelButton').addEventListener('click', closeModal);
+        //document.getElementById('deleteButton').addEventListener('click', deleteEvent);
+        //document.getElementById('closeButton').addEventListener('click', closeModal);
     }
 
     initButtons();
