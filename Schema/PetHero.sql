@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS event
 (
     id INT NOT NULL AUTO_INCREMENT,
     status VARCHAR(20),
-    startDate DATETIME,
-    endDate DATETIME,
+    startDate DATETIME ,
+    endDate DATETIME ,
     keeperId INT NOT NULL,
     UNIQUE (id),
     CONSTRAINT PK_Id PRIMARY KEY (id),
@@ -101,6 +101,22 @@ END$$
 
 DELIMITER ;
 
+DROP procedure IF EXISTS `Keeper_GetByEventAvailableDates`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Keeper_GetByEventAvailableDates (IN startDate DATE, IN endDate DATE)
+BEGIN
+	SELECT DISTINCT k.id, k.dailyFee, k.sizeOfDog, k.userId
+    FROM keeper k
+    JOIN event e on k.id = e.keeperId
+    WHERE (e.status = 'unavailable' OR e.status = 'reserved') AND
+			(startDate BETWEEN e.startDate AND e.endDate OR
+			endDate BETWEEN e.startDate AND e.endDate);
+END$$
+
+DELIMITER ;
+
 DROP procedure IF EXISTS `Keeper_Add`;
 
 DELIMITER $$
@@ -127,6 +143,8 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
 
 DROP procedure IF EXISTS `Event_Add`;
 
@@ -249,3 +267,7 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+INSERT INTO event (status, startDate, endDate, keeperId) 
+VALUES  ('unavailable', '2022-10-20', '2022-10-25', 1),
+		('unavailable', '2022-10-10', '2022-10-13', 1)

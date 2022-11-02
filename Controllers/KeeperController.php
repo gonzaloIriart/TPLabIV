@@ -3,37 +3,41 @@
 
     use DAO\UserDAO as UserDAO;
     use DAO\KeeperDAO as KeeperDAO;
+    use DAO\EventDAO as EventDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\Keeper as Keeper;
+    use Models\Event as Event;
 
     class KeeperController
     {
         private $userDAO;
         private $keeperDAO;
+        private $eventDAO;
 
         public function __construct()
         {
             $this->userDAO = new UserDAO;
             $this->keeperDAO = new KeeperDAO;
+            $this->eventDAO = new EventDAO;
         }
 
-        public function Register($dailyFee, $sizeOfDog) 
-        {
-            $keeper = new Keeper();
-            $keeper->setSizeOfDog($sizeOfDog);
-            $keeper->setDailyFee($dailyFee);            
-            
-            require_once(VIEWS_PATH."keeper/home.php");            
+        public function AddUnavailableEvent($status, $startDate, $endDate){
+            if(isset($_SESSION["keeper"]))
+            {
+                $event = new Event();
+                $event->setStatus($status);
+                $event->setStartDate($this->formatDate($startDate));
+                $event->setEndDate($this->formatDate($endDate));
+                $event->setKeeper($_SESSION["keeper"]);
+
+                $this->eventDAO->Add($event);    
+            }
+            require_once(VIEWS_PATH."keeper/home.php");
         }
 
-        public function AddBusyEvent($name = "unavailable", $startDate, $endDate){
-            
+        private function formatDate($strDate){
+            return date("Y-m-d", strtotime($strDate));
         }
-
-        public function RegisterView($message = "")
-        {
-            require_once(VIEWS_PATH."keeper/register.php");
-        } 
     }
 
 ?>
