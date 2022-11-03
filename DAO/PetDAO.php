@@ -45,7 +45,7 @@
             {
                $pet = ParameterHelper::decodePet($pet);
             }
-
+            
             return $pet;
 
         }

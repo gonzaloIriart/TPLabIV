@@ -27,13 +27,13 @@ require_once('validate-session.php');
                               <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/RegisterPetView " ?>">Add Pet</a>
                          </li>
 
-                         <li class="nav-item">
-                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Pet/ShowPets" ?>">Show Pets</a>
-                         </li>
-                    <?php endif; ?>
+                    <li class="nav-item">                         
+                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Pet/ShowPets" ?>">Show Pets</a>
+                    </li>
 
-
-
+                    <li class="nav-item">                         
+                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowAvailableKeepers" ?>">Create Reserve</a>
+                    </li>
                     <!--
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>

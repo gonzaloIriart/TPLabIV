@@ -10,6 +10,7 @@
      <link rel="stylesheet" href="<?php echo CSS_PATH ?>estilos.css">
      <link rel="stylesheet" href="<?php echo CSS_PATH ?>calendar.css" type="text/css">
      <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>font-awesome.min.css" />
 
      <title>Pet Hero</title>
 </head>
