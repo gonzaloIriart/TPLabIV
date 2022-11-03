@@ -26,7 +26,7 @@ require_once('validate-session.php');
                          <li class="nav-item">
                               <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/RegisterPetView " ?>">Add Pet</a>
                          </li>
-
+                    <?php endif; ?>
                     <li class="nav-item">                         
                          <a class="nav-link" href="<?php echo  FRONT_ROOT . "Pet/ShowPets" ?>">Show Pets</a>
                     </li>

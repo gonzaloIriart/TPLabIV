@@ -210,6 +210,19 @@ END$$
 
 DELIMITER ;
 
+DROP procedure IF EXISTS `Reserve_GetById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Reserve_GetById (IN reserveId INT)
+BEGIN
+	SELECT (reserve.totalFee, reserve.advancePayment, reserve.petId, reserve.eventId) 
+    FROM reserve r
+    WHERE r.Id = reserveId;
+END$$
+
+DELIMITER ;
+
 DROP procedure IF EXISTS `Reserve_GetAllByKeeperId`;
 
 DELIMITER $$
