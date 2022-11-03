@@ -25,6 +25,7 @@
         }
 
         public function AddUnavailableEvent($status, $startDate, $endDate){
+            $keeper = $_SESSION["keeper"];
             if(isset($_SESSION["keeper"]))
             {
                 $event = new Event();
@@ -35,6 +36,25 @@
 
                 $this->eventDAO->Add($event);    
             }
+            $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+            require_once(VIEWS_PATH."keeper/home.php");
+        }
+
+        public function DeleteEvent($eventId){
+
+        }
+
+        public function UpdateReserve($reserveId, $state){
+
+        }
+
+        public function ShowPendingReserves(){
+            require_once(VIEWS_PATH."keeper/pendingReserves.php");
+        }
+
+        public function HomeView(){
+            $keeper = $_SESSION["keeper"];
+            $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
             require_once(VIEWS_PATH."keeper/home.php");
         }
 
