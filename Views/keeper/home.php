@@ -24,21 +24,24 @@
 <div id="newEventModal">
     <form method="post" action="<?php echo FRONT_ROOT . "Keeper/AddUnavailableEvent"?>">
         <h2>Dias no disponible</h2>
-        <input name="status" value="unavailable" >
+        <input name="status" value="unavailable" type="hidden">
         <input type="date" name="startDate">
         <input type="date" name="endDate">
 
         <button id="saveButton" type="submit">Save</button>
-        <button id="cancelButton">Cancel</button>
     </form>
+        <button id="cancelButton">Cancel</button>
 </div>
 
 <div id="deleteEventModal">
-    <h2>Event</h2>
+    <h2>Habilitar dias?</h2>
 
     <p id="eventText"></p>
 
-    <button id="deleteButton">Delete</button>
+    <form method="post" action="<?php echo FRONT_ROOT . "Keeper/DeleteEvent"?>">
+        <input id="eventId" name="eventId" hidden>
+        <button type="submit" id="deleteButton">Delete</button>
+    </form>
     <button id="closeButton">Close</button>
 
     <div id="modalBackDrop"></div>
@@ -46,22 +49,23 @@
 <script>
     let nav = 0;
     let clicked = null;
-    let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
-
+    let events = <?php echo json_encode($events, JSON_HEX_TAG);?>;
+    console.log( events);
     const calendar = document.getElementById('calendar');
     const newEventModal = document.getElementById('newEventModal');
     const deleteEventModal = document.getElementById('deleteEventModal');
     const backDrop = document.getElementById('modalBackDrop');
     const eventTitleInput = document.getElementById('eventTitleInput');
-    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const weekdays = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
 
     function openModal(date) {
         clicked = date;
-
-        const eventForDay = events.find(e => e.date === clicked);
+        console.log(clicked);
+        const eventForDay = events.find(e => clicked >= e.startDate && clicked <= e.endDate);
 
         if (eventForDay) {
-            document.getElementById('eventText').innerText = eventForDay.title;
+            document.getElementById('eventText').innerText = `${eventForDay.startDate} - ${eventForDay.endDate}`;
+            document.getElementById('eventId').value = eventForDay.id;
             deleteEventModal.style.display = 'block';
         } else {
             newEventModal.style.display = 'block';
@@ -102,10 +106,13 @@
             daySquare.classList.add('day');
 
             const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+            const date = new Date(dayString);
+
+            console.table([date, events[0].startDate, Date.parse(dayString) > Date.parse(events[0].startDate)]);
 
             if (i > paddingDays) {
                 daySquare.innerText = i - paddingDays;
-                const eventForDay = events.find(e => e.date === dayString);
+                const eventForDay = events.find(e => date >=  Date.parse(e.startDate)  && date <=  Date.parse(e.endDate));
 
                 if (i - paddingDays === day && nav === 0) {
                     daySquare.id = 'currentDay';
@@ -114,7 +121,7 @@
                 if (eventForDay) {
                     const eventDiv = document.createElement('div');
                     eventDiv.classList.add('event');
-                    eventDiv.innerText = eventForDay.title;
+                    eventDiv.innerText = eventForDay.status;
                     daySquare.appendChild(eventDiv);
                 }
 
@@ -128,11 +135,9 @@
     }
 
     function closeModal() {
-        eventTitleInput.classList.remove('error');
         newEventModal.style.display = 'none';
         deleteEventModal.style.display = 'none';
         backDrop.style.display = 'none';
-        eventTitleInput.value = '';
         clicked = null;
         load();
     }
