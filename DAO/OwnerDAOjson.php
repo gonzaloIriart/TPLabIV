@@ -3,44 +3,32 @@
 
     use Models\Owner as Owner;
     use Models\Pet as Pet;
-    use Helpers\ParameterHelper;
 
-    class OwnerDAOsql implements IOwnerDAO{
-
+    class OwnerDAO implements IOwnerDAO{
         private $ownerList = array();
         
-        function Add(Owner $owner) 
+        function Add($owner)
         {
-            $query = "CALL Owner_Add(?)";
-
-            $parameters = ParameterHelper::encodeOwner($owner);
-
-            $this->connection = Connection::GetInstance();
-
-            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+            $this->RetrieveData();
+            array_push($ownerList, $owner);
+            $this->SaveData();
         }
-
         
         function GetById($id){
             $owner = new Owner();
             return $owner;
         }
 
-        public function getOwnerByUserId($userId){
-            $query = "CALL Owner_GetByUserId(?)";
+        function getOwnerByUserId($userId)
+        {
 
-            $this->connection = Connection::GetInstance();
-            $parameters["userId"] = $userId;
-
-            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
-
-            $keeper = new Owner();
-            foreach($results as $owner)
-            {
-                $owner = ParameterHelper::decodeOwner($owner);
+            $this->RetrieveData();
+            foreach($this->ownerList as $ownerItem){
+                if($userId == $ownerItem->getOwnerId())
+                {
+                    return $ownerItem;
+                }
             }
-
-            return $owner;
         }
         
         function GetPetListByOwner($id)

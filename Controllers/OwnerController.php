@@ -32,6 +32,7 @@
         } 
         public function HomeView($message = "")
         {
+            $availableKeepers = null;
             require_once(VIEWS_PATH."ownerHome.php");
         } 
     }

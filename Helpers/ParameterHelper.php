@@ -37,12 +37,6 @@
             return $encodedKeeper;
         }
 
-        static function encodeOwner($owner)
-        {
-            $encodedOwner["userId"] = $owner->getUser()->getUserId();
-            return $encodedOwner;
-        }
-
         static function decodeKeeper($encodedKeeper)
         {
             $keeper = new Keeper();
@@ -53,12 +47,46 @@
             return $keeper;
         }
 
+        static function encodeOwner($owner)
+        {
+            $encodedOwner["userId"] = $owner->getUser()->getUserId();
+            return $encodedOwner;
+        }
+
         static function decodeOwner($encodedOwner)
         {
             $owner = new Owner();
             $owner->setOwnerId($encodedOwner["id"]);
 
             return $owner;
+        }
+
+        static function encodePet($pet)
+        {
+            $encodedPet["ownerId"] = $pet->getOwner();
+            $encodedPet["name"] = $pet->getName();
+            $encodedPet["size"] = $pet->getSize();
+            $encodedPet["video"] = $pet->getVideo();
+            $encodedPet["picture"] = $pet->getPicture();
+            $encodedPet["vaccinationScheduleImg"] = $pet->getVaccinationScheduleImg();
+            $encodedPet["description"] = $pet->getDescription();
+            return $encodedPet;
+        }
+
+        static function decodePet($encodedPet)
+        {
+
+            $pet = new Pet();
+            $pet->setPetId($encodedPet["id"]);
+            $pet->setOwner($encodedPet["ownerId"]);
+            $pet->setName($encodedPet["name"]);
+            $pet->setSize($encodedPet["size"]);
+            $pet->setVideo($encodedPet["video"]);
+            $pet->setPicture($encodedPet["picture"]);
+            $pet->setVaccinationScheduleImg($encodedPet["vaccinationScheduleImg"]);
+            $pet->setDescription($encodedPet["description"]);
+
+            return $pet;
         }
 
         static function encodeEvent($event)

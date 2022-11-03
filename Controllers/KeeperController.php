@@ -54,6 +54,15 @@
         private function formatDate($strDate){
             return date("Y-m-d", strtotime($strDate));
         }
+
+        public function ShowAvailableKeepers ($dates, $dogSize)
+        {
+            var_dump($dates);
+            //$availableKeepers = aca deberiamos llamar al dao, para que llame al store que traiga los no disponibles y sacarselos a la lista que devuelva el getall
+            $availableKeepers = "estos son los keeper disponibles";
+            require_once(VIEWS_PATH."ownerHome.php");
+            
+        } 
     }
 
 ?>

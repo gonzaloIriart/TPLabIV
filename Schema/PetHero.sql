@@ -188,6 +188,7 @@ CREATE TABLE IF NOT EXISTS pet
 (
 	id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    size varchar (10) NOT NULL,
     video VARCHAR(1000) NOT NULL,
     picture VARCHAR(1000) NOT NULL,
     vaccinationScheduleImg VARCHAR(1000) NOT NULL,
@@ -197,6 +198,7 @@ CREATE TABLE IF NOT EXISTS pet
     CONSTRAINT PK_Id PRIMARY KEY (id),
     FOREIGN KEY (ownerId) REFERENCES owner(id)
 )Engine=InnoDB;
+
 
 DELIMITER ;
 
@@ -223,6 +225,48 @@ BEGIN
     FROM owner
     WHERE (owner.userId = UserId);
 END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Pet_Add`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Pet_Add (IN ownerId INT, IN name VARCHAR(50), IN size VARCHAR(50), IN video VARCHAR(1000), IN picture VARCHAR(1000), IN vaccinationScheduleImg VARCHAR(1000), IN description VARCHAR(1000))
+BEGIN
+	INSERT INTO pet
+        (pet.ownerId , pet.name, pet.size , pet.video , pet.picture , pet.vaccinationScheduleImg, pet.description)
+    VALUES
+        (ownerId, name, size, video, picture, vaccinationScheduleImg, description);
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Pet_GetByOwnerId`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Pet_GetByOwnerId (IN OwnerId INT)
+BEGIN
+	SELECT * 
+    FROM pet
+    WHERE (pet.ownerId = OwnerId);
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Pet_GetById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Pet_GetById (IN Id INT)
+BEGIN
+	SELECT * 
+    FROM pet
+    WHERE (pet.id = Id);
+END$$
+
+DELIMITER ;
 
 INSERT INTO event (status, startDate, endDate, keeperId) 
 VALUES  ('unavailable', '2022-10-20', '2022-10-25', 1),
