@@ -37,12 +37,16 @@
             require_once(VIEWS_PATH."keeper/home.php");
         }
 
-        public function GetEventsByKeeperId($keeperId){
+        public function DeleteEvent($eventId){
 
         }
 
-        public function DeleteEvent($eventId){
+        public function UpdateReserve($reserveId, $state){
 
+        }
+
+        public function ShowPendingReserves(){
+            require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
         public function HomeView(){
@@ -60,8 +64,7 @@
             var_dump($dates);
             //$availableKeepers = aca deberiamos llamar al dao, para que llame al store que traiga los no disponibles y sacarselos a la lista que devuelva el getall
             $availableKeepers = "estos son los keeper disponibles";
-            require_once(VIEWS_PATH."ownerHome.php");
-            
+            require_once(VIEWS_PATH."ownerHome.php");            
         } 
     }
 
