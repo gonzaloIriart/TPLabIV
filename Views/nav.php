@@ -16,7 +16,7 @@ require_once('validate-session.php');
                <ul class="navbar-nav me-auto">
                     <?php if (isset($_SESSION["keeper"])) : ?>
                          <li class="nav-item">
-                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>">Keeper</a>
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>">Calendar</a>
                          </li>
                          <li class="nav-item">
                               <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowPendingReserves " ?>">Pending reserves</a>
