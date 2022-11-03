@@ -5,6 +5,7 @@
     use DAO\UserDAO as UserDAO;
     use DAO\OwnerDAOsql as OwnerDAOsql;
     use DAO\KeeperDAO as KeeperDAO;
+    use DAO\EventDAO as EventDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\User as User;
     use Models\Owner as Owner;
@@ -15,12 +16,14 @@
         private $userDAO;
         private $OwnerDAOsql;
         private $keeperDAO;
+        private $eventDAO;
 
         public function __construct()
         {
             $this->userDAO = new UserDAO;
             $this->OwnerDAOsql = new OwnerDAOsql;
             $this->keeperDAO = new KeeperDAO;
+            $this->eventDAO = new EventDAO;
         }
 
         public function Register($name, $email, $password, $role, $sizeOfDog = null, $dailyFee = null) 
@@ -74,7 +77,8 @@
             else if($user->getRole() == 'k'){
                 $keeper = $this->keeperDAO->getKeeperByUserId($user->getUserId());
                 SessionHelper::hydrateKeeperSession($keeper);
-                require_once(VIEWS_PATH."keeperHome.php");
+                $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+                require_once(VIEWS_PATH."keeper/home.php");
             }else {
                 require_once(VIEWS_PATH."errorPage.php");
             }
