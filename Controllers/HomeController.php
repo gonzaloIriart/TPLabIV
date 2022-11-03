@@ -47,7 +47,6 @@
                     $owner->setPets($this->OwnerDAO->getOwnerByUserId ($user->getUserId())->getPets());
                     $owner->setUser($user);
                     SessionHelper::hydrateOwnerSession($owner);
-                    $availableKeepers = null;
                     require_once(VIEWS_PATH."ownerHome.php");
                 }
                 else

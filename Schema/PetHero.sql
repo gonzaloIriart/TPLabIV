@@ -80,7 +80,7 @@ DROP procedure IF EXISTS `Keeper_GetAll`;
 
 DELIMITER $$
 
-CREATE PROCEDURE Keeper_GetAll (IN UserId INT)
+CREATE PROCEDURE Keeper_GetAll ()
 BEGIN
 	SELECT keeper.id, keeper.dailyFee, keeper.sizeOfDog, keeper.userId
     FROM keeper;
@@ -112,7 +112,9 @@ BEGIN
     JOIN event e on k.id = e.keeperId
     WHERE (e.status = 'unavailable' OR e.status = 'reserved') AND
 			(startDate BETWEEN e.startDate AND e.endDate OR
-			endDate BETWEEN e.startDate AND e.endDate);
+			endDate BETWEEN e.startDate AND e.endDate OR
+            (startDate > e.startDate AND endDate < e.endDate) OR
+            (startDate < e.startDate AND endDate > e.endDate));
 END$$
 
 DELIMITER ;

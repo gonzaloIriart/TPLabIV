@@ -1,10 +1,18 @@
 <?php 
     namespace DAO;
     use DAO\IKeeperDAO;
+    use DAO\UserDAO;
     use Models\Keeper as Keeper;
     use Helpers\ParameterHelper;
 
     class KeeperDAO implements IKeeperDAO {
+
+        public function __construct()
+        {
+            $this->UserDAO = new UserDAO;
+
+        }
+
         private $keeperList = array();
 
         function Add(Keeper $keeper) 
@@ -18,9 +26,25 @@
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
-        function GetAll($limit = null)
+        function GetAll($limit = 1000)
         {
-            return $this->RetrieveData();             
+            $query = "CALL Keeper_GetAll()";
+
+            $this->connection = Connection::GetInstance();
+
+            $parameters["limit"] = $limit;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            $keeper = array();
+            foreach($results as $keeperItem)
+            {
+                $keeperAux = ParameterHelper::decodeKeeper($keeperItem);
+                $keeperAux->setUser($this->UserDAO->GetUserById($keeperItem["userId"]));
+                array_push($keeper, $keeperAux); 
+            }
+
+            return $keeper;
         }
 
         public function GetById($id){
@@ -47,6 +71,25 @@
             foreach($results as $keeperItem)
             {
                 $keeper = ParameterHelper::decodeKeeper($keeperItem);
+            }
+
+            return $keeper;
+        }
+
+        public function getKeeperNotAvailableByDate($dates){
+            $query = "CALL Keeper_GetByEventAvailableDates(?, ?)";
+
+            $this->connection = Connection::GetInstance();         
+         
+            $parameters = ParameterHelper::encodeDates($dates);
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            $keeper = array();
+            foreach($results as $keeperItem)
+            {
+
+                array_push($keeper, ParameterHelper::decodeKeeper($keeperItem)); 
             }
 
             return $keeper;

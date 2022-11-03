@@ -110,6 +110,15 @@
 
             return $event;
         }
+
+        static function encodeDates($dates)
+        {
+            $encodedDates["startDate"] = date("Y-m-d", strtotime($dates["0"])) ;
+            $encodedDates["endDate"] = date("Y-m-d", strtotime($dates["1"])) ;
+
+            return $encodedDates;
+        }
+
         
     }
 ?>
