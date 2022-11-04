@@ -39,6 +39,7 @@
 
         static function decodeKeeper($encodedKeeper)
         {
+            var_dump($encodedKeeper);
             $keeper = new Keeper();
             $keeper->setKeeperId($encodedKeeper["id"]);
             $keeper->setSizeOfDog($encodedKeeper["sizeOfDog"]);

@@ -135,6 +135,19 @@ END$$
 
 DELIMITER ;
 
+DROP procedure IF EXISTS `Keeper_GetById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Keeper_GetById (IN Id INT)
+BEGIN
+	SELECT keeper.id, keeper.dailyFee, keeper.sizeOfDog, keeper.userId
+    FROM keeper
+    WHERE (keeper.id = Id);
+END$$
+
+DELIMITER ;
+
 DROP procedure IF EXISTS `Keeper_GetByEventAvailableDates`;
 
 DELIMITER $$

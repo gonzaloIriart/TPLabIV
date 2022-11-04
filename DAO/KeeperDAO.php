@@ -47,16 +47,21 @@
             return $keeper;
         }
 
-        public function GetById($id){
-            $this->RetrieveData();
-            
-            foreach($this->keeperList as $keeperItem){
-                if($id == $keeperItem->getKeeperId()){
-                    return $keeperItem;
-                }
+        public function GetById($Id){
+            $query = "CALL Keeper_GetById(?)";
+
+            $this->connection = Connection::GetInstance();
+            $parameters["Id"] = $Id;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            $keeper = new Keeper();
+            foreach($results as $keeperItem)
+            {
+                $keeper = ParameterHelper::decodeKeeper($keeperItem);
             }
 
-            return null;
+            return $keeper;
         }
 
         public function getKeeperByUserId($userId){
