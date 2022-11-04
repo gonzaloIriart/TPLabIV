@@ -86,6 +86,9 @@
                 $dates = str_replace("/","-",explode(" - ", $dates),$i);
                 $notAvailableKeepers = $this->keeperDAO->getKeeperNotAvailableByDate($dates);
                 $availableKeepers = $this->GetAvailableKeepers($notAvailableKeepers,$pet->getSize() );
+                $toDate = strtotime($dates["1"]);
+                $fromDate = strtotime($dates["0"]);
+                $dayDiff = ($toDate-$fromDate)/(60*60*24)+1;
             }
 
             $petList = $this->petDAO->GetListByOwner($_SESSION["owner"]->getOwnerId());
