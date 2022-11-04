@@ -6,6 +6,7 @@
     use Models\Keeper;
     use Models\Owner;
     use Models\Pet;
+    use Models\Reserve;
     use Models\Event as Event;
 
     class ParameterHelper {
@@ -118,6 +119,29 @@
 
             return $encodedDates;
         }
+
+        static function encodeReserve($reserve)
+        {
+            $encodeReserve["totalFee"] = $reserve->getTotalFee();
+            $encodeReserve["advancePayment"] = $reserve->getAdvancePayment();
+            $encodeReserve["petId"] = $reserve->getPet()->getPetId();
+            $encodeReserve["eventId"] = $reserve->getEvent()->getEventId();
+
+            return $encodeReserve;
+
+        }
+
+        static function decodeReserve($encodedReserve)
+        {
+            $reserve = new Reserve();
+
+            $reserve->setReserveId($encodedReserve["id"]);
+            $reserve->setTotalFee($encodedReserve["totalFee"]);
+            $reserve->setAdvancePayment($encodedReserve["advancePayment"]);
+
+            return $reserve;
+        }
+
 
         
     }

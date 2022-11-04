@@ -5,6 +5,7 @@
     use DAO\KeeperDAO as KeeperDAO;
     use DAO\EventDAO as EventDAO;
     use DAO\PetDAO as PetDAO;
+    use DAO\ReserveDAO as ReserveDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\Keeper as Keeper;
     use Models\Event as Event;
@@ -22,6 +23,7 @@
             $this->keeperDAO = new KeeperDAO;
             $this->eventDAO = new EventDAO;
             $this->petDAO = new PetDAO;
+            $this->reserveDAO = new ReserveDAO;
         }
 
         public function AddUnavailableEvent($status, $startDate, $endDate){
@@ -41,14 +43,28 @@
         }
 
         public function DeleteEvent($eventId){
+            $this->reserveDAO->DeleteReserve($eventId);
+            $keeper = $_SESSION["keeper"];
+            $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+            require_once(VIEWS_PATH."keeper/home.php");
+        }
 
+        public function DeleteReserve($reserveId){
+            $this->reserveDAO->DeleteReserve($reserveId);
+            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getId());
+
+            require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
         public function UpdateReserve($reserveId, $state){
+            $this->reserveDAO->UpdateReserveState($reserveId, $state);
+            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getId());
 
+            require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
         public function ShowPendingReserves(){
+            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getId());
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
