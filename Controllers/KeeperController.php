@@ -51,20 +51,20 @@
 
         public function DeleteReserve($reserveId){
             $this->reserveDAO->DeleteReserve($reserveId);
-            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getId());
+            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
 
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
-        public function UpdateReserve($reserveId, $state){
-            $this->reserveDAO->UpdateReserveState($reserveId, $state);
-            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getId());
+        public function UpdateEventState($reserveId, $state){
+            $this->eventDAO->UpdateEventState($reserveId, $state);
+            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
 
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
         public function ShowPendingReserves(){
-            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getId());
+            $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 

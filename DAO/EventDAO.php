@@ -30,6 +30,17 @@
             return $eventsJson;
         }
 
+        public function GetById($eventId){
+            $query = "CALL Event_GetById(?)";
+            $this->connection = Connection::GetInstance();
+            $parameters["eventId"] = $eventId;
+
+            $result = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+            $event = new Event();
+            $event = ParameterHelper::decodeEvent($result[0]);
+            return $event;
+        }
+
         public function GetByKeeperId($keeperId) {
             $query = "CALL Event_GetByKeeperId(?)";
 
@@ -49,6 +60,17 @@
             }
 
             return $events;
+        }
+
+        public function UpdateEventState($eventId, $status){
+            
+            $query = "CALL Event_UpdateStatus(?, ?)";
+
+            $this->connection = Connection::GetInstance();
+            $parameters["eventId"] = $eventId;
+            $parameters["status"] = $status;
+
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
         public function DeleteEvent($eventId){
