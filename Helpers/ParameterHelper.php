@@ -144,10 +144,17 @@
         static function decodeReserve($encodedReserve)
         {
             $reserve = new Reserve();
+            $pet = new Pet();
+            $event = new Event();
+            
+            $pet->setPetId($encodedReserve["petId"]);
+            $event->setEventId($encodedReserve["eventId"]);
 
             $reserve->setReserveId($encodedReserve["id"]);
             $reserve->setTotalFee($encodedReserve["totalFee"]);
             $reserve->setAdvancePayment($encodedReserve["advancePayment"]);
+            $reserve->setPet($pet);
+            $reserve->setEvent($event);
 
             return $reserve;
         }

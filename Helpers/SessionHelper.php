@@ -20,6 +20,10 @@
             $this->ownerDAO = new OwnerDAO();
         }
 
+        public static function resetSession() { 
+            session_destroy();
+        }
+
         public static function hydrateUserSession(User $user) {            
             $_SESSION["loggedUser"] = $user;
         }
