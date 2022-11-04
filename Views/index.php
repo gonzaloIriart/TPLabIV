@@ -15,7 +15,7 @@
                     <label for="password">Contraseña</label>
                     <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar constraseña" required>
                </div>
-               <button class="btn btn-primary btn-block btn-lg" type="submit">Iniciar Sesión</button>
+               <button style="width: 200px;" class="btn btn-primary btn-block btn-lg mt-2 " type="submit">Iniciar Sesión</button>
           </form>
      </div>
 </main>

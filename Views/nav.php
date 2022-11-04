@@ -1,8 +1,9 @@
+
 <?php
 require_once('validate-session.php');
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav  class="navbar navbar-expand-lg navbar-dark bg-primary">
      <div class="container-fluid">
           <?php if (isset($_SESSION["keeper"])) : ?>
                <a class="navbar-brand" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>"><strong>Pet Hero</strong></a>
@@ -23,10 +24,7 @@ require_once('validate-session.php');
                          </li>
 
                     <?php else : ?>
-                       
-                    <?php endif; ?>
-
-                    <li class="nav-item">
+                         <li class="nav-item">
                               <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/RegisterPetView " ?>">Add Pet</a>
                          </li>
                          <li class="nav-item">                         
@@ -37,6 +35,9 @@ require_once('validate-session.php');
                          <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowAvailableKeepers" ?>">Create Reserve</a>
                     </li>
                     <?php endif; ?>
+                    <li class="nav-item">                         
+                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Home/LogOut" ?>">LogOut</a>
+                    </li>
                     
                     <!--
         <li class="nav-item dropdown">

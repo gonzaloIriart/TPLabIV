@@ -1,11 +1,16 @@
 <?php 
     require_once("nav.php");
 ?>
-<table class="table table-hover table-box">
+
+
+<div style="max-width: 60rem;margin: 5px auto" class="container card text-center">
+  <div class="card-body">
+    
+  <table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">size </th>
+      <th scope="col">Size </th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -25,3 +30,7 @@
      ?>
   </tbody>
 </table>
+
+
+  </div>
+</div>

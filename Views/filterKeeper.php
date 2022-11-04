@@ -2,7 +2,9 @@
     require_once("Views/nav.php");
 ?>
 
-<h1>Escoja el rango de fechas deseado</h1>
+<div style="max-width: 60rem;margin: 5px auto" class="container card text-center">
+  <div class="card-body">
+  <h1>Escoja el rango de fechas deseado</h1>
 
 <form action=" <?php echo FRONT_ROOT . "Keeper/ShowAvailableKeepers" ?>"> 
     <input type="text" name="daterange" value="" />
@@ -25,13 +27,17 @@
 
 </form>
 
-<?php
+  </div>
+</div>
 
+<?php
 
 if(!empty($availableKeepers)){
 ?>
 
-<div>
+<div style="max-width: 60rem;margin: 5px auto" class="container card text-center">
+  <div class="card-body">
+  <div>
 <table class="table table-hover ">
   <thead>
     <tr>
@@ -69,13 +75,24 @@ if(!empty($availableKeepers)){
   </tbody>
 </table>
 </div>
+
+  </div>
+</div>
   
 <?php
 }
 
+
 else{
     ?>
-    <h2>Seleccione un nuevo rango de fechas</h2>
+
+<div style="max-width: 60rem;margin: 5px auto" class="container card text-center">
+  <div class="card-body">
+  <h2 >Seleccione un nuevo rango de fechas</h2>
+
+  </div>
+</div>
+
     <?php
 }
 ?>
