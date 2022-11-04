@@ -26,21 +26,28 @@
             $this->ReserveDAO = new ReserveDAO();
         }
 
-        public function CreateReserva($keeperId, $pet, $startDate, $endDate, $vaccinationSchedule, $description)
+        public function CreateReserve($keeperId, $petId, $dates, $totalPrice)
         {
-            $event = new Event();
-            $event->setKeeper($this->KeeperDAO->GetById($keeperId));
-            $event->setStartDate($startDate);
-            $event->setEndDate($endtDate);
-            $event->setStatus("pending"); // esto habria que ponerlo en un enum
-            $this->EventDAO->Add($event);
+            var_dump($keeperId);
+            var_dump($petId);
+            var_dump($dates);
+            var_dump($totalPrice);
+           
+            // $event = new Event();
+            // $event->setKeeper($this->KeeperDAO->GetById($keeperId));
+            // $event->setStartDate($startDate);
+            // $event->setEndDate($endtDate);
+            // $event->setStatus("pending"); // esto habria que ponerlo en un enum
+            // //$this->EventDAO->Add($event);
 
-            $reserve = new Reserve(); 
-            $reserve->setTotalFee(10); // calcular total fee, calculo que sera keeper->price * los dias entre startDate y endDate
-            $reserve->setAdvancePayment(5); // calcularlo, calculo que sera un porcentaje de totalfee
-            $reserve->setPet($pet);
-            $reserve->setEvent($event);
-            $this->ReserveDAO->Add($reserve);
+            // $reserve = new Reserve(); 
+            // $reserve->setTotalFee(10); // calcular total fee, calculo que sera keeper->price * los dias entre startDate y endDate
+            // $reserve->setAdvancePayment(5); // calcularlo, calculo que sera un porcentaje de totalfee
+            // $reserve->setPet($pet);
+            // $reserve->setEvent($event);
+            // //$this->ReserveDAO->Add($reserve);
+
+            
             
         }
 
