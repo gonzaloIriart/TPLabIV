@@ -17,7 +17,18 @@
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
-        function GetByKeeperId($keeperId) {
+        public function GetEventsAsJson($events, $keeper) {
+            $eventsJson = array();
+            foreach($events as $eventItem)
+            {
+                $eventItem->setKeeper($keeper);
+                $eventJson = ParameterHelper::encodeEvent($eventItem);
+                array_push($eventsJson, $eventJson);
+            }
+            return $eventsJson;
+        }
+
+        public function GetByKeeperId($keeperId) {
             $query = "CALL Event_GetByKeeperId(?)";
 
             $this->connection = Connection::GetInstance();
@@ -36,6 +47,10 @@
             }
 
             return $events;
+        }
+
+        public function DeleteEvent($eventId){
+
         }
     }
 

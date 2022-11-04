@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS user (
     CONSTRAINT UC_Email UNIQUE (email)
 )Engine=InnoDB;
 
-
 CREATE TABLE IF NOT EXISTS keeper
 (
 	id INT NOT NULL AUTO_INCREMENT,
@@ -34,6 +33,41 @@ CREATE TABLE IF NOT EXISTS event
     UNIQUE (id),
     CONSTRAINT PK_Id PRIMARY KEY (id),
     FOREIGN KEY (keeperId) REFERENCES keeper(id)
+)Engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS owner
+(
+	id INT NOT NULL AUTO_INCREMENT,
+    userId INT NOT NULL,
+    UNIQUE (id),
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (userId) REFERENCES user(id)
+)Engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS pet
+(
+	id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    size varchar (10) NOT NULL,
+    video VARCHAR(1000) NOT NULL,
+    picture VARCHAR(1000) NOT NULL,
+    vaccinationScheduleImg VARCHAR(1000) NOT NULL,
+    description VARCHAR(1000) NOT NULL,
+    ownerId INT NOT NULL,
+    UNIQUE (id),
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (ownerId) REFERENCES owner(id)
+)Engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS reserve (
+    id INT NOT NULL AUTO_INCREMENT,
+    totalFee DOUBLE NOT NULL,
+    advancePayment INT NOT NULL,
+    petId INT NOT NULL,
+    eventId INT NOT NULL,
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (petId) REFERENCES pet(id),
+    FOREIGN KEY (eventId) REFERENCES event(id)
 )Engine=InnoDB;
 
 DROP procedure IF EXISTS `User_GetByEmail`;
@@ -162,45 +196,44 @@ END$$
 
 DELIMITER ;
 
-INSERT INTO user
-	(name, email, password, role)
-VALUES 
-	('Rodolfo', 'owner@mail.com', 'owner', 'o'),
-	('Ruperto', 'keeper@mail.com', 'keeper', 'k');
-    
-INSERT INTO keeper
-	(sizeOfDog, dailyFee, userId)
-VALUES 
-	('small', 80.5, 2);
+DROP procedure IF EXISTS `Reserve_Add`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Reserve_Add (IN totalFee DOUBLE, IN advancePayment INT, IN petId INT, IN eventId INT)
+BEGIN
+	INSERT INTO reserve
+        (reserve.totalFee, reserve.advancePayment, reserve.petId, reserve.eventId)
+    VALUES
+        (totalFee, advancePayment, petId, eventId);
+END$$
 
 DELIMITER ;
 
-CREATE TABLE IF NOT EXISTS owner
-(
-	id INT NOT NULL AUTO_INCREMENT,
-    userId INT NOT NULL,
-    UNIQUE (id),
-    CONSTRAINT PK_Id PRIMARY KEY (id),
-    FOREIGN KEY (userId) REFERENCES user(id)
-)Engine=InnoDB;
+DROP procedure IF EXISTS `Reserve_GetById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Reserve_GetById (IN reserveId INT)
+BEGIN
+	SELECT (reserve.totalFee, reserve.advancePayment, reserve.petId, reserve.eventId) 
+    FROM reserve r
+    WHERE r.Id = reserveId;
+END$$
 
 DELIMITER ;
 
-CREATE TABLE IF NOT EXISTS pet
-(
-	id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    size varchar (10) NOT NULL,
-    video VARCHAR(1000) NOT NULL,
-    picture VARCHAR(1000) NOT NULL,
-    vaccinationScheduleImg VARCHAR(1000) NOT NULL,
-    description VARCHAR(1000) NOT NULL,
-    ownerId INT NOT NULL,
-    UNIQUE (id),
-    CONSTRAINT PK_Id PRIMARY KEY (id),
-    FOREIGN KEY (ownerId) REFERENCES owner(id)
-)Engine=InnoDB;
+DROP procedure IF EXISTS `Reserve_GetAllByKeeperId`;
 
+DELIMITER $$
+
+CREATE PROCEDURE Reserve_GetAllByKeeperId (IN keeperId INT)
+BEGIN
+	SELECT (reserve.totalFee, reserve.advancePayment, reserve.petId, reserve.eventId) 
+    FROM reserve r
+    INNER JOIN event e ON r.eventId = e.id
+    WHERE e.keeperId = keeperId;
+END$$
 
 DELIMITER ;
 
@@ -270,6 +303,31 @@ END$$
 
 DELIMITER ;
 
+
+INSERT INTO user
+	(name, email, password, role)
+VALUES 
+	('Rodolfo', 'owner@mail.com', 'owner', 'o'),
+	('Ruperto', 'keeper@mail.com', 'keeper', 'k');
+    
+INSERT INTO keeper
+	(sizeOfDog, dailyFee, userId)
+VALUES 
+	('small', 80.5, 2);
+    
+    INSERT INTO owner
+	(userId)
+VALUES 
+	(1);
+    
+INSERT INTO pet (pet.ownerId , pet.name, pet.size , pet.video , pet.picture , pet.vaccinationScheduleImg, pet.description)
+VALUES (1, 'pipo', 'small', 'video', 'foto', 'asd', 'asd'),
+		(1, 'pupi', 'big', 'video2', 'foto2', 'asd2', 'asd2');
+
 INSERT INTO event (status, startDate, endDate, keeperId) 
 VALUES  ('unavailable', '2022-10-20', '2022-10-25', 1),
-		('unavailable', '2022-10-10', '2022-10-13', 1)
+		('pending', '2022-11-04', '2022-11-09', 1),
+		('unavailable', '2022-10-10', '2022-10-13', 1);
+        
+INSERT INTO reserve (totalFee, advancePayment, petId, eventId)
+VALUES (500, 50, 1, 3);

@@ -1,25 +1,32 @@
-<?php 
-     require_once('validate-session.php');
+<?php
+require_once('validate-session.php');
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
      <div class="container-fluid">
-          <a class="navbar-brand" href="<?php echo  FRONT_ROOT . "Owner/HomeView " ?>"><strong>Pet Hero</strong></a>
+          <?php if (isset($_SESSION["keeper"])) : ?>
+               <a class="navbar-brand" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>"><strong>Pet Hero</strong></a>
+          <?php else : ?>
+               <a class="navbar-brand" href="<?php echo  FRONT_ROOT . "Owner/HomeView " ?>"><strong>Pet Hero</strong></a>
+          <?php endif; ?>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarColor01">
                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                         <?php if (isset($_SESSION["keeperUser"])) : ?>
-                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>">Keeper</a>
-                         <?php endif; ?>
-                    </li>
+                    <?php if (isset($_SESSION["keeper"])) : ?>
+                         <li class="nav-item">
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>">Calendar</a>
+                         </li>
+                         <li class="nav-item">
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowPendingReserves " ?>">Pending reserves</a>
+                         </li>
 
-                    <li class="nav-item">                         
-                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/RegisterPetView " ?>">Add Pet</a>
-                    </li>
-
+                    <?php else : ?>
+                         <li class="nav-item">
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/RegisterPetView " ?>">Add Pet</a>
+                         </li>
+                    <?php endif; ?>
                     <li class="nav-item">                         
                          <a class="nav-link" href="<?php echo  FRONT_ROOT . "Pet/ShowPets" ?>">Show Pets</a>
                     </li>
