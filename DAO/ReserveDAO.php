@@ -11,7 +11,7 @@
     {
         private $petList = array();
 
-        function Add($pet){            
+        function Add($reserve){            
 
 
             $query = "CALL Reserve_Add(?, ?, ?, ?)";
@@ -36,13 +36,29 @@
 
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
-            foreach($results as $pet)
+            foreach($results as $reserveItem)
             {
-               $reserve = ParameterHelper::decodePet($reserve);
+               $reserve = ParameterHelper::decodeReserve($reserveItem);
             }
             
             return $reserve;
 
+        }
+
+        public function GetReservesByKeeperId($keeperId){
+            $query = "CALL Reserve_GetAllByKeeperId(?)";
+
+            $this->connection = Connection::GetInstance();
+            
+            $parameters["keeperId"] = $keeperId;
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+            $reserves = array();
+            foreach($results as $reserveItem){
+                $reserve = ParameterHelper::decodeReserve($reserveItem);
+                array_push($reserves, $reserve);
+            }
+
+            return $reserves;
         }
 
     

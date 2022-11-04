@@ -3,10 +3,26 @@
 
     class Reserve
     {
+        private $reserveId;
         private $totalFee;
         private $advancePayment;
         private $pet;
         private $event;
+
+        public function getReserveId()
+        {
+            return $this->reserveId;
+        }
+
+        public function setReserveId($reserveId)
+        {
+            $this->reserveId = $reserveId;
+        }
+
+        public function getTotalFee()
+        {
+            return $this->totalFee;
+        }
 
         public function setTotalFee($totalFee)
         {
