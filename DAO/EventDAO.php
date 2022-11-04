@@ -14,7 +14,9 @@
 
             $this->connection = Connection::GetInstance();
 
-            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+            $id = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            return $id;
         }
 
         public function GetEventsAsJson($events, $keeper) {

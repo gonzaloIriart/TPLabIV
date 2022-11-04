@@ -135,6 +135,20 @@ END$$
 
 DELIMITER ;
 
+DROP procedure IF EXISTS `Keeper_GetById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Keeper_GetById (IN Id INT)
+BEGIN
+	SELECT keeper.id, keeper.dailyFee, keeper.sizeOfDog, keeper.userId
+    FROM keeper
+    WHERE (keeper.id = Id);
+END$$
+
+DELIMITER ;
+
+
 DROP procedure IF EXISTS `Keeper_GetByEventAvailableDates`;
 
 DELIMITER $$
@@ -144,7 +158,7 @@ BEGIN
 	SELECT DISTINCT k.id, k.dailyFee, k.sizeOfDog, k.userId
     FROM keeper k
     JOIN event e on k.id = e.keeperId
-    WHERE (e.status = 'unavailable' OR e.status = 'reserved') AND
+    WHERE (e.status = 'unavailable' OR e.status = 'reserved'OR e.status = 'pending') AND
 			(startDate BETWEEN e.startDate AND e.endDate OR
 			endDate BETWEEN e.startDate AND e.endDate OR
             (startDate > e.startDate AND endDate < e.endDate) OR
@@ -217,6 +231,8 @@ BEGIN
         (event.status, event.startDate, event.endDate, event.keeperId)
     VALUES
         (status, startDate, endDate, keeperId);
+        
+	SELECT LAST_INSERT_ID();
 END$$
 
 DELIMITER ;

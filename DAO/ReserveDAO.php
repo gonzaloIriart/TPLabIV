@@ -25,6 +25,7 @@
 
             $parameters = ParameterHelper::encodeReserve($reserve);
 
+
             $this->connection = Connection::GetInstance();
 
 

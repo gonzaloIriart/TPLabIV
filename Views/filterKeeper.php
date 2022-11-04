@@ -53,14 +53,14 @@ if(!empty($availableKeepers)){
       <td><?php echo (intval($keeper->getDailyFee())*4) ?></td>
       <td>
         
-      <form action="<?php echo  FRONT_ROOT . "Reserve/CreateReserve/"?>">
+      <form action="<?php echo  FRONT_ROOT . "Reserve/CreateReserve/"?>" method="post">
 
         <input type="text" name="keeperId" value="<?php echo($keeper->getKeeperId()) ?>" style="display:none;background-color:#DC8E47;color:white;" />
         <input type="text" name="petId" value="<?php echo($petId) ?>" style="display:none;background-color:#DC8E47;color:white;" />
         <input type="text" name="dates" value="<?php echo($dates[0]." ".$dates[1]) ?>" style="display:none;background-color:#DC8E47;color:white;" />
         <input type="text" name="totalFee" value="<?php echo(intval($keeper->getDailyFee())*4) ?>" style="display:none;background-color:#DC8E47;color:white;" />
 
-        <input type="submit" class="btn" value="Guardar" style="background-color:#DC8E47;color:white;" />
+        <input type="submit" class="btn" value="Reservar" style="background-color:#DC8E47;color:white;" />
       </form></td>
       </tr>
      <?php
