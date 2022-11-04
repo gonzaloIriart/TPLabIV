@@ -180,7 +180,32 @@ END$$
 
 DELIMITER ;
 
+DROP procedure IF EXISTS `Event_GetById`;
 
+DELIMITER $$
+
+CREATE PROCEDURE Event_GetById (IN eventId INT)
+BEGIN
+	SELECT event.id, event.status, event.startDate, event.endDate, event.keeperId
+    FROM event
+    WHERE event.id = eventId;
+END$$
+
+DELIMITER ;
+
+
+DROP procedure IF EXISTS `Event_UpdateStatus`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Event_UpdateStatus (IN eventId INT, IN status VARCHAR(20))
+BEGIN
+    UPDATE event e
+    SET e.status = status
+    WHERE e.Id = eventId;
+END$$
+
+DELIMITER ;
 
 DROP procedure IF EXISTS `Event_Add`;
 
@@ -216,9 +241,23 @@ DELIMITER $$
 
 CREATE PROCEDURE Reserve_GetById (IN reserveId INT)
 BEGIN
-	SELECT (reserve.totalFee, reserve.advancePayment, reserve.petId, reserve.eventId) 
+	SELECT reserve.totalFee, reserve.advancePayment, reserve.petId, reserve.eventId
     FROM reserve r
     WHERE r.Id = reserveId;
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Reserve_DeleteById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Reserve_DeleteById (IN reserveId INT)
+BEGIN
+	DELETE reserve, event
+    FROM reserve
+    INNER JOIN event ON reserve.eventId = event.id
+    WHERE reserve.Id = reserveId;
 END$$
 
 DELIMITER ;
@@ -227,12 +266,13 @@ DROP procedure IF EXISTS `Reserve_GetAllByKeeperId`;
 
 DELIMITER $$
 
+
 CREATE PROCEDURE Reserve_GetAllByKeeperId (IN keeperId INT)
 BEGIN
-	SELECT (reserve.totalFee, reserve.advancePayment, reserve.petId, reserve.eventId) 
+	SELECT r.id, r.totalFee, r.advancePayment, r.petId, r.eventId
     FROM reserve r
     INNER JOIN event e ON r.eventId = e.id
-    WHERE e.keeperId = keeperId;
+    WHERE e.keeperId = keeperId AND e.status = 'pending';
 END$$
 
 DELIMITER ;
@@ -246,6 +286,19 @@ BEGIN
         (owner.userId)
     VALUES
         (userId);
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Owner_GetBId`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Owner_GetByUserId (IN id INT)
+BEGIN
+	SELECT owner.id, owner.userId
+    FROM owner
+    WHERE (owner.id = id);
 END$$
 
 DELIMITER ;
@@ -330,4 +383,4 @@ VALUES  ('unavailable', '2022-10-20', '2022-10-25', 1),
 		('unavailable', '2022-10-10', '2022-10-13', 1);
         
 INSERT INTO reserve (totalFee, advancePayment, petId, eventId)
-VALUES (500, 50, 1, 3);
+VALUES (500, 50, 1, 2);

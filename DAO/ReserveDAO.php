@@ -6,14 +6,21 @@
     use Models\Pet as Pet;
     use Models\Reserve as Reserve;
     use Helpers\ParameterHelper;
+    use DAO\EventDAO;
+    use DAO\PetDAO;
 
     class ReserveDAO implements IReserveDAO 
     {
-        private $petList = array();
+        private $eventDAO;
+        private $petDAO;
+
+        public function __construct()
+        {
+            $this->eventDAO = new EventDAO;
+            $this->petDAO = new PetDAO;
+        }
 
         function Add($reserve){            
-
-
             $query = "CALL Reserve_Add(?, ?, ?, ?)";
 
             $parameters = ParameterHelper::encodeReserve($reserve);
@@ -22,7 +29,6 @@
 
 
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-
         }
 
         public function GetById($id)
@@ -55,10 +61,26 @@
             $reserves = array();
             foreach($results as $reserveItem){
                 $reserve = ParameterHelper::decodeReserve($reserveItem);
+                $pet = $this->petDAO->GetById($reserve->getPet()->getPetId());
+                $event = $this->eventDAO->GetById($reserve->getEvent()->getEventId());
+                $reserve->setEvent($event);
+                $reserve->setPet($pet);
                 array_push($reserves, $reserve);
             }
 
             return $reserves;
+        }
+
+        public function DeleteReserve($id)
+        {
+
+            $query = "CALL Reserve_DeleteById(?)";
+
+            $this->connection = Connection::GetInstance();
+            
+            $parameters["Id"] = $id;
+
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
     

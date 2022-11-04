@@ -52,7 +52,7 @@
                     SessionHelper::hydrateOwnerSession($owner);
                     require_once(VIEWS_PATH."ownerHome.php");
                 }
-                else
+                elseif($user->getRole() == 'k')
                 {
                     $keeper = $this->keeperDAO->getKeeperByUserId($user->getUserId());
                     $keeper->setUser($user);

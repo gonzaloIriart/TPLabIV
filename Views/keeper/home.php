@@ -1,6 +1,6 @@
 <?php 
     require_once("Views/nav.php");
-?>
+    ?>
 <div class="calendar-container">
     <div id="header">
         <div id="monthDisplay"></div>
