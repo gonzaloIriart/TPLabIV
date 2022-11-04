@@ -31,6 +31,7 @@
             $pet->setVaccinationScheduleImg($vaccinationSchedule);
             $pet->setDescription($description);
             $this->PetDAO->Add($pet);
+            $this->ShowPets();
 
         }
 
