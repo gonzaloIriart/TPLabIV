@@ -86,7 +86,7 @@
 
             $this->connection = Connection::GetInstance();         
          
-            $parameters = ParameterHelper::encodeDates($dates);
+            $parameters = ParameterHelper::encodeDatesPlusMinusOne($dates);
 
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 

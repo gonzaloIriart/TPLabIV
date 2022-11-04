@@ -40,7 +40,7 @@
 
         static function decodeKeeper($encodedKeeper)
         {
-            var_dump($encodedKeeper);
+
             $keeper = new Keeper();
             $keeper->setKeeperId($encodedKeeper["id"]);
             $keeper->setSizeOfDog($encodedKeeper["sizeOfDog"]);
@@ -121,8 +121,17 @@
             return $encodedDates;
         }
 
+        static function encodeDatesPlusMinusOne($dates)
+        {
+            $encodedDates["startDate"] = date("Y-m-d", strtotime($dates["0"] . '- 1 days')) ;
+            $encodedDates["endDate"] = date("Y-m-d", strtotime($dates["1"] . '+ 1 days')) ;
+
+            return $encodedDates;
+        }
+
         static function encodeReserve($reserve)
         {
+
             $encodeReserve["totalFee"] = $reserve->getTotalFee();
             $encodeReserve["advancePayment"] = $reserve->getAdvancePayment();
             $encodeReserve["petId"] = $reserve->getPet()->getPetId();

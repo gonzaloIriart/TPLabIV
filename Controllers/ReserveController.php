@@ -15,6 +15,7 @@
     use Models\Keeper as Keeper;
     use Models\Reserve as Reserve;
     use Models\Event as Event;
+    use Helpers\ParameterHelper;
 
     class ReserveController
     {
@@ -26,32 +27,33 @@
             $this->PetDAO = new PetDAO();
             $this->ReserveDAO = new ReserveDAO();
             $this->KeeperDAO = new KeeperDAO();
+            $this->EventDAO = new EventDAO();
         }
 
         public function CreateReserve($keeperId, $petId, $dates, $totalPrice)
         {
-            var_dump($keeperId);
-            var_dump($petId);
-            var_dump($dates);
-            var_dump($totalPrice);
 
-            $arrayDates = explode(" ", $dates);
-            $startDate = $arrayDates["0"];
-            $endDate = $arrayDates["1"];
+            $arrayDates = ParameterHelper::encodeDates (explode(" ", $dates));
+            $startDate = $arrayDates["startDate"];
+            $endDate = $arrayDates["endDate"];
            
             $event = new Event();
             $event->setKeeper($this->KeeperDAO->GetById($keeperId));
             $event->setStartDate($startDate);
             $event->setEndDate($endDate);
             $event->setStatus("pending"); // esto habria que ponerlo en un enum
-            //$this->EventDAO->Add($event);
+            $eventId = $this->EventDAO->Add($event);
+            $event->setEventId($eventId["0"]["0"]);
 
-            // $reserve = new Reserve(); 
-            // $reserve->setTotalFee(10); // calcular total fee, calculo que sera keeper->price * los dias entre startDate y endDate
-            // $reserve->setAdvancePayment(5); // calcularlo, calculo que sera un porcentaje de totalfee
-            // $reserve->setPet($pet);
-            // $reserve->setEvent($event);
-            // //$this->ReserveDAO->Add($reserve);
+            $reserve = new Reserve(); 
+            $reserve->setTotalFee($totalPrice); 
+            $reserve->setAdvancePayment($totalPrice*0.5); // calcularlo, calculo que sera un porcentaje de totalfee
+            $reserve->setPet($this->PetDAO->GetById($petId));
+            $reserve->setEvent($event);
+            $this->ReserveDAO->Add($reserve);
+
+            require_once(VIEWS_PATH."reserveStatusOK.php");
+            require_once(VIEWS_PATH."ownerHome.php");
 
             
             
