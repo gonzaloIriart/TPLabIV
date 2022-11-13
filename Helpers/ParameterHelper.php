@@ -212,23 +212,23 @@
 
         static function encodePayment($payment)
         {
-            $encodedBankAccount["ownerId"] = $payment->getOwner()->getOwnerId();
-            $encodedBankAccount["reserveId"] = $payment->getReserve()->getReserveId();
-            $encodedBankAccount["bankAccountId"] = $payment->getBankAccount()->getBankaccountId();
+            $encodedPayment["ownerId"] = $payment->getOwner()->getOwnerId();
+            $encodedPayment["reserveId"] = $payment->getReserve()->getReserveId();
+            $encodedPayment["bankAccountId"] = $payment->getBankAccount()->getBankaccountId();
 
-            return $encodedBankAccount;
+            return $encodedPayment;
         }
 
         static function decodePayment($encodedPayment)
         {
-            $bankAccount = new BankAccount();
+            $payment = new Payment();
             
-            $bankAccount->setPaymentId($encodedBankAccount["id"]);
-            $bankAccount->setBankAccount($encodedBankAccount["bankAccountId"]);
-            $bankAccount->setOwner($encodedBankAccount["ownerId"]);
-            $bankAccount->serReserve($encodedBankAccount["reserveId"]);
+            $payment->setPaymentId($encodedPayment["id"]);
+            $payment->setBankAccount($encodedPayment["bankAccountId"]);
+            $payment->setOwner($encodedPayment["ownerId"]);
+            $payment->setReserve($encodedPayment["reserveId"]);
 
-            return $bankAccount;
+            return $payment;
         }
 
         
