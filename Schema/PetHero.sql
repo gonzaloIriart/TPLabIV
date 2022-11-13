@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS bankAccount (
 
 CREATE TABLE IF NOT EXISTS payment (
     id INT NOT NULL AUTO_INCREMENT,
-    receipt BLOB,
+    receipt VARCHAR(1000),
     ownerId INT NOT NULL,
     reserveId INT NOT NULL,
     bankAccountId INT NOT NULL,
@@ -501,11 +501,25 @@ DROP procedure IF EXISTS `Payment_AddReceipt`;
 
 DELIMITER $$
 
-CREATE PROCEDURE Payment_AddReceipt (IN paymentId INT, IN receipt BLOB)
+CREATE PROCEDURE Payment_AddReceipt (IN paymentId INT, IN receipt VARCHAR(1000))
 BEGIN
 	UPDATE payment   
     SET payment.receipt = receipt
     WHERE payment.id = paymentId;
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Payment_GetPendingPayByOwner`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Payment_GetPendingPayByOwner (IN ownerId INT)
+BEGIN
+	SELECT p.id, p.ownerId, p.reserveId, p.bankAccountId
+    FROM payment p
+    JOIN reserve r ON r.id = p.reserveId
+    WHERE p.ownerId = ownerId AND r.status = 'pendingPay';
 END$$
 
 DELIMITER ;
