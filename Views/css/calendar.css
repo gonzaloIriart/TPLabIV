@@ -9,6 +9,17 @@
     border-radius: 5px;
     color: white;
   }
+
+  .buttonForm {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+  }
+
+  .buttonForm button{
+    display: flex;
+    width: 100%;
+  }
   
   #header {
     padding: 10px;
@@ -61,21 +72,43 @@
   .day + #currentDay {
     background-color:#e8f4fa;
   }
-  .event {
+
+  .pending {
     font-size: 10px;
     padding: 3px;
-    background-color: #58bae4;
+    background-color: #ad6c0b;
     color: white;
     border-radius: 5px;
     max-height: 55px;
     overflow: hidden;
   }
+
+  .unavailable {
+    font-size: 10px;
+    padding: 3px;
+    background-color: #c42611;
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+  }
+  
+  .reserved {
+    font-size: 10px;
+    padding: 3px;
+    background-color: #11c467;
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+  }
+
   .padding {
     cursor: default !important;
     background-color: #FFFCFF !important;
     box-shadow: none !important;
   }
-  #newEventModal, #deleteEventModal {
+  #newEventModal, #deleteEventModal, #pendingReserveModal {
     display: none;
     z-index: 20;
     padding: 25px;
@@ -104,7 +137,8 @@
   #cancelButton, #deleteButton {
     background-color: #d36c6c;
   }
-  #saveButton, #closeButton {
+  .saveButton, #closeButton {
+    min-width: 100px;
     background-color: #92a1d1;
   }
   #eventText {

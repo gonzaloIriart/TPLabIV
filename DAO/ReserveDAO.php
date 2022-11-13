@@ -68,8 +68,21 @@
                 $reserve->setPet($pet);
                 array_push($reserves, $reserve);
             }
-
             return $reserves;
+        }
+
+        public function GetReservesAsJson($reserves)
+        {
+            $reservesJson = array();
+            foreach($reserves as $reserveItem)
+            {
+                $reserveJson = ParameterHelper::encodeReserveToJson($reserveItem);
+                $pet = $this->petDAO->GetById($reserveJson["petId"]);
+                $reserveJson["pet"] = ParameterHelper::encodePet($pet);
+                array_push($reservesJson, $reserveJson);
+            }
+            return $reservesJson;
+
         }
 
         public function DeleteReserve($id)

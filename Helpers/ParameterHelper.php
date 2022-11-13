@@ -1,6 +1,7 @@
 <?php
     namespace Helpers;
 
+    use Models\BankAccount;
     use Models\User;
     use Models\UserRol;
     use Models\Keeper;
@@ -105,6 +106,17 @@
             return $encodedEvent;
         }
 
+        static function encodeEventToJson($event)
+        {
+            $encodedEvent["id"] = $event->getEventId();
+            $encodedEvent["status"] = $event->getStatus();
+            $encodedEvent["startDate"] = $event->getStartDate();
+            $encodedEvent["endDate"] = $event->getEndDate();
+            $encodedEvent["keeperId"] = $event->getKeeper()->getKeeperId();
+
+            return $encodedEvent;
+        }
+
         static function decodeEvent($encodedEvent)
         {
             $event = new Event();
@@ -145,6 +157,18 @@
 
         }
 
+        static function encodeReserveToJson($reserve)
+        {
+            $encodeReserve["id"] = $reserve->getReserveId();
+            $encodeReserve["totalFee"] = $reserve->getTotalFee();
+            $encodeReserve["advancePayment"] = $reserve->getAdvancePayment();
+            $encodeReserve["petId"] = $reserve->getPet()->getPetId();
+            $encodeReserve["eventId"] = $reserve->getEvent()->getEventId();
+
+            return $encodeReserve;
+
+        }
+
         static function decodeReserve($encodedReserve)
         {
             $reserve = new Reserve();
@@ -163,6 +187,27 @@
             return $reserve;
         }
 
+        static function encodeBankAccount($bankAccount)
+        {
+            $encodedBankAccount["alias"] = $bankAccount->getAlias();
+            $encodedBankAccount["cbu"] = $bankAccount->getCbu();
+            $encodedBankAccount["bank"] = $bankAccount->getBank();
+            $encodedBankAccount["keeperId"] = $bankAccount->getKeeper()->getKeeperId();
+
+            return $encodedBankAccount;
+        }
+
+        static function decodeBankAccount($encodedBankAccount)
+        {
+            $bankAccount = new BankAccount();
+            
+            $bankAccount->setBankAccountId($encodedBankAccount["id"]);
+            $bankAccount->setAlias($encodedBankAccount["alias"]);
+            $bankAccount->setCbu($encodedBankAccount["cbu"]);
+            $bankAccount->setBank($encodedBankAccount["bank"]);
+
+            return $bankAccount;
+        }
 
         
     }

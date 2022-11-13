@@ -32,8 +32,6 @@
 
             $this->connection = Connection::GetInstance();
 
-            $parameters["limit"] = $limit;
-
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
             $keeper = array();

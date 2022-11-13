@@ -24,7 +24,7 @@
             foreach($events as $eventItem)
             {
                 $eventItem->setKeeper($keeper);
-                $eventJson = ParameterHelper::encodeEvent($eventItem);
+                $eventJson = ParameterHelper::encodeEventToJson($eventItem);
                 array_push($eventsJson, $eventJson);
             }
             return $eventsJson;
@@ -74,8 +74,14 @@
         }
 
         public function DeleteEvent($eventId){
-
+    
+                $query = "CALL Event_DeleteById(?)";
+    
+                $this->connection = Connection::GetInstance();
+                
+                $parameters["Id"] = $eventId;
+    
+                $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+            
         }
     }
-
-?>

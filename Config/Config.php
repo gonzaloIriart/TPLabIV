@@ -11,7 +11,7 @@ define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
 define("DB_HOST", "localhost");
 define("DB_NAME", "pet_hero");
 define("DB_USER", "root");
-define("DB_PASS", "");
+define("DB_PASS", "root");
 ?>
 
 
