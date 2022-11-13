@@ -8,6 +8,8 @@
         private $email;
         private $password;
         private $role;
+        private $secretQuestion;
+        private $answer;
 
         #region getters & setters
         public function getUserId()
@@ -60,5 +62,45 @@
             $this->name = $name;                
         }
         #endregion
+
+        /**
+         * Get the value of secretQuestion
+         */ 
+        public function getSecretQuestion()
+        {
+                return $this->secretQuestion;
+        }
+
+        /**
+         * Set the value of secretQuestion
+         *
+         * @return  self
+         */ 
+        public function setSecretQuestion($secretQuestion)
+        {
+                $this->secretQuestion = $secretQuestion;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of answer
+         */ 
+        public function getAnswer()
+        {
+                return $this->answer;
+        }
+
+        /**
+         * Set the value of answer
+         *
+         * @return  self
+         */ 
+        public function setAnswer($answer)
+        {
+                $this->answer = $answer;
+
+                return $this;
+        }
     }
 ?>

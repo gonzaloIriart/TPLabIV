@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS user (
     email VARCHAR(100),
     password VARCHAR(100),
     role CHAR,
+    secretQuestion int not null,
+    answer varchar(100),
     CONSTRAINT PK_Id PRIMARY KEY (id),
     CONSTRAINT UC_Email UNIQUE (email)
 )Engine=InnoDB;
@@ -76,7 +78,7 @@ DELIMITER $$
 
 CREATE PROCEDURE User_GetByEmail (IN Email VARCHAR(100))
 BEGIN
-	SELECT user.id, user.name, user.password, user.email, user.role
+	SELECT user.id, user.name, user.password, user.email, user.role, user.secretQuestion, user.answer
     FROM user
     WHERE (user.email = email);
 END$$
@@ -89,7 +91,7 @@ DELIMITER $$
 
 CREATE PROCEDURE User_GetById (IN id INT)
 BEGIN
-	SELECT user.id, user.name, user.password, user.email, user.role
+	SELECT user.id, user.name, user.password, user.email, user.role, user.secretQuestion, user.answer
     FROM user
     WHERE (user.id = id);
 END$$
@@ -100,12 +102,25 @@ DROP procedure IF EXISTS `User_Add`;
 
 DELIMITER $$
 
-CREATE PROCEDURE User_Add (IN name CHAR(100), IN email VARCHAR(100), IN password VARCHAR(100), IN role CHAR)
+CREATE PROCEDURE User_Add (IN name CHAR(100), IN email VARCHAR(100), IN password VARCHAR(100), IN role CHAR, IN secretQuestion INT, IN answer VARCHAR(100))
 BEGIN
 	INSERT INTO user
-        (user.name, user.email, user.password, user.role)
+        (user.name, user.email, user.password, user.role, user.secretQuestion, user.answer)
     VALUES
-        (name, email, password, role);
+        (name, email, password, role, secretQuestion, answer);
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `User_UpdateUserPasswordById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE User_UpdateUserPasswordById (IN Id INT, IN newPassword VARCHAR(100))
+BEGIN
+	UPDATE user
+        SET password = newPassword
+    WHERE user.id = Id;
 END$$
 
 DELIMITER ;

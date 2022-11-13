@@ -12,6 +12,8 @@
         private $userList = array();
         private $connection;
         private $tableName = "user";
+
+        
      
         public function GetUserByEmail(string $email){
             $query = "CALL User_GetByEmail(?)";
@@ -57,9 +59,22 @@
 
         public function Add(User $user){
 
-            $query = "CALL User_Add(?, ?, ?, ?)";
+
+
+            $query = "CALL User_Add(?, ?, ?, ?, ?, ?)";
 
             $parameters = ParameterHelper::encodeUser($user);
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+
+        public function UpdateUserPasswordById($id, $newPassword){
+            $query = "CALL User_UpdateUserPasswordById(?, ?)";
+
+            $parameters["Id"] = $id;
+            $parameters["newPassword"] = $newPassword;
 
             $this->connection = Connection::GetInstance();
 

@@ -52,7 +52,7 @@
             $reserve->setEvent($event);
             $this->ReserveDAO->Add($reserve);
 
-            require_once(VIEWS_PATH."reserveStatusOK.php");
+            $message = "Reserva realizada con exito";
             require_once(VIEWS_PATH."ownerHome.php");
 
             

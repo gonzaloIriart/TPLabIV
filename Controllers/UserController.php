@@ -26,7 +26,37 @@
             $this->eventDAO = new EventDAO;
         }
 
-        public function Register($name, $email, $password, $role, $sizeOfDog = null, $dailyFee = null) 
+        public function UpdatePassword($email){
+            $user = $this->userDAO->GetUserByEmail($email);
+            if($user->getUserId() != null){
+                require_once(VIEWS_PATH."passwordRecover.php");
+            }
+            else{
+                $message=("Email no registrado");
+                require_once(VIEWS_PATH."index.php");
+            }
+            
+        }
+
+        public function VerifyAnswerUpdatePassword($id, $answer, $newPassword){
+
+            $user =  $this->userDAO->GetUserById($id);
+
+            if($user->getAnswer() == $answer){
+                $this->userDAO->UpdateUserPasswordById($id, $newPassword);
+                require_once(VIEWS_PATH."index.php");
+            }
+            else{
+                $message = "La respuesta no es correcta.";
+                require_once(VIEWS_PATH."passwordRecover.php");
+            }
+
+            var_dump($user);
+
+
+        }
+
+        public function Register($name, $email, $password, $role, $sizeOfDog = null, $dailyFee = null, $secretQuestion, $answer) 
         {
             if (!($role == 'o' || $role == 'k'))
             {
@@ -36,13 +66,16 @@
             if($this->userDAO->GetUserByEmail($email)->getUserId() != null)
             {
                 $this->RegisterView("El email ya se encuentra en uso.");
-            }
-            
-            $user = new User();
+
+            }else{
+
+                $user = new User();
             $user->setName($name);
             $user->setEmail($email);
             $user->setPassword($password);
             $user->setRole($role);
+            $user->setSecretQuestion($secretQuestion);
+            $user->setAnswer($answer);
 
             $this->userDAO->Add($user);
             $user = $this->userDAO->GetUserByEmail($email);
@@ -82,6 +115,9 @@
             }else {
                 require_once(VIEWS_PATH."errorPage.php");
             }
+            }
+            
+            
             
         }
 

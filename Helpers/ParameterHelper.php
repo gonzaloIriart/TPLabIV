@@ -15,6 +15,8 @@
             $encodedUser["email"] = $user->getEmail();
             $encodedUser["password"] = $user->getPassword();
             $encodedUser["role"] = $user->getRole();
+            $encodedUser["secretQuestion"] = $user->getSecretQuestion();
+            $encodedUser["answer"] = $user->getAnswer();
             
             return $encodedUser;
         }
@@ -26,6 +28,8 @@
             $user->setPassword($encodedUser["password"]);
             $user->setName($encodedUser["name"]);
             $user->setRole($encodedUser["role"]);
+            $user->setSecretQuestion($encodedUser["secretQuestion"]);
+            $user->setAnswer($encodedUser["answer"]);
             return $user;
         }
 
