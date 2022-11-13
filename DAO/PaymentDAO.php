@@ -20,7 +20,9 @@
 
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
-            $results = array();
+            var_dump($results);
+
+
             foreach($results as $paymentItem)
             {
                 array_push($results, ParameterHelper::decodePayment($paymentItem));

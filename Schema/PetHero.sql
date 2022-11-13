@@ -371,15 +371,15 @@ END$$
 
 DELIMITER ;
 
-DROP procedure IF EXISTS `Owner_GetByUserId`;
+DROP procedure IF EXISTS `Owner_GetBId`;
 
 DELIMITER $$
 
-CREATE PROCEDURE Owner_GetByUserId (IN Id INT)
+CREATE PROCEDURE Owner_GetByUserId (IN id INT)
 BEGIN
 	SELECT owner.id, owner.userId
     FROM owner
-    WHERE (owner.id = Id);
+    WHERE (owner.id = id);
 END$$
 
 DELIMITER ;
@@ -519,13 +519,11 @@ BEGIN
 	SELECT p.id, p.ownerId, p.reserveId, p.bankAccountId
     FROM payment p
     JOIN reserve r ON r.id = p.reserveId
+    JOIN event e ON  e.id = r.eventId
     WHERE p.ownerId = ownerId AND r.status = 'pendingPay';
 END$$
 
 DELIMITER ;
-
--- INSERTS --
-
 
 -- INSERTS --
 

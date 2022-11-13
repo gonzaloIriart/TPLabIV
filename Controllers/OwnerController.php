@@ -35,10 +35,20 @@
 
         public function PendingPaidReserves($message = "")
         {
-            $payment = $this->PaymentDAO->GetPendingPayByOwnerId($_SESSION["owner"]->getOwnerId());
-            $bankAccount = $this->BankAccountDAO->GetById($payment->getBankAccount());
-            $reserve = $this->ReserveDAO->GetById($bankAccount->getReserve());
-            $keeper = $this->KeeperDAO->GetById($reserve->getKeeper());
+            $payments = $this->PaymentDAO->GetPendingPayByOwnerId($_SESSION["owner"]->getOwnerId());
+            var_dump($payments);
+            if(empty($payments)){
+                //decile que no hay nada que pagar
+            }
+            var_dump($payments);
+            // else{
+            //     foreach($payments, $paymentItem){
+            //         $paymentItem->setBankAccount($this->BankAccountDAO->GetById($paymentItem->getBankAccount()));
+            //         $paymentItem->setOwner($this->OwnerDAO->GetById($paymentItem->getOwner()));
+            //         $paymentItem->setReserve($this->ReserveDAO->GetById($paymentItem->getReserve()));
+            //     }
+            // }
+          
 
         } 
 
