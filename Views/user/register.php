@@ -30,6 +30,25 @@ echo($message ?? "");
                 <input type="number" name="dailyFee" class="form-control-plaintext" value="0">
             </div>
         </div>
+        <div class="form-group">
+            <label for="alias">Alias</label>
+            <input type="text" name="alias" class="text" require>
+        </div>
+        <div class="form-group">
+            <label for="cbu">CBU</label>
+            <input type="text" name="cbu" class="text" require>
+        </div>
+        <div class="form-group">
+            <label for="bank">Banco</label>
+            <select class="form-select" value="" name="bank">
+                <option value="Frances">Frances</option>
+                <option value="HSBC">HSBC</option>
+                <option value="Galicia">Galicia</option>
+                <option value="Santander">Santander</option>
+                <option value="Provincia">Provincia</option>
+                <option value="Nacion">Nacion</option>
+            </select>
+        </div>
     </div>
 
     <div>

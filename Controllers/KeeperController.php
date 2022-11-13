@@ -15,6 +15,7 @@
         private $userDAO;
         private $keeperDAO;
         private $eventDAO;
+        private $reserveDAO;
         private $petDAO;
 
         public function __construct()
@@ -38,14 +39,17 @@
 
                 $this->eventDAO->Add($event);    
             }
-            $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+            $events = $this->GetEventsAsJson();
+            $reserves = $this->GetReservesAsJson();
+
             require_once(VIEWS_PATH."keeper/home.php");
         }
 
         public function DeleteEvent($eventId){
-            $this->reserveDAO->DeleteReserve($eventId);
-            $keeper = $_SESSION["keeper"];
-            $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+            $this->eventDAO->DeleteEvent($eventId);
+            $events = $this->GetEventsAsJson();
+            $reserves = $this->GetReservesAsJson();
+
             require_once(VIEWS_PATH."keeper/home.php");
         }
 
@@ -65,12 +69,30 @@
 
         public function ShowPendingReserves(){
             $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
+            echo($_SESSION["keeper"]->getKeeperId());
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
         public function HomeView(){
-            $keeper = $_SESSION["keeper"];
-            $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+            $events = $this->GetEventsAsJson();
+            $reserves = $this->GetReservesAsJson();
+
+            require_once(VIEWS_PATH."keeper/home.php");
+        }
+
+        public function DeleteReserveFromCalendar($reserveId){
+            $this->reserveDAO->DeleteReserve($reserveId);
+            $events = $this->GetEventsAsJson();
+            $reserves = $this->GetReservesAsJson();
+
+            require_once(VIEWS_PATH."keeper/home.php");
+        }
+
+        public function AcceptReserve($reserveId){
+            $this->eventDAO->UpdateEventState($reserveId, "reserved");
+            $events = $this->GetEventsAsJson();
+            $reserves = $this->GetReservesAsJson();
+
             require_once(VIEWS_PATH."keeper/home.php");
         }
 
@@ -114,6 +136,18 @@
             }
 
             return $keepers;
+        }
+
+        private function GetReservesAsJson(){
+            $keeper = $_SESSION["keeper"];
+            $reserves = $this->reserveDAO->GetReservesAsJson($this->reserveDAO->GetReservesByKeeperId($keeper->getKeeperId()));
+            return $reserves;
+        }
+
+        private function GetEventsAsJson(){
+            $keeper = $_SESSION["keeper"];
+            $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+            return $events;
         }
     }
 

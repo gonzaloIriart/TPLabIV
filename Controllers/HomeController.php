@@ -5,6 +5,7 @@
     use DAO\OwnerDAO as OwnerDAO;
     use DAO\KeeperDAO as KeeperDAO;
     use DAO\EventDAO as EventDAO;
+    use DAO\ReserveDAO as ReserveDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\User as User;
     use Models\Owner as Owner;
@@ -16,6 +17,7 @@
         private $OwnerDAO;
         private $keeperDAO;
         private $eventDAO;
+        private $reserveDAO;
 
         public function __construct()
         {
@@ -23,6 +25,7 @@
             $this->OwnerDAO = new OwnerDAO();
             $this->keeperDAO = new KeeperDAO();
             $this->eventDAO = new EventDAO();
+            $this->reserveDAO = new ReserveDAO;
         }
 
         public function Index($message = "")
@@ -57,7 +60,8 @@
                     $keeper = $this->keeperDAO->getKeeperByUserId($user->getUserId());
                     $keeper->setUser($user);
                     SessionHelper::hydrateKeeperSession($keeper);
-                    $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+                    $events = $this->GetEventsAsJson();
+                    $reserves = $this->GetReservesAsJson();
                     require_once(VIEWS_PATH."keeper/home.php");
                 }
                 
@@ -71,8 +75,18 @@
         {
             session_destroy();
             require_once(VIEWS_PATH."logout.php");
-        } 
+        }         
         
-    
+        private function GetReservesAsJson(){
+            $keeper = $_SESSION["keeper"];
+            $reserves = $this->reserveDAO->GetReservesAsJson($this->reserveDAO->GetReservesByKeeperId($keeper->getKeeperId()));
+            return $reserves;
+        }
+
+        private function GetEventsAsJson(){
+            $keeper = $_SESSION["keeper"];
+            $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
+            return $events;
+        }
     }
 ?>

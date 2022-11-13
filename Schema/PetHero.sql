@@ -70,6 +70,20 @@ CREATE TABLE IF NOT EXISTS reserve (
     FOREIGN KEY (eventId) REFERENCES event(id)
 )Engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS bankAccount (
+    id INT NOT NULL AUTO_INCREMENT,
+    cbu VARCHAR(20),
+    alias VARCHAR(20),
+    bank VARCHAR(20),
+    keeperId INT NOT NULL,
+    UNIQUE (id),
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (keeperId) REFERENCES keeper(id)
+)Engine=InnoDB;
+
+
+-- --
+
 DROP procedure IF EXISTS `User_GetByEmail`;
 
 DELIMITER $$
@@ -236,6 +250,18 @@ BEGIN
 END$$
 
 DELIMITER ;
+DROP procedure IF EXISTS `Event_DeleteById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Event_DeleteById (IN eventId INT)
+BEGIN
+	DELETE event
+    FROM event
+    WHERE event.Id = eventId;
+END$$
+
+DELIMITER ;
 
 DROP procedure IF EXISTS `Reserve_Add`;
 
@@ -368,6 +394,46 @@ BEGIN
 	SELECT * 
     FROM pet
     WHERE (pet.id = Id);
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `BankAccount_GetById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE BankAccount_GetById (IN id INT)
+BEGIN
+	SELECT b.id, b.alias, b.cbu, b.bank, b.keeperId
+    FROM bankAccount b
+    WHERE (b.id = id);
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `BankAccount_GetByKeeperId`;
+
+DELIMITER $$
+
+CREATE PROCEDURE BankAccount_GetByKeeperId (IN id INT)
+BEGIN
+	SELECT b.id, b.alias, b.cbu, b.bank, b.keeperId
+    FROM bankAccount b
+    WHERE (b.keeperId = id);
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `BankAccount_Add`;
+
+DELIMITER $$
+
+CREATE PROCEDURE BankAccount_Add (IN alias VARCHAR(20),IN cbu VARCHAR(20),IN bank VARCHAR(20), IN keeperId INT)
+BEGIN
+	INSERT INTO bankAccount
+    (bankAccount.alias, bankAccount.cbu, bankAccount.bank, bankAccount.keeperId)
+    VALUES 
+    (alias, cbu, bank, keeperId);
 END$$
 
 DELIMITER ;
