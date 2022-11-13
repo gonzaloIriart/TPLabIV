@@ -60,9 +60,7 @@
                     $keeper = $this->keeperDAO->getKeeperByUserId($user->getUserId());
                     $keeper->setUser($user);
                     SessionHelper::hydrateKeeperSession($keeper);
-                    $events = $this->GetEventsAsJson();
-                    $reserves = $this->GetReservesAsJson();
-                    require_once(VIEWS_PATH."keeper/home.php");
+                    $this->CalendarView();
                 }
                 
 
@@ -75,18 +73,14 @@
         {
             session_destroy();
             require_once(VIEWS_PATH."logout.php");
-        }         
-        
-        private function GetReservesAsJson(){
+        } 
+
+        public function CalendarView($message = ""){
             $keeper = $_SESSION["keeper"];
             $reserves = $this->reserveDAO->GetReservesAsJson($this->reserveDAO->GetReservesByKeeperId($keeper->getKeeperId()));
-            return $reserves;
-        }
-
-        private function GetEventsAsJson(){
-            $keeper = $_SESSION["keeper"];
             $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
-            return $events;
+
+            require_once(VIEWS_PATH."keeper/home.php");
         }
     }
 ?>
