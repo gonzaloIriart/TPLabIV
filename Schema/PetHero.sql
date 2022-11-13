@@ -69,11 +69,20 @@ CREATE TABLE IF NOT EXISTS reserve (
     advancePayment INT NOT NULL,
     petId INT NOT NULL,
     eventId INT NOT NULL,
-    paymentId INT,
     CONSTRAINT PK_Id PRIMARY KEY (id),
     FOREIGN KEY (petId) REFERENCES pet(id),
-    FOREIGN KEY (eventId) REFERENCES event(id),
-    FOREIGN KEY (paymentId) REFERENCES payment(id)
+    FOREIGN KEY (eventId) REFERENCES event(id)
+)Engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS bankAccount (
+    id INT NOT NULL AUTO_INCREMENT,
+    cbu VARCHAR(20),
+    alias VARCHAR(20),
+    bank VARCHAR(20),
+    keeperId INT NOT NULL,
+    UNIQUE (id),
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (keeperId) REFERENCES keeper(id)
 )Engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS payment (
@@ -88,18 +97,6 @@ CREATE TABLE IF NOT EXISTS payment (
     FOREIGN KEY (reserveId) REFERENCES reserve(id),
     FOREIGN KEY (bankAccountId) REFERENCES bankAccount(id)
 )Engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS bankAccount (
-    id INT NOT NULL AUTO_INCREMENT,
-    cbu VARCHAR(20),
-    alias VARCHAR(20),
-    bank VARCHAR(20),
-    keeperId INT NOT NULL,
-    UNIQUE (id),
-    CONSTRAINT PK_Id PRIMARY KEY (id),
-    FOREIGN KEY (keeperId) REFERENCES keeper(id)
-)Engine=InnoDB;
-
 
 -- STORE PROCEDURES --
 
@@ -514,6 +511,8 @@ END$$
 DELIMITER ;
 
 -- INSERTS --
+
+
 
 INSERT INTO user
 	(name, email, password, role)
