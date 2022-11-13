@@ -5,7 +5,7 @@
     use DAO\PetDAO as PetDAO;
     use DAO\OwnerDAO as OwnerDAO;
     use DAO\PaymentDAO as PaymentDAO;
-    use DAO\Reserve as Reserve;
+    use DAO\ReserveDAO as ReserveDAO;
     use DAO\BankAccountDAO as BankAccountDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\Owner as Owner;

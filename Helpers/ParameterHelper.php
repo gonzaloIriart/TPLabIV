@@ -8,6 +8,7 @@
     use Models\Owner;
     use Models\Pet;
     use Models\Reserve;
+    use Models\Payment;
     use Models\Event as Event;
 
     class ParameterHelper {
@@ -211,22 +212,21 @@
 
         static function encodePayment($payment)
         {
-            $encodedBankAccount["alias"] = $bankAccount->getAlias();
-            $encodedBankAccount["cbu"] = $bankAccount->getCbu();
-            $encodedBankAccount["bank"] = $bankAccount->getBank();
-            $encodedBankAccount["keeperId"] = $bankAccount->getKeeper()->getKeeperId();
+            $encodedBankAccount["ownerId"] = $payment->getOwner()->getOwnerId();
+            $encodedBankAccount["reserveId"] = $payment->getReserve()->getReserveId();
+            $encodedBankAccount["bankAccountId"] = $payment->getBankAccount()->getBankaccountId();
 
             return $encodedBankAccount;
         }
 
-        static function decodeBankAccount($encodedBankAccount)
+        static function decodePayment($encodedPayment)
         {
             $bankAccount = new BankAccount();
             
-            $bankAccount->setBankAccountId($encodedBankAccount["id"]);
-            $bankAccount->setAlias($encodedBankAccount["alias"]);
-            $bankAccount->setCbu($encodedBankAccount["cbu"]);
-            $bankAccount->setBank($encodedBankAccount["bank"]);
+            $bankAccount->setPaymentId($encodedBankAccount["id"]);
+            $bankAccount->setBankAccount($encodedBankAccount["bankAccountId"]);
+            $bankAccount->setOwner($encodedBankAccount["ownerId"]);
+            $bankAccount->serReserve($encodedBankAccount["reserveId"]);
 
             return $bankAccount;
         }

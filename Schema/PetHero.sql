@@ -371,15 +371,15 @@ END$$
 
 DELIMITER ;
 
-DROP procedure IF EXISTS `Owner_GetBId`;
+DROP procedure IF EXISTS `Owner_GetByUserId`;
 
 DELIMITER $$
 
-CREATE PROCEDURE Owner_GetByUserId (IN id INT)
+CREATE PROCEDURE Owner_GetByUserId (IN Id INT)
 BEGIN
 	SELECT owner.id, owner.userId
     FROM owner
-    WHERE (owner.id = id);
+    WHERE (owner.id = Id);
 END$$
 
 DELIMITER ;
@@ -523,6 +523,9 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+-- INSERTS --
+
 
 -- INSERTS --
 

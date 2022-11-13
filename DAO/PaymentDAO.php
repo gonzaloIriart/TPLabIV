@@ -16,7 +16,7 @@
             $query = "CALL Payment_GetPendingPayByOwner(?)";
 
             $this->connection = Connection::GetInstance();
-            $parameters["Id"] = $userId;
+            $parameters["Id"] = $Id;
 
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
