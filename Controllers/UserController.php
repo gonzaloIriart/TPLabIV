@@ -63,7 +63,7 @@
 
         }
 
-        public function Register($name, $email, $password, $role, $sizeOfDog = null, $dailyFee = null, $secretQuestion, $answer) 
+        public function Register($name, $email, $password, $role, $secretQuestion, $answer, $sizeOfDog = null, $dailyFee = null, $alias = null, $cbu = null, $bank = null) 
         {
             if (!($role == 'o' || $role == 'k'))
             {
