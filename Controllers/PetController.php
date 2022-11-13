@@ -3,6 +3,7 @@
 
     use DAO\UserDAO as UserDAO;
     use DAO\PetDAO as PetDAO;
+    use DAO\ImageDAO as ImageDAO;
     use DAO\OwnerDAO as OwnerDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Helpers\JsonHelper as JsonHelper;
@@ -18,21 +19,30 @@
             $this->userDAO = new UserDAO;
             $this->OwnerDAO = new OwnerDAO;
             $this->PetDAO = new PetDAO();
+            $this->ImageDAO = new ImageDAO();
         }
 
-        public function RegisterPet($name, $size, $picture, $video, $vaccinationSchedule, $description)
+        public function RegisterPet($name, $size, $video, $description)
         {
+            $message = $this->ImageDAO->Add($_FILES['picture']);
+            $message = $this->ImageDAO->Add($_FILES['vaccinationScheduleImg']);
             $pet = new Pet();
             $pet->setName($name);
             $pet->setOwner($_SESSION["owner"]->getOwnerId());
             $pet->setSize($size);
-            $pet->setPicture($picture);
+            $pet->setPicture($_FILES['picture']['name']);
             $pet->setVideo($video);
-            $pet->setVaccinationScheduleImg($vaccinationSchedule);
+            $pet->setVaccinationScheduleImg($_FILES['vaccinationScheduleImg']['name']);
             $pet->setDescription($description);
-            $this->PetDAO->Add($pet);
-            $this->ShowPets();
-
+            if($message !="ok" && $message !=""){
+                require_once(VIEWS_PATH."owner/register-pet.php");
+            }
+            else{
+                $this->PetDAO->Add($pet);
+                $this->ShowPets();
+            }
+        
+          
         }
 
         public function ShowPets()
