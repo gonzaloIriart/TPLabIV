@@ -209,6 +209,28 @@
             return $bankAccount;
         }
 
+        static function encodePayment($payment)
+        {
+            $encodedBankAccount["alias"] = $bankAccount->getAlias();
+            $encodedBankAccount["cbu"] = $bankAccount->getCbu();
+            $encodedBankAccount["bank"] = $bankAccount->getBank();
+            $encodedBankAccount["keeperId"] = $bankAccount->getKeeper()->getKeeperId();
+
+            return $encodedBankAccount;
+        }
+
+        static function decodeBankAccount($encodedBankAccount)
+        {
+            $bankAccount = new BankAccount();
+            
+            $bankAccount->setBankAccountId($encodedBankAccount["id"]);
+            $bankAccount->setAlias($encodedBankAccount["alias"]);
+            $bankAccount->setCbu($encodedBankAccount["cbu"]);
+            $bankAccount->setBank($encodedBankAccount["bank"]);
+
+            return $bankAccount;
+        }
+
         
     }
 ?>
