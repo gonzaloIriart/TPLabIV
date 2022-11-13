@@ -55,7 +55,8 @@
         }
 
         public function UpdateEventState($reserveId, $state){
-            $this->eventDAO->UpdateEventState($reserveId, $state);
+            $reserve = $this->reserveDAO->GetById($reserveId);
+            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), $state);
             $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
 
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
