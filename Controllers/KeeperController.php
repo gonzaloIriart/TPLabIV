@@ -64,7 +64,6 @@
 
         public function ShowPendingReserves(){
             $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
-            echo($_SESSION["keeper"]->getKeeperId());
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 

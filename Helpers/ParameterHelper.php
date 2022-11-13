@@ -8,6 +8,7 @@
     use Models\Owner;
     use Models\Pet;
     use Models\Reserve;
+    use Models\Payment;
     use Models\Event as Event;
 
     class ParameterHelper {
@@ -205,6 +206,27 @@
             $bankAccount->setAlias($encodedBankAccount["alias"]);
             $bankAccount->setCbu($encodedBankAccount["cbu"]);
             $bankAccount->setBank($encodedBankAccount["bank"]);
+
+            return $bankAccount;
+        }
+
+        static function encodePayment($payment)
+        {
+            $encodedBankAccount["ownerId"] = $payment->getOwner()->getOwnerId();
+            $encodedBankAccount["reserveId"] = $payment->getReserve()->getReserveId();
+            $encodedBankAccount["bankAccountId"] = $payment->getBankAccount()->getBankaccountId();
+
+            return $encodedBankAccount;
+        }
+
+        static function decodePayment($encodedPayment)
+        {
+            $bankAccount = new BankAccount();
+            
+            $bankAccount->setPaymentId($encodedBankAccount["id"]);
+            $bankAccount->setBankAccount($encodedBankAccount["bankAccountId"]);
+            $bankAccount->setOwner($encodedBankAccount["ownerId"]);
+            $bankAccount->serReserve($encodedBankAccount["reserveId"]);
 
             return $bankAccount;
         }

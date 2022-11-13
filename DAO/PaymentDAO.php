@@ -9,7 +9,28 @@
         function Add(Payment $payment){
 
         }
-        function GetPendingPayByOwnerId($id){
+        function GetPendingPayByOwnerId($Id){
+
+         
+        
+            $query = "CALL Payment_GetPendingPayByOwner(?)";
+
+            $this->connection = Connection::GetInstance();
+            $parameters["Id"] = $Id;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            var_dump($results);
+
+
+            foreach($results as $paymentItem)
+            {
+                array_push($results, ParameterHelper::decodePayment($paymentItem));
+            }
+
+            return $results;
+         
+
 
         }
         function AddReceipt($id, $receipt){

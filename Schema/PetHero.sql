@@ -519,6 +519,7 @@ BEGIN
 	SELECT p.id, p.ownerId, p.reserveId, p.bankAccountId
     FROM payment p
     JOIN reserve r ON r.id = p.reserveId
+    JOIN event e ON  e.id = r.eventId
     WHERE p.ownerId = ownerId AND r.status = 'pendingPay';
 END$$
 

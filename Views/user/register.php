@@ -37,7 +37,7 @@ if($message ?? false){
     <div id="keeperRegister" style="display: none">
         <div class="form-group">
             <label for="size" class="form-label mt-4">Tamaño del perro</label>
-            <select class="form-select" value="" name="sizeOfDog">
+            <select class="form-select" value="small" name="sizeOfDog">
                 <option value="small">Pequeño (menos de 10 kg)</option>
                 <option value="medium">Mediano (11 a 25 kg)</option>
                 <option value="big">Grande (mas de 26 kg)</option>
@@ -72,7 +72,7 @@ if($message ?? false){
 
     <div>
     <label for="secretQuestion" class="form-label mt-4">Seleccione una pregunta secreta</label>
-        <select class="form-select" value="" name="secretQuestion">
+        <select class="form-select" value="1" name="secretQuestion">
             <option value="1">¿Cuál es el nombre de su primera mascota?</option>
             <option value="2">¿Cómo se llamaba su colegio primario?</option>
             <option value="3">¿Cuál es el apellido de soltera de su madre?</option>

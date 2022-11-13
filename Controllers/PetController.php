@@ -25,6 +25,9 @@
         public function RegisterPet($name, $size, $video, $description)
         {
             $message = $this->ImageDAO->Add($_FILES['picture']);
+            if($message !="ok" && $message !=""){
+                $this->ShowPetRegister($message);
+            }
             $message = $this->ImageDAO->Add($_FILES['vaccinationScheduleImg']);
             $pet = new Pet();
             $pet->setName($name);
@@ -35,7 +38,7 @@
             $pet->setVaccinationScheduleImg($_FILES['vaccinationScheduleImg']['name']);
             $pet->setDescription($description);
             if($message !="ok" && $message !=""){
-                require_once(VIEWS_PATH."owner/register-pet.php");
+                $this->ShowPetRegister($message);
             }
             else{
                 $this->PetDAO->Add($pet);
@@ -43,6 +46,11 @@
             }
         
           
+        }
+
+        public function ShowPetRegister($message = null)
+        {
+            require_once(VIEWS_PATH."owner/register-pet.php");
         }
 
         public function ShowPets()
