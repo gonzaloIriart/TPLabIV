@@ -60,7 +60,6 @@
         public function Add(User $user){
 
 
-
             $query = "CALL User_Add(?, ?, ?, ?, ?, ?)";
 
             $parameters = ParameterHelper::encodeUser($user);

@@ -32,6 +32,8 @@
 
             $this->connection = Connection::GetInstance();
 
+            $parameters = array();
+
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
             $keeper = array();
