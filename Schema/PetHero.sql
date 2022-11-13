@@ -2,6 +2,8 @@ CREATE DATABASE IF NOT EXISTS pet_hero;
 
 use pet_hero;
 
+-- TABLES --
+
 CREATE TABLE IF NOT EXISTS user (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(100),
@@ -65,9 +67,24 @@ CREATE TABLE IF NOT EXISTS reserve (
     advancePayment INT NOT NULL,
     petId INT NOT NULL,
     eventId INT NOT NULL,
+    paymentId INT,
     CONSTRAINT PK_Id PRIMARY KEY (id),
     FOREIGN KEY (petId) REFERENCES pet(id),
-    FOREIGN KEY (eventId) REFERENCES event(id)
+    FOREIGN KEY (eventId) REFERENCES event(id),
+    FOREIGN KEY (paymentId) REFERENCES payment(id)
+)Engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS payment (
+    id INT NOT NULL AUTO_INCREMENT,
+    receipt BLOB,
+    ownerId INT NOT NULL,
+    reserveId INT NOT NULL,
+    bankAccountId INT NOT NULL,
+    UNIQUE (id),
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (ownerId) REFERENCES owner(id),
+    FOREIGN KEY (reserveId) REFERENCES reserve(id),
+    FOREIGN KEY (bankAccountId) REFERENCES bankAccount(id)
 )Engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS bankAccount (
@@ -82,7 +99,9 @@ CREATE TABLE IF NOT EXISTS bankAccount (
 )Engine=InnoDB;
 
 
--- --
+-- STORE PROCEDURES --
+
+-- User
 
 DROP procedure IF EXISTS `User_GetByEmail`;
 
@@ -123,6 +142,8 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+-- KEEPER
 
 DROP procedure IF EXISTS `Keeper_GetAll`;
 
@@ -193,7 +214,9 @@ BEGIN
         (sizeOfDog, dailyFee, userId);
 END$$
 
-DELIMITER ;
+DELIMITER;
+
+-- EVENT
 
 DROP procedure IF EXISTS `Event_GetByKeeperId`;
 
@@ -263,6 +286,8 @@ END$$
 
 DELIMITER ;
 
+-- RESERVE
+
 DROP procedure IF EXISTS `Reserve_Add`;
 
 DELIMITER $$
@@ -319,6 +344,8 @@ END$$
 
 DELIMITER ;
 
+-- OWNER
+
 DROP procedure IF EXISTS `Owner_Add`;
 
 DELIMITER $$
@@ -357,6 +384,8 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+-- PET
 
 DROP procedure IF EXISTS `Pet_Add`;
 
@@ -398,6 +427,8 @@ END$$
 
 DELIMITER ;
 
+-- BANK ACCOUNT
+
 DROP procedure IF EXISTS `BankAccount_GetById`;
 
 DELIMITER $$
@@ -438,6 +469,36 @@ END$$
 
 DELIMITER ;
 
+-- PAYMENT
+
+DROP procedure IF EXISTS `Payment_Add`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Payment_Add (IN ownerId INT, IN reserveId INT, IN bankAccountId INT)
+BEGIN
+	INSERT INTO payment    
+		(payment.ownerId, payment.reserveId, payment.bankAccountId)
+    VALUES
+        (ownerId, reserveId, bankAccountId);
+END$$
+
+DELIMITER;
+
+DROP procedure IF EXISTS `Payment_AddReceipt`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Payment_AddReceipt (IN paymentId INT, IN receipt BLOB)
+BEGIN
+	UPDATE payment   
+    SET payment.receipt = receipt
+    WHERE payment.id = paymentId;
+END$$
+
+DELIMITER ;
+
+-- INSERTS --
 
 INSERT INTO user
 	(name, email, password, role)
