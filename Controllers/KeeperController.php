@@ -77,7 +77,7 @@
         }
 
         public function AcceptReserve($reserveId){
-            $this->eventDAO->UpdateEventState($reserveId, "reserved");
+            $this->eventDAO->UpdateEventState($reserveId, "pendingPay");
             $this->CalendarView();
         }
 
