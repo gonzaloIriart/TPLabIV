@@ -58,7 +58,8 @@
                     $paymentItem->setReserve($this->ReserveDAO->GetById($paymentItem->getReserve()));
                     $paymentItem->getReserve()->setEvent($this->EventDAO->GetById($paymentItem->getReserve()->getEvent()->getEventId()));
                     $paymentItem->getReserve()->setPet($this->PetDAO->GetById($paymentItem->getReserve()->getPet()->getPetId()));
-                    require_once(VIEWS_PATH."pendingPaymentOwner.php"); 
+                    require_once(VIEWS_PATH."pendingPaymentOwner.php");
+
 
                 }
 
