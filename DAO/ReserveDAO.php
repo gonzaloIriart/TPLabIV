@@ -28,7 +28,6 @@
 
             $this->connection = Connection::GetInstance();
 
-
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
@@ -40,7 +39,6 @@
             $this->connection = Connection::GetInstance();
             
             $parameters["Id"] = $id;
-
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
             foreach($results as $reserveItem)
@@ -88,7 +86,6 @@
 
         public function DeleteReserve($id)
         {
-
             $query = "CALL Reserve_DeleteById(?)";
 
             $this->connection = Connection::GetInstance();
@@ -96,6 +93,28 @@
             $parameters["Id"] = $id;
 
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+
+        public function GetReservesPendingReview($ownerId)
+        {
+            
+            $query = "CALL Reserve_GetPendingReviewByOwnerId(?)";
+
+            $this->connection = Connection::GetInstance();
+            
+            $parameters["ownerId"] = $ownerId;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+            $reserves = array();
+            foreach($results as $reserveItem){
+                $reserve = ParameterHelper::decodeReserve($reserveItem);
+                $pet = $this->petDAO->GetById($reserve->getPet()->getPetId());
+                $event = $this->eventDAO->GetById($reserve->getEvent()->getEventId());
+                $reserve->setEvent($event);
+                $reserve->setPet($pet);
+                array_push($reserves, $reserve);
+            }
+            return $reserves;
         }
 
     
