@@ -24,6 +24,7 @@
 
         public function RegisterPet($name, $size, $video, $description)
         {
+            SessionHelper::ValidateSession();
             $message = $this->ImageDAO->Add($_FILES['picture']);
             if($message !="ok" && $message !=""){
                 $this->ShowPetRegister($message);
@@ -50,17 +51,20 @@
 
         public function ShowPetRegister($message = null)
         {
+            SessionHelper::ValidateSession();
             require_once(VIEWS_PATH."owner/register-pet.php");
         }
 
         public function ShowPets()
         {
+            SessionHelper::ValidateSession();
             $pets =  $this->PetDAO->GetListByOwner($_SESSION["owner"]->getOwnerId());
             require_once(VIEWS_PATH."petList.php");
         }
 
         public function ShowPet($id)
         {
+            SessionHelper::ValidateSession();
             $pet =  $this->PetDAO->GetById($id);
             require_once(VIEWS_PATH."petDetail.php");
         }

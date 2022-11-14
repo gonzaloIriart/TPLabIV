@@ -117,6 +117,19 @@
             return $reserves;
         }
 
+        function UpdateReserveToReservedById($Id){          
+
+            $query = "CALL Reserve_UpdateToReserved(?)";
+
+            $parameters['Id']= $Id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+        }
+
+
+
     
     }
 

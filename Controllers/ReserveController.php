@@ -32,6 +32,7 @@
 
         public function CreateReserve($keeperId, $petId, $dates, $totalPrice)
         {
+            SessionHelper::ValidateSession();
 
             $arrayDates = ParameterHelper::encodeDates (explode(" ", $dates));
             $startDate = $arrayDates["startDate"];

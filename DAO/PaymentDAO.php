@@ -37,6 +37,7 @@
 
 
         }
+
         function AddReceipt($id, $receipt){
             $query = "CALL Payment_AddReceipt(?, ?)";
             $this->connection = Connection::GetInstance();
@@ -47,6 +48,19 @@
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
 
         }
+
+        function UpdateReciptPaymentById($Id, $paymentImage){
+
+            $query = "CALL Payment_UpdateReceiptById(?, ?)";
+            $this->connection = Connection::GetInstance();
+
+            $parameters["Id"] = $Id;
+            $parameters["paymentImage"] = $paymentImage;
+            
+            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
+
+        }
+
     }
 
 ?>

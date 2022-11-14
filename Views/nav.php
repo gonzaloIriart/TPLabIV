@@ -37,6 +37,9 @@ require_once('validate-session.php');
                     <li class="nav-item">                         
                          <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowAvailableKeepers" ?>">Create Reserve</a>
                     </li>
+                    <li class="nav-item">                         
+                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/WriteReviews" ?>">Escribir Reseñas</a>
+                    </li>
                     <?php endif; ?>
                     <li class="nav-item">                         
                          <a class="nav-link" href="<?php echo  FRONT_ROOT . "Home/LogOut" ?>">LogOut</a>

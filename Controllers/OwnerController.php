@@ -43,10 +43,12 @@
 
         public function PendingPaidReserves($message = "")
         {
+            SessionHelper::ValidateSession();
             $payments = $this->PaymentDAO->GetPendingPayByOwnerId($_SESSION["owner"]->getOwnerId());
 
+
             if(empty($payments)){
-                //decile que no hay nada que pagar
+                require_once(VIEWS_PATH."pendingPaymentOwner.php");
             }
             else{
                 foreach($payments as $key => $paymentItem){
@@ -58,26 +60,34 @@
                     $paymentItem->setReserve($this->ReserveDAO->GetById($paymentItem->getReserve()));
                     $paymentItem->getReserve()->setEvent($this->EventDAO->GetById($paymentItem->getReserve()->getEvent()->getEventId()));
                     $paymentItem->getReserve()->setPet($this->PetDAO->GetById($paymentItem->getReserve()->getPet()->getPetId()));
-                    require_once(VIEWS_PATH."pendingPaymentOwner.php");
-
-
+    
+                  
                 }
+                require_once(VIEWS_PATH."pendingPaymentOwner.php");
 
             }
           
 
         } 
-
+        public function WriteReviews($message = "")
+        {
+            SessionHelper::ValidateSession();
+            $pendingReviews = $this->ReserveDAO->GetReservesPendingReview($_SESSION["owner"]->getOwnerId());
+            require_once(VIEWS_PATH."WriteReviews.php");
+        } 
         public function RegisterPetView($message = "")
         {
+            SessionHelper::ValidateSession();
             require_once(VIEWS_PATH."owner/register-pet.php");
         } 
         public function ShowHomeView($message = "")
         {
+            SessionHelper::ValidateSession();
             require_once(VIEWS_PATH."ownerHome.php");
         } 
         public function HomeView($message = "")
         {
+            SessionHelper::ValidateSession();
             require_once(VIEWS_PATH."ownerHome.php");
         } 
     }

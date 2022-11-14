@@ -237,7 +237,7 @@ BEGIN
         (sizeOfDog, dailyFee, userId);
 END$$
 
-DELIMITER;
+DELIMITER ;
 
 -- EVENT
 
@@ -363,6 +363,20 @@ BEGIN
     FROM reserve r
     INNER JOIN event e ON r.eventId = e.id
     WHERE e.keeperId = keeperId AND e.status = 'pending';
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Reserve_UpdateToReserved`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Reserve_UpdateToReserved (IN Id INT)
+BEGIN
+	UPDATE reserve r
+    JOIN event e ON r.eventId = e.id
+    SET e.status = 'reserved'
+    WHERE r.id = Id;
 END$$
 
 DELIMITER ;
@@ -506,7 +520,7 @@ BEGIN
         (ownerId, reserveId, bankAccountId);
 END$$
 
-DELIMITER;
+DELIMITER ;
 
 DROP procedure IF EXISTS `Payment_AddReceipt`;
 
@@ -531,10 +545,23 @@ BEGIN
     FROM payment p
     JOIN reserve r ON r.id = p.reserveId
     JOIN event e ON  e.id = r.eventId
-    WHERE p.ownerId = ownerId AND r.status = 'pendingPay';
+    WHERE p.ownerId = ownerId AND e.status = 'pendingPay';
 END$$
 
 DELIMITER ;
+
+DROP procedure IF EXISTS `Payment_UpdateReceiptById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Payment_UpdateReceiptById (IN Id INT, in paymentImage VARCHAR(100))
+BEGIN
+	UPDATE payment p
+    SET p.receipt = paymentImage
+    WHERE p.id = Id;
+END$$
+
+DELIMETER ;
 
 DROP procedure IF EXISTS `Review_Add`;
 

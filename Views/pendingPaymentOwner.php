@@ -8,8 +8,20 @@ if($message != "ok" && $message != ""){
 <div class="alert alert-danger">
   <a href="#" class="alert-link"><?php echo($message) ?></a>
 </div>
+
 <?php
 }
+
+
+if(!isset($payments)){
+  echo("No hay reservas por abonar");
+ }
+ elseif (empty($payments)){
+ 
+   echo("No hay reservas por abonar");
+ 
+ }
+
 
 ?>
 
