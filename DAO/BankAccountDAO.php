@@ -30,6 +30,10 @@
             $parameters["id"] = $id;
 
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            $bankAccount = ParameterHelper::decodeBankAccount($results[0]);
+
+            return $bankAccount;
         }
         
         function GetById($id){
@@ -38,6 +42,11 @@
             $this->connection = Connection::GetInstance();
             $parameters["id"] = $id;
 
-            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);}
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
+            $bankAccount = ParameterHelper::decodeBankAccount($results[0]);
+
+            return $bankAccount;
+        }
     }
     ?>
