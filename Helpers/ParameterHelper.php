@@ -51,6 +51,7 @@
             $keeper->setKeeperId($encodedKeeper["id"]);
             $keeper->setSizeOfDog($encodedKeeper["sizeOfDog"]);
             $keeper->setDailyFee($encodedKeeper["dailyFee"]);
+            $keeper->setUser($encodedKeeper["userId"]);
 
             return $keeper;
         }
@@ -178,7 +179,6 @@
             
             $pet->setPetId($encodedReserve["petId"]);
             $event->setEventId($encodedReserve["eventId"]);
-
             $reserve->setReserveId($encodedReserve["id"]);
             $reserve->setTotalFee($encodedReserve["totalFee"]);
             $reserve->setAdvancePayment($encodedReserve["advancePayment"]);
@@ -201,11 +201,13 @@
         static function decodeBankAccount($encodedBankAccount)
         {
             $bankAccount = new BankAccount();
-            
+
+
             $bankAccount->setBankAccountId($encodedBankAccount["id"]);
             $bankAccount->setAlias($encodedBankAccount["alias"]);
             $bankAccount->setCbu($encodedBankAccount["cbu"]);
             $bankAccount->setBank($encodedBankAccount["bank"]);
+            $bankAccount->setKeeper($encodedBankAccount["keeperId"]);
 
             return $bankAccount;
         }
@@ -221,12 +223,12 @@
 
         static function decodePayment($encodedPayment)
         {
-            $bankAccount = new BankAccount();
+            $bankAccount = new Payment();
             
-            $bankAccount->setPaymentId($encodedBankAccount["id"]);
-            $bankAccount->setBankAccount($encodedBankAccount["bankAccountId"]);
-            $bankAccount->setOwner($encodedBankAccount["ownerId"]);
-            $bankAccount->serReserve($encodedBankAccount["reserveId"]);
+            $bankAccount->setPaymentId($encodedPayment["id"]);
+            $bankAccount->setBankAccount($encodedPayment["bankAccountId"]);
+            $bankAccount->setOwner($encodedPayment["ownerId"]);
+            $bankAccount->setReserve($encodedPayment["reserveId"]);
 
             return $bankAccount;
         }
