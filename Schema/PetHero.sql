@@ -584,7 +584,7 @@ DELIMITER $$
 
 CREATE PROCEDURE Reserve_GetPendingReviewByOwnerId (IN ownerId INT)
 BEGIN
-	SELECT res.id
+	SELECT res.id, res.totalFee, res.advancePayment, res.petId, res.eventId
     FROM reserve res
     LEFT JOIN review r ON res.id = r.reserveId
     JOIN event e ON e.id = res.eventId
