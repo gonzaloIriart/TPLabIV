@@ -151,6 +151,7 @@
             $payment->setOwner($this->ownerDAO->GetById($reserve->getPet()->getOwner()->getOwnerId()));
             $payment->setReserve($reserve);
             $payment->setBankAccount($this->bankAccountDAO->GetByKeeperId($_SESSION["keeper"]->getKeeperId()));
+            var_dump($_SESSION["keeper"]->getKeeperId());
             $this->paymentDAO->Add($payment);
         }
     }

@@ -64,7 +64,10 @@
         static function decodeOwner($encodedOwner)
         {
             $owner = new Owner();
+            $user = new User();
+            $user->setUserId($encodedOwner["userId"]);
             $owner->setOwnerId($encodedOwner["id"]);
+            $owner->setUser($user);
 
             return $owner;
         }
@@ -85,8 +88,11 @@
         {
 
             $pet = new Pet();
+            $owner = new Owner();
+
+            $owner->setOwnerId($encodedPet["ownerId"]);
             $pet->setPetId($encodedPet["id"]);
-            $pet->setOwner($encodedPet["ownerId"]);
+            $pet->setOwner($owner);
             $pet->setName($encodedPet["name"]);
             $pet->setSize($encodedPet["size"]);
             $pet->setVideo($encodedPet["video"]);

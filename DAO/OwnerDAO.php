@@ -22,7 +22,21 @@
 
         
         function GetById($id){
+            
+            $query = "CALL Owner_GetById(?)";
+
+            $this->connection = Connection::GetInstance();
+            $parameters["id"] = $id;
+
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+
             $owner = new Owner();
+            $owner->setOwnerId($id);
+            foreach($results as $owner)
+            {
+                $owner = ParameterHelper::decodeOwner($owner);
+            }
+
             return $owner;
         }
 
