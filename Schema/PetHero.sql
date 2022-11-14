@@ -98,6 +98,17 @@ CREATE TABLE IF NOT EXISTS payment (
     FOREIGN KEY (bankAccountId) REFERENCES bankAccount(id)
 )Engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS review (
+    id INT NOT NULL AUTO_INCREMENT,
+    comment VARCHAR(1000),
+    date DATETIME,
+    stars INT NOT NULL,
+    reserveId INT UNIQUE NOT NULL,
+    UNIQUE (id),
+    CONSTRAINT PK_Id PRIMARY KEY (id),
+    FOREIGN KEY (reserveId) REFERENCES reserve(id)
+)Engine=InnoDB;
+
 -- STORE PROCEDURES --
 
 -- User
@@ -525,34 +536,62 @@ END$$
 
 DELIMITER ;
 
--- INSERTS --
+DROP procedure IF EXISTS `Review_Add`;
 
+DELIMITER $$
 
+CREATE PROCEDURE Review_Add (IN comment VARCHAR(1000), IN date DATETIME, IN stars INT, reserveId INT)
+BEGIN
+	INSERT INTO review    
+		(review.comment, review.date, review.stars, review.reserveId)
+    VALUES
+        (comment, date, stars, reserveId);
+END$$
 
-INSERT INTO user
-	(name, email, password, role)
-VALUES 
-	('Rodolfo', 'owner@mail.com', 'owner', 'o'),
-	('Ruperto', 'keeper@mail.com', 'keeper', 'k');
-    
-INSERT INTO keeper
-	(sizeOfDog, dailyFee, userId)
-VALUES 
-	('small', 80.5, 2);
-    
-    INSERT INTO owner
-	(userId)
-VALUES 
-	(1);
-    
-INSERT INTO pet (pet.ownerId , pet.name, pet.size , pet.video , pet.picture , pet.vaccinationScheduleImg, pet.description)
-VALUES (1, 'pipo', 'small', 'video', 'foto', 'asd', 'asd'),
-		(1, 'pupi', 'big', 'video2', 'foto2', 'asd2', 'asd2');
+DELIMITER ;
 
-INSERT INTO event (status, startDate, endDate, keeperId) 
-VALUES  ('unavailable', '2022-10-20', '2022-10-25', 1),
-		('pending', '2022-11-04', '2022-11-09', 1),
-		('unavailable', '2022-10-10', '2022-10-13', 1);
-        
-INSERT INTO reserve (totalFee, advancePayment, petId, eventId)
-VALUES (500, 50, 1, 2);
+DROP procedure IF EXISTS `Review_GetById`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Review_GetById (IN id INT)
+BEGIN
+	SELECT r.id, r.comment, r.date, r.stars, r.reserveId
+    FROM review r
+	WHERE r.id = id;
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Review_GetAllByKeeperId`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Review_GetAllByKeeperId (IN keeperId INT)
+BEGIN
+	SELECT r.id, r.comment, r.date, r.stars, r.reserveId
+    FROM review r
+    JOIN reserve res ON res.id = r.reserveId
+    JOIN event e ON e.id = res.eventId
+	WHERE e.keeperId = keeperId;
+END$$
+
+DELIMITER ;
+
+DROP procedure IF EXISTS `Reserve_GetPendingReviewByOwnerId`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Reserve_GetPendingReviewByOwnerId (IN ownerId INT)
+BEGIN
+	SELECT res.id, res.totalFee, res.advancePayment, res.petId, res.eventId
+    FROM reserve res
+    LEFT JOIN review r ON res.id = r.reserveId
+    JOIN event e ON e.id = res.eventId
+    JOIN pet p ON p.id = res.petId
+    JOIN owner o ON o.id = p.ownerId
+	WHERE p.ownerId = ownerId AND r.id is null AND e.endDate < NOW() AND e.status = 'reserved'
+;
+END$$
+
+DELIMITER ;
