@@ -38,6 +38,7 @@
         }
 
         public function AddUnavailableEvent($status, $startDate, $endDate){
+            SessionHelper::ValidateSession();
             $keeper = $_SESSION["keeper"];
             if(isset($_SESSION["keeper"]))
             {
@@ -53,11 +54,13 @@
         }
 
         public function DeleteEvent($eventId){
+            SessionHelper::ValidateSession();
             $this->eventDAO->DeleteEvent($eventId);
             $this->CalendarView();
         }
 
         public function DeleteReserve($reserveId){
+            SessionHelper::ValidateSession();
             $this->reserveDAO->DeleteReserve($reserveId);
             $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
 
@@ -65,6 +68,7 @@
         }
 
         public function UpdateEventState($reserveId, $state){
+            SessionHelper::ValidateSession();
             $reserve = $this->reserveDAO->GetById($reserveId);
             $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), $state);
             if($state == "pendingPay"){ 
@@ -76,20 +80,24 @@
         }
 
         public function ShowPendingReserves(){
+            SessionHelper::ValidateSession();
             $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
         public function HomeView(){
+            SessionHelper::ValidateSession();
             $this->CalendarView();
         }
 
         public function DeleteReserveFromCalendar($reserveId){
+            SessionHelper::ValidateSession();
             $this->reserveDAO->DeleteReserve($reserveId);
             $this->CalendarView();
         }
 
         public function AcceptReserve($reserveId){
+            SessionHelper::ValidateSession();
             $reserve = $this->reserveDAO->GetById($reserveId);
             $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), "pendingPay");
             $this->CreatePayment($reserve);
@@ -97,11 +105,13 @@
         }
 
         private function formatDate($strDate){
+            SessionHelper::ValidateSession();
             return date("Y-m-d", strtotime($strDate));
         }
 
         public function ShowAvailableKeepers ($dates = null, $petId = null)
         {
+            SessionHelper::ValidateSession();
             $availableKeepers = array();
             if($dates ?? false && $dogSize ?? false){
                 $pet =  $this->petDAO->GetById(intval($petId));
@@ -118,6 +128,7 @@
         }
         
         private function GetAvailableKeepers($notAvailableKeepers, $dogSize){
+            SessionHelper::ValidateSession();
 
             $keepers = $this->keeperDAO->GetAll();
             foreach($keepers as $keeper1){
@@ -139,6 +150,7 @@
         }
 
         public function CalendarView($message = ""){
+            SessionHelper::ValidateSession();
             $keeper = $_SESSION["keeper"];
             $reserves = $this->reserveDAO->GetReservesAsJson($this->reserveDAO->GetReservesByKeeperId($keeper->getKeeperId()));
             $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
@@ -146,7 +158,8 @@
             require_once(VIEWS_PATH."keeper/home.php");
         }
 
-        private function CreatePayment($reserve){            
+        private function CreatePayment($reserve){     
+            SessionHelper::ValidateSession();       
             $payment = new Payment();
             $payment->setOwner($this->ownerDAO->GetById($reserve->getPet()->getOwner()->getOwnerId()));
             $payment->setReserve($reserve);
