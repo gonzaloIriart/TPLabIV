@@ -28,7 +28,6 @@
 
             $this->connection = Connection::GetInstance();
 
-
             $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
         }
 
@@ -40,7 +39,6 @@
             $this->connection = Connection::GetInstance();
             
             $parameters["Id"] = $id;
-
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
             foreach($results as $reserveItem)

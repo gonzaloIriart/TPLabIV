@@ -240,9 +240,9 @@ use Models\Review;
 
         static function encodeReview($review)
         {       
+            $encodedReview["comment"] = $review->getComment();
             $encodedReview["date"] = $review->getDate();
             $encodedReview["stars"] = $review->getStars();
-            $encodedReview["comment"] = $review->getComment();
             $encodedReview["reserveId"] = $review->getReserve()->getReserveId();
 
             return $encodedReview;
