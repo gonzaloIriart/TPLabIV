@@ -3,6 +3,7 @@
     use Models\Keeper as Keeper;
     use Models\BankAccount as BankAccount;
     use Models\Payment as Payment;
+    use Helpers\ParameterHelper;
 
     class PaymentDAO implements IPaymentDAO 
     {
@@ -20,15 +21,14 @@
 
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
 
-            var_dump($results);
-
+            $payments = array();
 
             foreach($results as $paymentItem)
             {
-                array_push($results, ParameterHelper::decodePayment($paymentItem));
+                array_push($payments, ParameterHelper::decodePayment($paymentItem));
             }
 
-            return $results;
+            return $payments;
          
 
 

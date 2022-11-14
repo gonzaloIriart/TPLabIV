@@ -320,9 +320,9 @@ DELIMITER $$
 
 CREATE PROCEDURE Reserve_GetById (IN reserveId INT)
 BEGIN
-	SELECT reserve.totalFee, reserve.advancePayment, reserve.petId, reserve.eventId
+	SELECT r.id, r.totalFee, r.advancePayment, r.petId, r.eventId
     FROM reserve r
-    WHERE r.Id = reserveId;
+    WHERE r.id = reserveId;
 END$$
 
 DELIMITER ;

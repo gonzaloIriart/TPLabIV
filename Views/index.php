@@ -49,7 +49,7 @@ if($message ?? false){
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                    <form action="<?php echo FRONT_ROOT."User/UpdatePassword" ?>" method="get" class="modal-content bg-dark-alpha p-5 bg-light ">
+                    <form action="<?php echo FRONT_ROOT."User/UpdatePassword" ?>" method="post" class="modal-content bg-dark-alpha p-5 bg-light ">
 
                     <div class="form-group">
                     <label for="email">Email</label>

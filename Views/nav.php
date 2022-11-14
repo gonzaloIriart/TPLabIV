@@ -31,7 +31,7 @@ require_once('validate-session.php');
                          <a class="nav-link" href="<?php echo  FRONT_ROOT . "Pet/ShowPets" ?>">Show Pets</a>
                     </li>
                     <li class="nav-item">                         
-                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/PendingPaidReserves" ?>">Show Pets</a>
+                         <a class="nav-link" href="<?php echo  FRONT_ROOT . "Owner/PendingPaidReserves" ?>">Reservas por abonar</a>
                     </li>
 
                     <li class="nav-item">                         
