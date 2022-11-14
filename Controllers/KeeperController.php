@@ -3,28 +3,38 @@
 
     use DAO\UserDAO as UserDAO;
     use DAO\KeeperDAO as KeeperDAO;
+    use DAO\OwnerDAO as OwnerDAO;
     use DAO\EventDAO as EventDAO;
     use DAO\PetDAO as PetDAO;
     use DAO\ReserveDAO as ReserveDAO;
+    use DAO\PaymentDAO as PaymentDAO;
+    use DAO\BankAccountDAO as BankAccountDAO;
     use Helpers\SessionHelper as SessionHelper;
     use Models\Keeper as Keeper;
     use Models\Event as Event;
+    use Models\Payment;
 
     class KeeperController
     {
         private $userDAO;
-        private $keeperDAO;
         private $eventDAO;
+        private $keeperDAO;
+        private $ownerDAO;
         private $reserveDAO;
+        private $paymentDAO;
         private $petDAO;
+        private $bankAccountDAO;
 
         public function __construct()
         {
             $this->userDAO = new UserDAO;
             $this->keeperDAO = new KeeperDAO;
+            $this->ownerDAO = new OwnerDAO;
             $this->eventDAO = new EventDAO;
             $this->petDAO = new PetDAO;
             $this->reserveDAO = new ReserveDAO;
+            $this->bankAccountDAO = new BankAccountDAO;
+            $this->paymentDAO = new PaymentDAO;
         }
 
         public function AddUnavailableEvent($status, $startDate, $endDate){
@@ -55,7 +65,11 @@
         }
 
         public function UpdateEventState($reserveId, $state){
-            $this->eventDAO->UpdateEventState($reserveId, $state);
+            $reserve = $this->reserveDAO->GetById($reserveId);
+            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), $state);
+            if($state == "pendingPay"){ 
+                $this->CreatePayment($reserve);
+            }
             $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
 
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
@@ -76,7 +90,9 @@
         }
 
         public function AcceptReserve($reserveId){
-            $this->eventDAO->UpdateEventState($reserveId, "pendingPay");
+            $reserve = $this->reserveDAO->GetById($reserveId);
+            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), "pendingPay");
+            $this->CreatePayment($reserve);
             $this->CalendarView();
         }
 
@@ -128,6 +144,15 @@
             $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
 
             require_once(VIEWS_PATH."keeper/home.php");
+        }
+
+        private function CreatePayment($reserve){            
+            $payment = new Payment();
+            $payment->setOwner($this->ownerDAO->GetById($reserve->getPet()->getOwner()->getOwnerId()));
+            $payment->setReserve($reserve);
+            $payment->setBankAccount($this->bankAccountDAO->GetByKeeperId($_SESSION["keeper"]->getKeeperId()));
+            var_dump($_SESSION["keeper"]->getKeeperId());
+            $this->paymentDAO->Add($payment);
         }
     }
 

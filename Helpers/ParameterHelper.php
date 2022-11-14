@@ -65,7 +65,10 @@
         static function decodeOwner($encodedOwner)
         {
             $owner = new Owner();
+            $user = new User();
+            $user->setUserId($encodedOwner["userId"]);
             $owner->setOwnerId($encodedOwner["id"]);
+            $owner->setUser($user);
 
             return $owner;
         }
@@ -86,8 +89,11 @@
         {
 
             $pet = new Pet();
+            $owner = new Owner();
+
+            $owner->setOwnerId($encodedPet["ownerId"]);
             $pet->setPetId($encodedPet["id"]);
-            $pet->setOwner($encodedPet["ownerId"]);
+            $pet->setOwner($owner);
             $pet->setName($encodedPet["name"]);
             $pet->setSize($encodedPet["size"]);
             $pet->setVideo($encodedPet["video"]);
@@ -214,23 +220,23 @@
 
         static function encodePayment($payment)
         {
-            $encodedBankAccount["ownerId"] = $payment->getOwner()->getOwnerId();
-            $encodedBankAccount["reserveId"] = $payment->getReserve()->getReserveId();
-            $encodedBankAccount["bankAccountId"] = $payment->getBankAccount()->getBankaccountId();
+            $encodedPayment["ownerId"] = $payment->getOwner()->getOwnerId();
+            $encodedPayment["reserveId"] = $payment->getReserve()->getReserveId();
+            $encodedPayment["bankAccountId"] = $payment->getBankAccount()->getBankaccountId();
 
-            return $encodedBankAccount;
+            return $encodedPayment;
         }
 
         static function decodePayment($encodedPayment)
         {
-            $bankAccount = new Payment();
+            $payment = new Payment();
             
-            $bankAccount->setPaymentId($encodedPayment["id"]);
-            $bankAccount->setBankAccount($encodedPayment["bankAccountId"]);
-            $bankAccount->setOwner($encodedPayment["ownerId"]);
-            $bankAccount->setReserve($encodedPayment["reserveId"]);
+            $payment->setPaymentId($encodedPayment["id"]);
+            $payment->setBankAccount($encodedPayment["bankAccountId"]);
+            $payment->setOwner($encodedPayment["ownerId"]);
+            $payment->setReserve($encodedPayment["reserveId"]);
 
-            return $bankAccount;
+            return $payment;
         }
 
         

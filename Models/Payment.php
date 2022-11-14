@@ -3,7 +3,8 @@
 
     class Payment{
         private $paymentId;
-        private $bankAccount;        
+        private $bankAccount;      
+        private $receipt;  
         private $owner;
         private $reserve;
 
@@ -45,6 +46,16 @@
         public function setReserve($reserve)
         {
             $this->reserve = $reserve;
+        }
+
+        public function getReceipt()
+        {
+            return $this->receipt;
+        }
+
+        public function setReceipt($receipt)
+        {
+            $this->receipt = $receipt;
         }
     }
 ?>

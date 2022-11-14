@@ -46,6 +46,7 @@
             foreach($results as $reserveItem)
             {
                $reserve = ParameterHelper::decodeReserve($reserveItem);
+               $reserve->setPet($this->petDAO->GetById($reserve->getPet()->GetPetId()));
             }
             
             return $reserve;

@@ -371,11 +371,11 @@ END$$
 
 DELIMITER ;
 
-DROP procedure IF EXISTS `Owner_GetBId`;
+DROP procedure IF EXISTS `Owner_GetById`;
 
 DELIMITER $$
 
-CREATE PROCEDURE Owner_GetByUserId (IN id INT)
+CREATE PROCEDURE Owner_GetById (IN id INT)
 BEGIN
 	SELECT owner.id, owner.userId
     FROM owner
