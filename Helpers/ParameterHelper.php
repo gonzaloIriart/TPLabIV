@@ -10,6 +10,7 @@
     use Models\Reserve;
     use Models\Payment;
     use Models\Event as Event;
+use Models\Review;
 
     class ParameterHelper {
         static function encodeUser($user){
@@ -237,6 +238,30 @@
             return $payment;
         }
 
-        
+        static function encodeReview($review)
+        {       
+            $encodedReview["date"] = $review->getDate();
+            $encodedReview["stars"] = $review->getStars();
+            $encodedReview["comment"] = $review->getComment();
+            $encodedReview["reserveId"] = $review->getReserve()->getReserveId();
+
+            return $encodedReview;
+        }
+
+        static function decodeReview($encodedReview)
+        {
+            $reserve = new Reserve();
+            $review = new Review();
+            
+            $reserve->setReserveId($encodedReview["reserveId"]);
+            $review->setReserve($reserve);
+
+            $review->setReviewId($encodedReview["id"]);
+            $review->setDate($encodedReview["date"]);
+            $review->setStars($encodedReview["stars"]);
+            $review->setComment($encodedReview["comment"]);
+
+            return $review;
+        }
     }
 ?>
