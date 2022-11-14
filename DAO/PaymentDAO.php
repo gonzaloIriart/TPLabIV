@@ -1,8 +1,7 @@
 <?php 
     namespace DAO;
 
-use Helpers\ParameterHelper;
-use Models\Keeper as Keeper;
+    use Models\Keeper as Keeper;
     use Models\BankAccount as BankAccount;
     use Models\Payment as Payment;
     use Helpers\ParameterHelper;
