@@ -352,6 +352,21 @@ END$$
 
 DELIMITER ;
 
+DROP procedure IF EXISTS `Reserve_GetPendingByKeeperId`;
+
+DELIMITER $$
+
+
+CREATE PROCEDURE Reserve_GetPendingByKeeperId (IN keeperId INT)
+BEGIN
+	SELECT r.id, r.totalFee, r.advancePayment, r.petId, r.eventId
+    FROM reserve r
+    INNER JOIN event e ON r.eventId = e.id
+    WHERE e.keeperId = keeperId AND e.status = 'pending';
+END$$
+
+DELIMITER ;
+
 DROP procedure IF EXISTS `Reserve_GetAllByKeeperId`;
 
 DELIMITER $$
@@ -362,7 +377,7 @@ BEGIN
 	SELECT r.id, r.totalFee, r.advancePayment, r.petId, r.eventId
     FROM reserve r
     INNER JOIN event e ON r.eventId = e.id
-    WHERE e.keeperId = keeperId AND e.status = 'pending';
+    WHERE e.keeperId = keeperId;
 END$$
 
 DELIMITER ;

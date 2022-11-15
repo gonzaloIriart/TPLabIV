@@ -142,7 +142,7 @@
 
         public function CalendarView($message = ""){
             $keeper = $_SESSION["keeper"];
-            $reserves = $this->reserveDAO->GetReservesAsJson($this->reserveDAO->GetReservesByKeeperId($keeper->getKeeperId()));
+            $reserves = $this->reserveDAO->GetReservesAsJson($this->reserveDAO->GetAllReservesByKeeperId($keeper->getKeeperId()));
             $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
 
             require_once(VIEWS_PATH."keeper/home.php");
