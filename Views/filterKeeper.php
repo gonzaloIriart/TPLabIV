@@ -57,9 +57,9 @@ if(!empty($availableKeepers)){
      ?>
      <tr class="table-primary">
       <td><?php echo $keeper->getUser()->getName() ?></td>
-      <td><?php echo $keeper->getDailyFee() ?></td>
-      <td><?php echo (intval($keeper->getDailyFee())*$dayDiff) ?></td>
-      <td><?php echo $keeper->getStarsAverage()['0']['0']?></td>
+      <td><?php echo "$".$keeper->getDailyFee() ?></td>
+      <td><?php echo "$".(intval($keeper->getDailyFee())*$dayDiff) ?></td>
+      <td><?php echo round($keeper->getStarsAverage(),2)?><span class="star-rating"> <span class="fa fa-star" data-rating="1"></span></span></td>
       <td>
         
       <form action="<?php echo  FRONT_ROOT . "Reserve/CreateReserve/"?>" method="post">
@@ -83,6 +83,8 @@ if(!empty($availableKeepers)){
                       ?>
                       <div style="max-width: 60rem;" class="container card text-center">
                       <div class="card-body">
+                       <p class="card-text"><?php echo $review->getDate() ?></p>
+                       <p class="card-text"><?php echo $review->getStars() ?> <span class="star-rating"> <span class="fa fa-star" data-rating="1"></span></span></p>
                        <p class="card-text"><?php echo $review->getComment() ?></p>
                        </div>
                        </div>
