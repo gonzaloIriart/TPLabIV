@@ -38,7 +38,7 @@
             $parameters["id"] = $id;
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
             $review = ParameterHelper::decodeReview($results[0]);
-
+            return $review;
         }
 
         function GetAllByKeeperId($keeperId){
@@ -53,7 +53,6 @@
                 array_push($reviews, $review);
             }
             return $reviews;
-
         }
     }
 ?>
