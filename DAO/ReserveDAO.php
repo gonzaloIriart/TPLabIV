@@ -45,13 +45,52 @@
             {
                $reserve = ParameterHelper::decodeReserve($reserveItem);
                $reserve->setPet($this->petDAO->GetById($reserve->getPet()->GetPetId()));
+               $reserve->setEvent($this->eventDAO->GetById($reserve->getEvent()->getEventId()));
             }
             
             return $reserve;
 
         }
 
+        public function GetHistoricReservesByKeeperId($keeperId){
+            $query = "CALL Reserve_GetHistoricByKeeperId(?)";
+
+            $this->connection = Connection::GetInstance();
+            
+            $parameters["keeperId"] = $keeperId;
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+            $reserves = array();
+            foreach($results as $reserveItem){
+                $reserve = ParameterHelper::decodeReserve($reserveItem);
+                $pet = $this->petDAO->GetById($reserve->getPet()->getPetId());
+                $event = $this->eventDAO->GetById($reserve->getEvent()->getEventId());
+                $reserve->setEvent($event);
+                $reserve->setPet($pet);
+                array_push($reserves, $reserve);
+            }
+            return $reserves;
+        }
+        
         public function GetReservesByKeeperId($keeperId){
+            $query = "CALL Reserve_GetPendingByKeeperId(?)";
+
+            $this->connection = Connection::GetInstance();
+            
+            $parameters["keeperId"] = $keeperId;
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+            $reserves = array();
+            foreach($results as $reserveItem){
+                $reserve = ParameterHelper::decodeReserve($reserveItem);
+                $pet = $this->petDAO->GetById($reserve->getPet()->getPetId());
+                $event = $this->eventDAO->GetById($reserve->getEvent()->getEventId());
+                $reserve->setEvent($event);
+                $reserve->setPet($pet);
+                array_push($reserves, $reserve);
+            }
+            return $reserves;
+        }
+        
+        public function GetAllReservesByKeeperId($keeperId){
             $query = "CALL Reserve_GetAllByKeeperId(?)";
 
             $this->connection = Connection::GetInstance();
@@ -86,6 +125,7 @@
 
         public function DeleteReserve($id)
         {
+            var_dump($id);
             $query = "CALL Reserve_DeleteById(?)";
 
             $this->connection = Connection::GetInstance();

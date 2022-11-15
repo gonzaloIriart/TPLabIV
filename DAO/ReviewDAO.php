@@ -35,13 +35,14 @@
 
         function GetById($id){
             $query = "CALL Review_GetById(?)";
+            $this->connection = Connection::GetInstance();
             $parameters["id"] = $id;
             $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
             $review = ParameterHelper::decodeReview($results[0]);
-
+            return $review;
         }
 
-        function GetAllByKeeperId($keeperId){
+        public function GetAllByKeeperId($keeperId){
             $query = "CALL Review_GetAllByKeeperId(?)";
             $parameters["keeperId"] = $keeperId;
             $this->connection = Connection::GetInstance();
@@ -54,7 +55,6 @@
                 array_push($reviews, $review);
             }
             return $reviews;
-
         }
 
         function GetStarAverageByKeeperId($keeperId){

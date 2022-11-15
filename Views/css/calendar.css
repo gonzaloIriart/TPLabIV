@@ -93,6 +93,16 @@
     overflow: hidden;
   }
   
+  .pendingPay {
+    font-size: 10px;
+    padding: 3px;
+    background-color: #8511c4;
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+  }
+
   .reserved {
     font-size: 10px;
     padding: 3px;
@@ -108,7 +118,7 @@
     background-color: #FFFCFF !important;
     box-shadow: none !important;
   }
-  #newEventModal, #deleteEventModal, #pendingReserveModal {
+  #newEventModal, #deleteEventModal, #pendingReserveModal, #detailReserveModal {
     display: none;
     z-index: 20;
     padding: 25px;

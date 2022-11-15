@@ -25,6 +25,7 @@
         private $reserveDAO;
         private $paymentDAO;
         private $petDAO;
+        private $reviewDAO;
         private $bankAccountDAO;
         private $reviewDAO;
 
@@ -37,6 +38,7 @@
             $this->petDAO = new PetDAO;
             $this->reserveDAO = new ReserveDAO;
             $this->bankAccountDAO = new BankAccountDAO;
+            $this->reviewDAO = new ReviewDAO;
             $this->paymentDAO = new PaymentDAO;
             $this->reviewDAO = new ReviewDAO;
         }
@@ -71,16 +73,23 @@
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
-        public function UpdateEventState($reserveId, $state){
+        public function UpdateEventState($reserveId){
             SessionHelper::ValidateSession();
             $reserve = $this->reserveDAO->GetById($reserveId);
-            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), $state);
-            if($state == "pendingPay"){ 
-                $this->CreatePayment($reserve);
-            }
+            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), "pendingPay");            
+            $this->CreatePayment($reserve);
             $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
 
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
+        }
+
+        
+        public function AcceptReserve($reserveId){
+            SessionHelper::ValidateSession();
+            $reserve = $this->reserveDAO->GetById($reserveId);
+            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), "pendingPay");
+            $this->CreatePayment($reserve);
+            $this->CalendarView();
         }
 
         public function ShowPendingReserves(){
@@ -97,14 +106,6 @@
         public function DeleteReserveFromCalendar($reserveId){
             SessionHelper::ValidateSession();
             $this->reserveDAO->DeleteReserve($reserveId);
-            $this->CalendarView();
-        }
-
-        public function AcceptReserve($reserveId){
-            SessionHelper::ValidateSession();
-            $reserve = $this->reserveDAO->GetById($reserveId);
-            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), "pendingPay");
-            $this->CreatePayment($reserve);
             $this->CalendarView();
         }
 
@@ -147,17 +148,15 @@
                         }
                     }
                 }
-               $keeper1->setReviewsList($this->reviewDAO->GetAllByKeeperId($keeper1->getKeeperId()));
-               $keeper1->setStarsAverage($this->reviewDAO->GetStarAverageByKeeperId($keeper1->getKeeperId()));
+               
             }
-
             return $keepers;
         }
 
         public function CalendarView($message = ""){
             SessionHelper::ValidateSession();
             $keeper = $_SESSION["keeper"];
-            $reserves = $this->reserveDAO->GetReservesAsJson($this->reserveDAO->GetReservesByKeeperId($keeper->getKeeperId()));
+            $reserves = $this->reserveDAO->GetReservesAsJson($this->reserveDAO->GetAllReservesByKeeperId($keeper->getKeeperId()));
             $events = $this->eventDAO->GetEventsAsJson($this->eventDAO->GetByKeeperId($keeper->getKeeperId()), $keeper);
 
             require_once(VIEWS_PATH."keeper/home.php");
@@ -172,9 +171,22 @@
             var_dump($_SESSION["keeper"]->getKeeperId());
             $this->paymentDAO->Add($payment);
         }
+        
+        public function ShowHistoricReserves()
+        {  
+            SessionHelper::ValidateSession();       
+            $reserves = $this->reserveDAO->GetHistoricReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
+            $reviews = $this->reviewDAO->GetAllByKeeperId($_SESSION["keeper"]->getKeeperId());
+
+            require_once(VIEWS_PATH."keeper/historicReserves.php");
+        }
+        
+        public function ShowReviews()
+        {  
+            SessionHelper::ValidateSession();    
+            $reviews = $this->reviewDAO->GetAllByKeeperId($_SESSION["keeper"]->getKeeperId());
+            require_once(VIEWS_PATH."keeper/reviews.php");
+        }
     }
-
-
-
 ?>
 

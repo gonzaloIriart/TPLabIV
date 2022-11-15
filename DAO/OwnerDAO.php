@@ -3,9 +3,16 @@
 
     use Models\Owner as Owner;
     use Models\Pet as Pet;
+    use DAO\UserDAO as UserDAO;
     use Helpers\ParameterHelper;
 
     class OwnerDAO implements IOwnerDAO{
+        private $userDAO;
+        
+        public function __construct()
+        {
+            $this->userDAO = new UserDAO;
+        }
 
         private $ownerList = array();
         
@@ -35,6 +42,8 @@
             foreach($results as $owner)
             {
                 $owner = ParameterHelper::decodeOwner($owner);
+                $user = $this->userDAO->GetUserById($owner->getUser()->getUserId());
+                $owner->setUser($user);
             }
 
             return $owner;
