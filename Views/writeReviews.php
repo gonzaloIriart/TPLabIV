@@ -11,13 +11,13 @@ if($message != "ok" && $message != ""){
 <?php
 }
 
-if(!isset($pendingReviews)){
-  echo("No hay reseñas por escribir");
- }
- elseif (empty($pendingReviews)){
- 
-   echo("No hay reseñas por escribir");
- 
+if(!isset($pendingReviews) || empty($pendingReviews)){
+
+  ?>
+  <div style="max-width: 60rem;"  class="container card text-center mt-5 pt-2">
+    <h3>No Hay reseñas por subir</h3>
+  </div>
+  <?php
  }
 
 ?>

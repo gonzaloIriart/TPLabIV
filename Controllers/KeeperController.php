@@ -6,6 +6,7 @@
     use DAO\OwnerDAO as OwnerDAO;
     use DAO\EventDAO as EventDAO;
     use DAO\PetDAO as PetDAO;
+    use DAO\ReviewDAO as ReviewDAO;
     use DAO\ReserveDAO as ReserveDAO;
     use DAO\PaymentDAO as PaymentDAO;
     use DAO\BankAccountDAO as BankAccountDAO;
@@ -13,6 +14,7 @@
     use Models\Keeper as Keeper;
     use Models\Event as Event;
     use Models\Payment;
+    use Models\Review;
 
     class KeeperController
     {
@@ -24,6 +26,7 @@
         private $paymentDAO;
         private $petDAO;
         private $bankAccountDAO;
+        private $reviewDAO;
 
         public function __construct()
         {
@@ -35,6 +38,7 @@
             $this->reserveDAO = new ReserveDAO;
             $this->bankAccountDAO = new BankAccountDAO;
             $this->paymentDAO = new PaymentDAO;
+            $this->reviewDAO = new ReviewDAO;
         }
 
         public function AddUnavailableEvent($status, $startDate, $endDate){
@@ -143,7 +147,8 @@
                         }
                     }
                 }
-               
+               $keeper1->setReviewsList($this->reviewDAO->GetAllByKeeperId($keeper1->getKeeperId()));
+               $keeper1->setStarsAverage($this->reviewDAO->GetStarAverageByKeeperId($keeper1->getKeeperId()));
             }
 
             return $keepers;

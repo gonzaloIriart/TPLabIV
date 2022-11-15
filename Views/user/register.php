@@ -51,11 +51,11 @@ if($message ?? false){
         </div>
         <div class="form-group">
             <label for="alias">Alias</label>
-            <input type="text" name="alias" class="text">
+            <input type="text" class="form-control" name="alias" class="text">
         </div>
         <div class="form-group">
             <label for="cbu">CBU</label>
-            <input type="text" name="cbu" class="text" >
+            <input type="text" class="form-control" name="cbu" class="text" >
         </div>
         <div class="form-group">
             <label for="bank">Banco</label>

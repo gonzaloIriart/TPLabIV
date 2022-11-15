@@ -13,6 +13,8 @@ if($message ?? false){
 }
 ?>
 
-
+<div style="max-width: 60rem;"  class="container card text-center mt-5 pt-2">
 <h1>Bienvenido Owner</h1>
+  </div>
+
 

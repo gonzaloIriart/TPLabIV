@@ -24,15 +24,16 @@
         public function SetPaymentPaid($paymentId ,$reserveId)
         {
             SessionHelper::ValidateSession();
-          $message = $this->ImageDAO->Add($_FILES['paymentImage']);
+            $message = $this->ImageDAO->Add($_FILES['paymentImage']);
 
-          var_dump($message);
             if($message !="ok" && $message !=""){
                 header("Location: ".FRONT_ROOT."Owner/PendingPaidReserves");
             }
 
            $this->PaymentDAO->UpdateReciptPaymentById($paymentId, $_FILES['paymentImage']['name']);
            $this->ReserveDAO->UpdateReserveToReservedById($reserveId);
+
+           $this->ShowPengingPaymentOwnser($message);
 
 
 
