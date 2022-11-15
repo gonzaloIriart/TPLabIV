@@ -31,8 +31,8 @@ if(!isset($payments)){
   <div class="card-body">
     <h5 class="card-title"><?php echo "Mascota: ".$paymentItem->getReserve()->getPet()->getname()?></h5>
     <p class="card-text"><?php echo "Cuidador: ".$paymentItem->getBankAccount()->getKeeper()->getUser()->getName() ?></p>
-    <p class="card-text">Desde: <?php echo $paymentItem->getReserve()->getEvent()->getStartDate() ?></p>
-    <p class="card-text">Hasta: <?php echo $paymentItem->getReserve()->getEvent()->getEndDate() ?></p>
+    <p class="card-text">Desde: <?php echo date("d/m/Y", strtotime(str_replace('-"', '/', $paymentItem->getReserve()->getEvent()->getStartDate()))) ?></p>
+    <p class="card-text">Hasta: <?php echo date("d/m/Y", strtotime(str_replace('-"', '/', $paymentItem->getReserve()->getEvent()->getEndDate()))) ?></p>
     <p class="card-text">Alias: <?php echo $paymentItem->getBankAccount()->getAlias() ?></p>
     <p class="card-text">Banco: <?php echo $paymentItem->getBankAccount()->getBank() ?></p>
     <p class="card-text">CBU: <?php echo $paymentItem->getBankAccount()->getCbu() ?></p>

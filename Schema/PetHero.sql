@@ -367,6 +367,21 @@ END$$
 
 DELIMITER ;
 
+DROP procedure IF EXISTS `Reserve_GetHistoricByKeeperId`;
+
+DELIMITER $$
+
+
+CREATE PROCEDURE Reserve_GetHistoricByKeeperId (IN keeperId INT)
+BEGIN
+	SELECT r.id, r.totalFee, r.advancePayment, r.petId, r.eventId
+    FROM reserve r
+    INNER JOIN event e ON r.eventId = e.id
+    WHERE e.keeperId = keeperId AND e.status = 'reserved' AND e.endDate < NOW();
+END$$
+
+DELIMITER ;
+
 DROP procedure IF EXISTS `Reserve_UpdateToReserved`;
 
 DELIMITER $$

@@ -59,8 +59,8 @@ require_once("Views/nav.php");
                 <input id="pendingReserveId" name="reserveId" hidden>
                 <button type="submit" class="btn btn-primary">Aceptar Reserva</button>
             </form>
-            <form class="buttonForm" method="post" action="<?php echo (FRONT_ROOT . "/Keeper/DeleteReserve/"); ?>">
-                <input id="pendingReserveId" name="reserveId" hidden>
+            <form class="buttonForm" method="post" action="<?php echo (FRONT_ROOT . "/Keeper/DeleteReserveFromCalendar/"); ?>">
+                <input id="pendingDelReserveId" name="reserveId" hidden>
                 <button type="submit" class="btn btn-outline-danger">Rechazar</button>
             </form>
         </div>
@@ -184,6 +184,7 @@ require_once("Views/nav.php");
                 document.getElementById('pendingStartDate').innerText = `Desde: ${formatDate(dayEvent.startDate)}`;
                 document.getElementById('pendingEndDate').innerText = `Hasta: ${formatDate(dayEvent.endDate)}`;
                 document.getElementById('pendingReserveId').value = reserve.id;
+                document.getElementById('pendingDelReserveId').value = reserve.id;
                 pendingReserveModal.style.display = 'block';
                 backDrop.style.display = 'block';
                 break;

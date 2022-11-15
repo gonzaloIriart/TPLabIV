@@ -6,6 +6,7 @@
     use DAO\OwnerDAO as OwnerDAO;
     use DAO\EventDAO as EventDAO;
     use DAO\PetDAO as PetDAO;
+    use DAO\ReviewDAO as ReviewDAO;
     use DAO\ReserveDAO as ReserveDAO;
     use DAO\PaymentDAO as PaymentDAO;
     use DAO\BankAccountDAO as BankAccountDAO;
@@ -23,6 +24,7 @@
         private $reserveDAO;
         private $paymentDAO;
         private $petDAO;
+        private $reviewDAO;
         private $bankAccountDAO;
 
         public function __construct()
@@ -34,6 +36,7 @@
             $this->petDAO = new PetDAO;
             $this->reserveDAO = new ReserveDAO;
             $this->bankAccountDAO = new BankAccountDAO;
+            $this->reviewDAO = new ReviewDAO;
             $this->paymentDAO = new PaymentDAO;
         }
 
@@ -67,16 +70,23 @@
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
         }
 
-        public function UpdateEventState($reserveId, $state){
+        public function UpdateEventState($reserveId){
             SessionHelper::ValidateSession();
             $reserve = $this->reserveDAO->GetById($reserveId);
-            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), $state);
-            if($state == "pendingPay"){ 
-                $this->CreatePayment($reserve);
-            }
+            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), "pendingPay");            
+            $this->CreatePayment($reserve);
             $reserves = $this->reserveDAO->GetReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
 
             require_once(VIEWS_PATH."keeper/pendingReserves.php");
+        }
+
+        
+        public function AcceptReserve($reserveId){
+            SessionHelper::ValidateSession();
+            $reserve = $this->reserveDAO->GetById($reserveId);
+            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), "pendingPay");
+            $this->CreatePayment($reserve);
+            $this->CalendarView();
         }
 
         public function ShowPendingReserves(){
@@ -93,14 +103,6 @@
         public function DeleteReserveFromCalendar($reserveId){
             SessionHelper::ValidateSession();
             $this->reserveDAO->DeleteReserve($reserveId);
-            $this->CalendarView();
-        }
-
-        public function AcceptReserve($reserveId){
-            SessionHelper::ValidateSession();
-            $reserve = $this->reserveDAO->GetById($reserveId);
-            $this->eventDAO->UpdateEventState($reserve->getEvent()->getEventId(), "pendingPay");
-            $this->CreatePayment($reserve);
             $this->CalendarView();
         }
 
@@ -142,10 +144,8 @@
                             break;
                         }
                     }
-                }
-               
+                }               
             }
-
             return $keepers;
         }
 
@@ -167,9 +167,22 @@
             var_dump($_SESSION["keeper"]->getKeeperId());
             $this->paymentDAO->Add($payment);
         }
+        
+        public function ShowHistoricReserves()
+        {  
+            SessionHelper::ValidateSession();       
+            $reserves = $this->reserveDAO->GetHistoricReservesByKeeperId( $_SESSION["keeper"]->getKeeperId());
+            $reviews = $this->reviewDAO->GetAllByKeeperId($_SESSION["keeper"]->getKeeperId());
+
+            require_once(VIEWS_PATH."keeper/historicReserves.php");
+        }
+        
+        public function ShowReviews()
+        {  
+            SessionHelper::ValidateSession();    
+            $reviews = $this->reviewDAO->GetAllByKeeperId($_SESSION["keeper"]->getKeeperId());
+            require_once(VIEWS_PATH."keeper/reviews.php");
+        }
     }
-
-
-
 ?>
 

@@ -29,8 +29,8 @@ foreach($pendingReviews as $pendingReview){?>
 <div style="max-width: 60rem;" class="container card text-center">
   <div class="card-body">
     <h5 class="card-title"><?php echo "Mascota cuidada: ".$pendingReview->getPet()->getname()?></h5>
-    <p class="card-text">Desde: <?php echo $pendingReview->getEvent()->getStartDate() ?></p>
-    <p class="card-text">Hasta: <?php echo $pendingReview->getEvent()->getEndDate() ?></p>
+    <p class="card-text">Desde: <?php echo date("d/m/Y", strtotime(str_replace('-"', '/', $pendingReview->getEvent()->getStartDate()))) ?></p>
+    <p class="card-text">Hasta: <?php echo date("d/m/Y", strtotime(str_replace('-"', '/', $pendingReview->getEvent()->getEndDate()))) ?></p>
     <p class="card-text">Monto pagado: $<?php echo $pendingReview->getTotalFee() ?></p>
 
     <button style="width: 180px;" type="button" class="btn btn-primary btn-block btn-lg mt-2" data-bs-toggle="modal" data-bs-target="#myModal">Escribir Reseña</button>
