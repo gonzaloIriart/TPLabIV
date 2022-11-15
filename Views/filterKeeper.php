@@ -7,7 +7,7 @@
   <h1>Escoja el rango de fechas deseado</h1>
 
 <form action=" <?php echo FRONT_ROOT . "Keeper/ShowAvailableKeepers" ?>" method="post"> 
-    <input type="text" name="daterange" class="" value="" />
+    <input type="text" name="daterange" class="form-control" value="" />
     
     <div>
     <label for="petId" class="">Seleccione la mascota</label>
