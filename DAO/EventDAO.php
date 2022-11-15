@@ -36,7 +36,6 @@
             $parameters["eventId"] = $eventId;
 
             $result = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
-            $event = new Event();
             $event = ParameterHelper::decodeEvent($result[0]);
             return $event;
         }

@@ -20,7 +20,13 @@ require_once('validate-session.php');
                               <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/HomeView " ?>">Calendar</a>
                          </li>
                          <li class="nav-item">
-                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowPendingReserves " ?>">Pending reserves</a>
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowPendingReserves " ?>">Reservas pendientes</a>
+                         </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowHistoricReserves " ?>">Reservas historicas</a>
+                         </li>
+                         <li class="nav-item">
+                              <a class="nav-link" href="<?php echo  FRONT_ROOT . "Keeper/ShowReviews " ?>">Reseñas</a>
                          </li>
 
                     <?php else : ?>
