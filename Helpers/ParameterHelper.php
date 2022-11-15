@@ -63,6 +63,13 @@ use Models\Review;
             return $encodedOwner;
         }
 
+        static function encodeOwnerJson($owner)
+        {
+            var_dump($owner);
+            $encodedOwner["ownerId"] = $owner->getOwnerId();
+            return $encodedOwner;
+        }
+
         static function decodeOwner($encodedOwner)
         {
             $owner = new Owner();
@@ -74,9 +81,19 @@ use Models\Review;
             return $owner;
         }
 
+        static function decodeOwnerJson($encodedOwner)
+        {
+            $owner = new Owner();   
+            $owner->setOwnerId($encodedOwner["ownerId"]);
+
+            return $owner;
+        }
+
+        
+
         static function encodePet($pet)
         {
-            $encodedPet["ownerId"] = $pet->getOwner();
+            $encodedPet["ownerId"] = $pet->getOwner()->getOwnerId();
             $encodedPet["name"] = $pet->getName();
             $encodedPet["size"] = $pet->getSize();
             $encodedPet["video"] = $pet->getVideo();

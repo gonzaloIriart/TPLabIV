@@ -3,6 +3,7 @@
 
     use DAO\UserDAO as UserDAO;
     use DAO\PetDAO as PetDAO;
+    use DAO\PetDAOjson as PetDAOjson;
     use DAO\ImageDAO as ImageDAO;
     use DAO\OwnerDAO as OwnerDAO;
     use Helpers\SessionHelper as SessionHelper;
@@ -19,6 +20,7 @@
             $this->userDAO = new UserDAO;
             $this->OwnerDAO = new OwnerDAO;
             $this->PetDAO = new PetDAO();
+            //$this->PetDAO = new PetDAOjson();
             $this->ImageDAO = new ImageDAO();
         }
 
@@ -31,8 +33,8 @@
             }
             $message = $this->ImageDAO->Add($_FILES['vaccinationScheduleImg']);
             $pet = new Pet();
-            $pet->setName($name);
-            $pet->setOwner($_SESSION["owner"]->getOwnerId());
+            $pet->setName($name);   
+            $pet->setOwner($_SESSION["owner"]);
             $pet->setSize($size);
             $pet->setPicture($_FILES['picture']['name']);
             $pet->setVideo($video);

@@ -6,13 +6,14 @@
     use Models\Pet as Pet;
     use Helpers\ParameterHelper;
 
-    class PetDAO implements IPetDAO 
+    class PetDAOjson 
     {
         private $petList = array();
 
-        function Add($pet){      
-            var_dump($pet);      
+        function Add($pet){         
             $this->RetrieveData();
+            $num = count($this->petList)+1;
+            $pet->setPetId($num);
             array_push($this->petList, $pet);
             $this->SaveData();
         }
@@ -27,7 +28,7 @@
         {
 
             $this->RetrieveData();
-        
+    
             foreach($this->petList as $petItem){
                 if($id == $petItem->getPetId()){
                     return $petItem;
@@ -36,7 +37,19 @@
 
         }
 
-        function GetListByOwner($id){}
+        function GetListByOwner($id){
+
+            $this->RetrieveData();
+
+            foreach($this->petList as $pet){
+                if($pet->getOwner()->getOwnerId() != $_SESSION['owner']->getOwnerId()){
+                    unset($this->petList, $pet);
+                }
+            }
+
+            return $this->petList;
+
+        }
 
         private function SaveData()
         {           
@@ -50,8 +63,8 @@
                 $valuesArray["picture"] = $pet->getPicture();
                 $valuesArray["video"] = $pet->getVideo();
                 $valuesArray["vaccinationScheduleImg"] = $pet->getVaccinationScheduleImg();
-                $valuesArray["owner"] = $pet->getOwner();
-                
+                $valuesArray["owner"] = ParameterHelper::encodeOwnerJson($pet->getOwner());
+
                 array_push($arrayToEncode, $valuesArray);
             }
 
@@ -78,7 +91,7 @@
                     $pet->setPicture($petItem["picture"]);
                     $pet->setVideo($petItem["video"]);
                     $pet->setVaccinationScheduleImg($petItem["vaccinationScheduleImg"]);
-                    $pet->setOwner($petItem["owner"]);
+                    $pet->setOwner(ParameterHelper::decodeOwnerJson($petItem["owner"]));
                     array_push($this->petList, $pet);
                 }            
             }
