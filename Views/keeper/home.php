@@ -43,7 +43,7 @@ require_once("Views/nav.php");
 
     <form method="post" action="<?php echo FRONT_ROOT . "Keeper/DeleteEvent" ?>">
         <input id="eventId" name="eventId" hidden>
-        <button style="width: 100px;"  type="submit" class="btn btn-primary">Habilitar</button>
+        <button style="width: 100px;" type="submit" class="btn btn-primary">Habilitar</button>
     </form>
 
 </div>
@@ -175,6 +175,7 @@ require_once("Views/nav.php");
     }
 
     function handleEventModal(dayEvent) {
+        let reserved = reserves.find(r => r.eventId === dayEvent.id);
         switch (dayEvent.status) {
             case 'pending':
                 console.log("PENDING MODAL")
@@ -189,8 +190,16 @@ require_once("Views/nav.php");
                 backDrop.style.display = 'block';
                 break;
             case 'reserved':
-                let reserved = reserves.find(r => r.eventId === dayEvent.id);
-                console.log("RESERVED MODAL");
+                console.log(reserved);
+                document.getElementById('detPetName').innerText = `${reserved.pet.name}`;
+                document.getElementById('detPetSize').innerText = `${reserved.pet.size}`;
+                document.getElementById('detPendingStartDate').innerText = `Desde: ${formatDate(dayEvent.startDate)}`;
+                document.getElementById('detPendingEndDate').innerText = `Hasta: ${formatDate(dayEvent.endDate)}`;
+                detailReserveModal.style.display = 'block';
+                backDrop.style.display = 'block';
+                break;
+            case 'pendingPay':
+                console.log(reserved);
                 document.getElementById('detPetName').innerText = `${reserved.pet.name}`;
                 document.getElementById('detPetSize').innerText = `${reserved.pet.size}`;
                 document.getElementById('detPendingStartDate').innerText = `Desde: ${formatDate(dayEvent.startDate)}`;
@@ -225,10 +234,35 @@ require_once("Views/nav.php");
     initButtons();
     load();
 
+    document.getElementById('startDate').addEventListener('change', validateDate);
+    document.getElementById('endDate').addEventListener('change', validateDate);
+
+    function validateDate() {
+        let startDate = document.getElementById('startDate').value;
+        let endDate = document.getElementById('endDate').value;
+        let eventOnStart = events.find(e => new Date(startDate+ 'T00:00') >= new Date(e.startDate) && new Date(startDate+ 'T00:00') <= new Date(e.endDate));
+        let eventOnEnd = events.find(e => new Date(endDate+ 'T00:00') >= new Date(e.startDate) && new Date(endDate+ 'T00:00') <= new Date(e.endDate));
+        if (Date.parse(startDate) < Date.now() || Date.parse(endDate) < Date.now()) {
+            alert("La fecha debe ser a partir de mañana.");
+        } else if (eventOnStart) {
+            alert("Hay un evento en la fecha de inicio: " + formatDate(eventOnStart.startDate));
+        } else if (eventOnEnd) {
+            alert("Hay un evento en la fecha de finalizacion: " + formatDate(eventOnEnd.endDate));
+        }
+    }
+
+        function formatValidationDate(dt){
+            const day = dt.getDate();
+            const month = dt.getMonth();
+            const year = dt.getFullYear();
+
+            return `${year}-${month}-${day}`;
+        }
+
     function formatDate(date) {
-        let year = date.slice(0,4);
-        let month = date.slice(5,7);
-        let day = date.slice(8,10);
+        let year = date.slice(0, 4);
+        let month = date.slice(5, 7);
+        let day = date.slice(8, 10);
         return `${day}/${month}/${year}`;
     }
 </script>

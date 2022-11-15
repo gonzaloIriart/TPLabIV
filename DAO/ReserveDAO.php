@@ -72,6 +72,25 @@
         }
         
         public function GetReservesByKeeperId($keeperId){
+            $query = "CALL Reserve_GetPendingByKeeperId(?)";
+
+            $this->connection = Connection::GetInstance();
+            
+            $parameters["keeperId"] = $keeperId;
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure);
+            $reserves = array();
+            foreach($results as $reserveItem){
+                $reserve = ParameterHelper::decodeReserve($reserveItem);
+                $pet = $this->petDAO->GetById($reserve->getPet()->getPetId());
+                $event = $this->eventDAO->GetById($reserve->getEvent()->getEventId());
+                $reserve->setEvent($event);
+                $reserve->setPet($pet);
+                array_push($reserves, $reserve);
+            }
+            return $reserves;
+        }
+        
+        public function GetAllReservesByKeeperId($keeperId){
             $query = "CALL Reserve_GetAllByKeeperId(?)";
 
             $this->connection = Connection::GetInstance();
