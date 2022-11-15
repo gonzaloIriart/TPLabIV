@@ -38,16 +38,6 @@
 
         }
 
-        function AddReceipt($id, $receipt){
-            $query = "CALL Payment_AddReceipt(?, ?)";
-            $this->connection = Connection::GetInstance();
-
-            $parameters["paymentId"] = $id;
-            $parameters["receipt"] = $receipt;
-            
-            $this->connection->ExecuteNonQuery($query, $parameters, QueryType::StoredProcedure);
-
-        }
 
         function UpdateReciptPaymentById($Id, $paymentImage){
 

@@ -14,6 +14,7 @@
     use Models\Keeper as Keeper;
     use Models\Event as Event;
     use Models\Payment;
+    use Models\Review;
 
     class KeeperController
     {
@@ -26,6 +27,7 @@
         private $petDAO;
         private $reviewDAO;
         private $bankAccountDAO;
+        private $reviewDAO;
 
         public function __construct()
         {
@@ -38,6 +40,7 @@
             $this->bankAccountDAO = new BankAccountDAO;
             $this->reviewDAO = new ReviewDAO;
             $this->paymentDAO = new PaymentDAO;
+            $this->reviewDAO = new ReviewDAO;
         }
 
         public function AddUnavailableEvent($status, $startDate, $endDate){
@@ -144,7 +147,8 @@
                             break;
                         }
                     }
-                }               
+                }
+               
             }
             return $keepers;
         }

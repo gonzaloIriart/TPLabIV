@@ -8,7 +8,6 @@
     {
         function Add(Payment $payment);
         function GetPendingPayByOwnerId($id);
-        function AddReceipt($id, $receipt);
     }
 
 ?>

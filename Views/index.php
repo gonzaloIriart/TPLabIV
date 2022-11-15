@@ -15,7 +15,6 @@ if($message ?? false){
                <h2>Pet Hero</h2>
           </header>
 
-          <a href="<?php echo  FRONT_ROOT."User/RegisterView" ?>">Registarse aqui</a>
 
           <form action="<?php echo FRONT_ROOT."Home/Login" ?>" method="post" class="login-form bg-dark-alpha p-5 bg-light">
                <div class="form-group">
@@ -28,17 +27,19 @@ if($message ?? false){
                </div>
 
          
-               <button style="width: 180px;" class="btn btn-primary btn-block btn-lg mt-2 " type="submit">Iniciar Sesión</button>
+               <button style="width: 200px;" class="btn btn-primary btn-block btn-lg mt-2 " type="submit">Iniciar Sesión</button>
 
               
     
 
           </form>
-
-               <button style="width: 180px;" type="button" class="btn btn-primary btn-block btn-lg mt-2" data-bs-toggle="modal" data-bs-target="#myModal">Olvidé mi contraseña</button>
+          <div class="text-center">
+               <a href="<?php echo  FRONT_ROOT."User/RegisterView" ?>">Registarse aqui</a>
+               <span> | </span>
+               <a href="#" class="mt-2" data-bs-toggle="modal" data-bs-target="#myModal">Olvidé mi contraseña</a>
                </div>
 
-               <!-- The Modal -->
+
                <div class="modal" id="myModal">
                <div class="modal-dialog modal-md">
                <div class="modal-content">
@@ -59,12 +60,6 @@ if($message ?? false){
                     <button style="width: 180px;" class="btn btn-primary btn-block btn-lg mt-2 " type="submit">Cambiar Contraseña</button>
 
                     </form>
-
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                    <button type="button" class="btn " data-bs-dismiss="modal">Cerrar</button>
-                    </div>
 
                </div>
                </div>

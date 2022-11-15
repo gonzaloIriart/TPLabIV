@@ -637,3 +637,18 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+DROP procedure IF EXISTS `Review_GetStarsAverageByKeeperId`;
+
+DELIMITER $$
+
+CREATE PROCEDURE Review_GetStarsAverageByKeeperId (IN keeperId INT)
+BEGIN
+	SELECT AVG(r.stars)
+    FROM review r
+    JOIN reserve res ON res.id = r.reserveId
+    JOIN event e ON e.id = res.eventId
+	WHERE e.keeperId = keeperId;
+END$$
+
+DELIMITER ;

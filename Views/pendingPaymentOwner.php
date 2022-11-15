@@ -12,18 +12,27 @@ if($message != "ok" && $message != ""){
 <?php
 }
 
+if($message == "ok"){
+  ?>
+<div class="alert alert-success">
+  <a href="#" class="alert-link">Reserva abonada con éxito</a>
+</div>
 
-if(!isset($payments)){
-  echo("No hay reservas por abonar");
+<?php
+}
+if(!isset($payments) || empty($payments)){
+
+  ?>
+  <div style="max-width: 60rem;"  class="container card text-center mt-5 pt-2">
+    <h3>No hay reservas por abonar</h3>
+  </div>
+  <?php
  }
- elseif (empty($payments)){
- 
-   echo("No hay reservas por abonar");
- 
- }
+ else{
 
+ 
 
-?>
+?>  
 
 <?php foreach($payments as $paymentItem){?>
   
@@ -72,4 +81,4 @@ if(!isset($payments)){
       </div>
     </div>
 </div>
-<?php } ?>
+<?php }} ?>

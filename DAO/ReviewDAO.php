@@ -56,5 +56,14 @@
             }
             return $reviews;
         }
+
+        function GetStarAverageByKeeperId($keeperId){
+            $query = "CALL Review_GetStarsAverageByKeeperId(?)";
+            $parameters["keeperId"] = $keeperId;
+            $this->connection = Connection::GetInstance();
+            $results = $this->connection->Execute($query, $parameters, QueryType::StoredProcedure)[0][0];
+            return $results;
+
+        }
     }
 ?>

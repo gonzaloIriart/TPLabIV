@@ -11,13 +11,13 @@ if($message != "ok" && $message != ""){
 <?php
 }
 
-if(!isset($pendingReviews)){
-  echo("No hay reseñas por escribir");
- }
- elseif (empty($pendingReviews)){
- 
-   echo("No hay reseñas por escribir");
- 
+if(!isset($pendingReviews) || empty($pendingReviews)){
+
+  ?>
+  <div style="max-width: 60rem;"  class="container card text-center mt-5 pt-2">
+    <h3>No Hay reseñas por subir</h3>
+  </div>
+  <?php
  }
 
 ?>
@@ -33,12 +33,12 @@ foreach($pendingReviews as $pendingReview){?>
     <p class="card-text">Hasta: <?php echo date("d/m/Y", strtotime(str_replace('-"', '/', $pendingReview->getEvent()->getEndDate()))) ?></p>
     <p class="card-text">Monto pagado: $<?php echo $pendingReview->getTotalFee() ?></p>
 
-    <button style="width: 180px;" type="button" class="btn btn-primary btn-block btn-lg mt-2" data-bs-toggle="modal" data-bs-target="#myModal">Escribir Reseña</button>
+    <button style="width: 230px;" type="button" class="btn btn-primary btn-block btn-lg mt-2" data-bs-toggle="modal" data-bs-target="#myModal">Escribir Reseña</button>
           
 
     <!-- The Modal -->
     <div class="modal" id="myModal">
-      <div class="modal-dialog modal-md">
+      <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Escriba su reseña</h4>
@@ -46,7 +46,7 @@ foreach($pendingReviews as $pendingReview){?>
             </div>
 
             <div>
-              <form action="<?php echo FRONT_ROOT."Review/RegisterReview" ?>" method="post" class="modal-content bg-dark-alpha p-5 bg-light" enctype="multipart/form-data">
+              <form action="<?php echo FRONT_ROOT."Review/RegisterReview" ?>" method="post" class="modal-content bg-dark-alpha p-2 bg-light" enctype="multipart/form-data">
                 <div class="form-group">
                   <label class="col-form-label mt-2" for="inputDefault">Reseña: </label>
                   <textarea name="coments" id="" cols="30" rows="10" class="form-control"></textarea>
@@ -73,8 +73,7 @@ foreach($pendingReviews as $pendingReview){?>
                   <button style="width: 200px;" class="btn center" type="submit">Enviar reseña</button>
                 </div>
               </form>
-              <button style="width: 100px;" type="button" class="btn " data-bs-dismiss="modal">Cerrar</button>
-            </div>
+  
             
 
           </div>

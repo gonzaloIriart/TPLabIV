@@ -10,6 +10,9 @@
         private $reserves;
         private $availableDays;
         private $user;
+        private $starsAverage;
+        private $reviewsList;
+ 
 
         public function getKeeperId()
         {
@@ -82,6 +85,46 @@
         public function setUser($user)
         {
             $this->user = $user;
+        }
+
+        /**
+         * Get the value of reviewsList
+         */ 
+        public function getReviewsList()
+        {
+                return $this->reviewsList;
+        }
+
+        /**
+         * Set the value of reviewsList
+         *
+         * @return  self
+         */ 
+        public function setReviewsList($reviewsList)
+        {
+                $this->reviewsList = $reviewsList;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of starsAverage
+         */ 
+        public function getStarsAverage()
+        {
+                return $this->starsAverage;
+        }
+
+        /**
+         * Set the value of starsAverage
+         *
+         * @return  self
+         */ 
+        public function setStarsAverage($starsAverage)
+        {
+                $this->starsAverage = $starsAverage;
+
+                return $this;
         }
     }
 ?>
