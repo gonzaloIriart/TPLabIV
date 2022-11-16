@@ -1,7 +1,7 @@
 <?php 
     require_once("Views/nav.php");
     ?>
-    <?php if(sizeof($reserves) <= 0) {?>
+    <?php if(empty($reserves)) {?>
       <h2 class="text-center mt-5">Nada por aqui...</h2>
       <?php } ?>
 <?php foreach($reserves as $reserve){?>
