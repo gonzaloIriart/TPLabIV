@@ -19,8 +19,8 @@
         {
             $this->userDAO = new UserDAO;
             $this->OwnerDAO = new OwnerDAO;
-            $this->PetDAO = new PetDAO();
-            //$this->PetDAO = new PetDAOjson();
+            //$this->PetDAO = new PetDAO();
+            $this->PetDAO = new PetDAOjson();
             $this->ImageDAO = new ImageDAO();
         }
 

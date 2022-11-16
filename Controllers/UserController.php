@@ -58,8 +58,6 @@
                 require_once(VIEWS_PATH."passwordRecover.php");
             }
 
-            var_dump($user);
-
 
         }
 

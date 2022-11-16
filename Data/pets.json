@@ -1,11 +1,11 @@
 [
     {
         "petId": 1,
-        "name": "asdasdasdasd",
-        "size": "small",
-        "picture": "5906006-Ej._comprobante_imprimir_POS.jpg",
-        "video": "https://www.youtube.com/embed/CJZgj7K28Xs",
-        "vaccinationScheduleImg": "5906006-Ej._comprobante_imprimir_POS.jpg",
+        "name": "lala",
+        "size": "medium",
+        "picture": "dogo.jpg",
+        "video": "https:\/\/www.youtube.com\/embed\/vgXw0H-jhUg",
+        "vaccinationScheduleImg": "vacunas.jpg",
         "owner": {
             "ownerId": "1"
         }

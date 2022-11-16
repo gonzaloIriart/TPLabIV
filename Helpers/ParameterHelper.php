@@ -65,7 +65,6 @@ use Models\Review;
 
         static function encodeOwnerJson($owner)
         {
-            var_dump($owner);
             $encodedOwner["ownerId"] = $owner->getOwnerId();
             return $encodedOwner;
         }
