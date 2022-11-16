@@ -10,7 +10,7 @@
     {
         private $petList = array();
 
-        function Add($pet){         
+        function Add($pet){ 
             $this->RetrieveData();
             $num = count($this->petList)+1;
             $pet->setPetId($num);
@@ -64,7 +64,7 @@
                 $valuesArray["video"] = $pet->getVideo();
                 $valuesArray["vaccinationScheduleImg"] = $pet->getVaccinationScheduleImg();
                 $valuesArray["owner"] = ParameterHelper::encodeOwnerJson($pet->getOwner());
-
+                $valuesArray["owner"]["user"] = ParameterHelper::encodeUserJson($pet->getOwner()->getUser());
                 array_push($arrayToEncode, $valuesArray);
             }
 
@@ -85,6 +85,8 @@
 
                 foreach($arrayToDecode as $petItem){
                     $pet = new Pet();
+                    $owner = new Owner();
+                    $user = new User();
                     $pet->setPetId($petItem["petId"]);
                     $pet->setName($petItem["name"]);
                     $pet->setSize($petItem["size"]);
@@ -92,6 +94,7 @@
                     $pet->setVideo($petItem["video"]);
                     $pet->setVaccinationScheduleImg($petItem["vaccinationScheduleImg"]);
                     $pet->setOwner(ParameterHelper::decodeOwnerJson($petItem["owner"]));
+                    $pet->getOwner()->setUser(ParameterHelper::decodeUserJson($petItem["owner"]["user"]));
                     array_push($this->petList, $pet);
                 }            
             }

@@ -125,7 +125,6 @@
 
         public function DeleteReserve($id)
         {
-            var_dump($id);
             $query = "CALL Reserve_DeleteById(?)";
 
             $this->connection = Connection::GetInstance();

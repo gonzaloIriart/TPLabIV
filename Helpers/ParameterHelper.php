@@ -36,6 +36,29 @@ use Models\Review;
             return $user;
         }
 
+        static function encodeUserJson($user){
+            $encodedUser["userId"] = $user->getUserId();
+            $encodedUser["name"] = $user->getName();
+            $encodedUser["email"] = $user->getEmail();
+            $encodedUser["password"] = $user->getPassword();
+            $encodedUser["role"] = $user->getRole();
+            $encodedUser["secretQuestion"] = $user->getSecretQuestion();
+            $encodedUser["answer"] = $user->getAnswer();
+            
+            return $encodedUser;
+        }
+
+        static function decodeUserJson($encodedUser){
+            $user = new User();
+            $user->setUserId($encodedUser["userId"]);
+            $user->setEmail($encodedUser["email"]);
+            $user->setPassword($encodedUser["password"]);
+            $user->setName($encodedUser["name"]);
+            $user->setRole($encodedUser["role"]);
+            $user->setSecretQuestion($encodedUser["secretQuestion"]);
+            $user->setAnswer($encodedUser["answer"]);
+            return $user;
+        }
         static function encodeKeeper($keeper)
         {
             $encodedKeeper["sizeOfDog"] = $keeper->getSizeOfDog();
@@ -65,7 +88,6 @@ use Models\Review;
 
         static function encodeOwnerJson($owner)
         {
-            var_dump($owner);
             $encodedOwner["ownerId"] = $owner->getOwnerId();
             return $encodedOwner;
         }

@@ -77,11 +77,7 @@
             foreach($this->ownerList as $ownerItem){
                 if($ownerItem->getOwnerId() == $ownerId){
                     $_SESSION["owner"]->setPets($ownerItem->getPets().', '. $petId);
-                    $ownerItem->setPets($ownerItem->getPets().', '. $petId);
-                  
-                    var_dump($ownerItem);
-                    var_dump($_SESSION["owner"]);
-                    
+                    $ownerItem->setPets($ownerItem->getPets().', '. $petId);                    
                 }
             }
             $this->SaveData();

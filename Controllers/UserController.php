@@ -57,10 +57,6 @@
                 $message = "La respuesta no es correcta.";
                 require_once(VIEWS_PATH."passwordRecover.php");
             }
-
-            var_dump($user);
-
-
         }
 
         public function Register($name, $email, $password, $role, $sizeOfDog = null, $dailyFee = null, $alias = null, $cbu = null, $bank = null, $secretQuestion, $answer) 

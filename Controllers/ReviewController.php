@@ -19,9 +19,7 @@
 
         public function RegisterReview($comment, $stars, $reserveId)
         {
-            var_dump($_POST);
             $date = date("Y-m-d");
-            var_dump($date);
             $review = new Review();
             $review->setComment($comment);
             $review->setDate($date);

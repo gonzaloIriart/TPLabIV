@@ -42,10 +42,6 @@
                 if($ownerItem->getOwnerId() == $ownerId){
                     $_SESSION["owner"]->setPets($ownerItem->getPets().', '. $petId);
                     $ownerItem->setPets($ownerItem->getPets().', '. $petId);
-                  
-                    var_dump($ownerItem);
-                    var_dump($_SESSION["owner"]);
-                    
                 }
             }
             $this->SaveData();

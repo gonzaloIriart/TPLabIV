@@ -1,13 +1,42 @@
 [
     {
         "petId": 1,
-        "name": "asdasdasdasd",
+        "name": "asd",
         "size": "small",
-        "picture": "5906006-Ej._comprobante_imprimir_POS.jpg",
-        "video": "https://www.youtube.com/embed/CJZgj7K28Xs",
-        "vaccinationScheduleImg": "5906006-Ej._comprobante_imprimir_POS.jpg",
+        "picture": "_107435681_perro1.jpg",
+        "video": "asd",
+        "vaccinationScheduleImg": "Vacunas02.jpg",
         "owner": {
-            "ownerId": "1"
+            "ownerId": "1",
+            "user": {
+                "userId": "1",
+                "name": "owner",
+                "email": "owner@mail.com",
+                "password": "owner",
+                "role": "o",
+                "secretQuestion": "1",
+                "answer": "abc"
+            }
+        }
+    },
+    {
+        "petId": 2,
+        "name": "asd",
+        "size": "small",
+        "picture": "_107435681_perro1.jpg",
+        "video": "asd",
+        "vaccinationScheduleImg": "Vacunas02.jpg",
+        "owner": {
+            "ownerId": "1",
+            "user": {
+                "userId": "1",
+                "name": "owner",
+                "email": "owner@mail.com",
+                "password": "owner",
+                "role": "o",
+                "secretQuestion": "1",
+                "answer": "abc"
+            }
         }
     }
 ]
