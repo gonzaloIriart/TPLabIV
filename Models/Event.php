@@ -31,7 +31,7 @@
 
         public function getStartDate()
         {
-            return date_format(date_create($this->startDate), "d-m-Y");
+            return $this->startDate;
         }
 
         public function setStartDate($startDate)
@@ -41,7 +41,7 @@
 
         public function getEndDate()
         {
-            return date_format(date_create($this->endDate), "d-m-Y");
+            return $this->endDate;
         }
 
         public function setEndDate($endDate)

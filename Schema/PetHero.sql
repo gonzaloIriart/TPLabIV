@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS review (
     comment VARCHAR(1000),
     date DATETIME,
     stars INT NOT NULL,
-    reserveId INT UNIQUE NOT NULL,
+    reserveId INT NOT NULL,
     UNIQUE (id),
     CONSTRAINT PK_Id PRIMARY KEY (id),
     FOREIGN KEY (reserveId) REFERENCES reserve(id)

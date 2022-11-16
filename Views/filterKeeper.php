@@ -2,6 +2,10 @@
     require_once("Views/nav.php");
 ?>
 
+<?php if(empty($petList)) {?>
+      <h2 class="text-center mt-5">Debe ingresar al menos una mascota para continuar.</h2>
+<?php }else{ ?>
+
 <div style="max-width: 60rem;margin: 5px auto" class="container card text-center">
   <div class="card-body">
   <h1>Escoja el rango de fechas deseado</h1>
@@ -11,7 +15,7 @@
     
     <div>
     <label for="petId" class="">Seleccione la mascota</label>
-      <select class="form-select" name="petId">
+      <select class="form-select" name="petId" required>
       <?php
         foreach ($petList as $pet)
         {
@@ -31,8 +35,9 @@
 </div>
 
 <?php
-
+}
 if(!empty($availableKeepers)){
+  $flag =1;
 ?>
 
 <div style="max-width: 60rem;margin: 5px auto" class="container card text-center">
@@ -59,7 +64,7 @@ if(!empty($availableKeepers)){
       <td><?php echo $keeper->getUser()->getName() ?></td>
       <td><?php echo "$".$keeper->getDailyFee() ?></td>
       <td><?php echo "$".(intval($keeper->getDailyFee())*$dayDiff) ?></td>
-      <td><?php echo round($keeper->getStarsAverage(),2)?><span class="star-rating"> <span class="fa fa-star" data-rating="1"></span></span></td>
+      <td><?php if(round($keeper->getStarsAverage(),2)>0){echo round($keeper->getStarsAverage(),2); }else{echo "Sin reseñas";}; ?><span class="star-rating"> <span class="fa fa-star" data-rating="1"></span></span></td>
       <td>
         
       <form action="<?php echo  FRONT_ROOT . "Reserve/CreateReserve/"?>" method="post">
@@ -79,18 +84,21 @@ if(!empty($availableKeepers)){
                 </div>
 
                     <?php
-                    foreach($keeper->getReviewsList() as $review){
-                      ?>
-                      <div style="max-width: 60rem;" class="container card text-center">
-                      <div class="card-body">
-                       <p class="card-text"><?php echo $review->getDate() ?></p>
-                       <p class="card-text"><?php echo $review->getStars() ?> <span class="star-rating"> <span class="fa fa-star" data-rating="1"></span></span></p>
-                       <p class="card-text"><?php echo $review->getComment() ?></p>
-                       </div>
-                       </div>
-                      <?php
-                      }
-                      ?>
+                    if(!empty($keeper->getReviewsList())){
+                      foreach($keeper->getReviewsList() as $review){
+                        ?>
+                        <div style="max-width: 60rem;" class="container card text-center">
+                        <div class="card-body">
+                        <p class="card-text"><?php echo date("Y/m/d", strtotime(str_replace('-"', '/', $review->getDate()))) ?></p>
+                        <p class="card-text"><?php echo $review->getStars() ?> <span class="star-rating"> <span class="fa fa-star" data-rating="1"></span></span></p>
+                        <p class="card-text"><?php echo $review->getComment() ?></p>
+                        </div>
+                        </div>
+                        <?php
+                        }}
+                      else{
+                        echo("No hay reseñas.");}
+                        ?>
 
                 </div>
               </div>
@@ -114,8 +122,8 @@ if(!empty($availableKeepers)){
 <?php
 }
 
-
 else{
+  if($flag ?? 1 != 1){
     ?>
 
 <div style="max-width: 60rem;margin: 5px auto" class="container card text-center">
@@ -126,7 +134,7 @@ else{
 </div>
 
     <?php
-}
+}}
 ?>
 
 

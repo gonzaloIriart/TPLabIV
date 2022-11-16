@@ -65,7 +65,6 @@ foreach($pendingReviews as $pendingReview){?>
                       </div>
                     </div>
                   </div>
-
                   <input type="text" name="reserveId" value="<?php echo $pendingReview->getReserveId()?>"   style="display:none">
                 </div>    
 

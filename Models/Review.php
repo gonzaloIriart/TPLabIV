@@ -21,7 +21,7 @@
 
         public function getDate()
         {
-            return date_format(date_create($this->date), "d-m-Y");
+            return $this->date;
         }
 
         public function setDate($date)

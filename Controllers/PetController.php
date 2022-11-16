@@ -31,22 +31,24 @@
             if($message !="ok" && $message !=""){
                 $this->ShowPetRegister($message);
             }
-            $message = $this->ImageDAO->Add($_FILES['vaccinationScheduleImg']);
-            $pet = new Pet();
-            $pet->setName($name);   
-            $pet->setOwner($_SESSION["owner"]);
-            $pet->setSize($size);
-            $pet->setPicture($_FILES['picture']['name']);
-            $pet->setVideo($video);
-            $pet->setVaccinationScheduleImg($_FILES['vaccinationScheduleImg']['name']);
-            $pet->setDescription($description);
-            if($message !="ok" && $message !=""){
-                $this->ShowPetRegister($message);
-            }
-            else{
-                $this->PetDAO->Add($pet);
-                $this->ShowPets();
-            }
+                else{
+                $message = $this->ImageDAO->Add($_FILES['vaccinationScheduleImg']);
+                $pet = new Pet();
+                $pet->setName($name);   
+                $pet->setOwner($_SESSION["owner"]);
+                $pet->setSize($size);
+                $pet->setPicture($_FILES['picture']['name']);
+                $pet->setVideo($video);
+                $pet->setVaccinationScheduleImg($_FILES['vaccinationScheduleImg']['name']);
+                $pet->setDescription($description);
+                    if($message !="ok" && $message !=""){
+                        $this->ShowPetRegister($message);
+                    }
+                    else{
+                    $this->PetDAO->Add($pet);
+                    $this->ShowPets();
+                    }
+                }
         
           
         }

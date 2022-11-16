@@ -4,7 +4,7 @@
 
 <div style="max-width: 60rem;margin: 5px auto" class="container card text-center">
   <div class="card-body">
-    <h2 style="margin: 5px" class="card-title"><?php echo $pet->getName() ?></h2>
+    <h2 style="margin: 5px" class="card-title"><?php echo $pet->getName()?></h2>
     <img style="margin: 5px" src=" <?php echo FRONT_ROOT.UPLOADS_PATH.$pet->getPicture() ?>"width="50%"/>
     <?php
     if($pet->getVideo()!=''){

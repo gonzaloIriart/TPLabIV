@@ -27,7 +27,7 @@
         private $petDAO;
         private $reviewDAO;
         private $bankAccountDAO;
-        private $reviewDAO;
+
 
         public function __construct()
         {
@@ -147,6 +147,8 @@
                             break;
                         }
                     }
+                    $keeper1->setReviewsList($this->reviewDAO->GetAllByKeeperId($keeper1->getKeeperId()));
+                    $keeper1->setStarsAverage($this->reviewDAO->GetStarAverageByKeeperId($keeper1->getKeeperId()));
                 }
                
             }
@@ -168,7 +170,6 @@
             $payment->setOwner($this->ownerDAO->GetById($reserve->getPet()->getOwner()->getOwnerId()));
             $payment->setReserve($reserve);
             $payment->setBankAccount($this->bankAccountDAO->GetByKeeperId($_SESSION["keeper"]->getKeeperId()));
-            var_dump($_SESSION["keeper"]->getKeeperId());
             $this->paymentDAO->Add($payment);
         }
         
